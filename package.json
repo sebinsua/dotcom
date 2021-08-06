@@ -1,0 +1,57 @@
+{
+  "name": "sebinsua-blog",
+  "description": "The homepage and blog of Seb Insua",
+  "license": "MIT",
+  "version": "1.0.0",
+  "blog": {
+    "title": "Seb Insua",
+    "description": "The homepage and blog of Seb Insua",
+    "author": "Seb Insua",
+    "siteUrl": "://sebinsua.com"
+  },
+  "scripts": {
+    "lint": "next lint && prettier --write '**/*.js'",
+    "dev": "next-remote-watch posts",
+    "build": "yarn rss && next build && next export",
+    "rss": "node scripts/rss"
+  },
+  "pre-commit": "lint",
+  "dependencies": {
+    "@emotion/react": "^11.4.0",
+    "@theme-ui/presets": "^0.10.0",
+    "date-fns": "^2.23.0",
+    "intersection-observer": "^0.12.0",
+    "lodash.debounce": "^4.0.8",
+    "next": "^11.0.1",
+    "next-nprogress-emotion": "^2.0.0",
+    "nprogress": "^0.2.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-switch": "^6.0.0",
+    "swr": "^0.5.6",
+    "theme-ui": "^0.10.0",
+    "typeface-inter": "^3.18.1",
+    "webpack": "^5.49.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.4.13",
+    "@types/react": "^17.0.16",
+    "@typescript-eslint/eslint-plugin": "^4.29.0",
+    "@typescript-eslint/parser": "^4.29.0",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-next": "^11.0.1",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "gray-matter": "^4.0.3",
+    "next-remote-watch": "^1.0.0",
+    "prettier": "^2.3.2",
+    "remark": "^13.0.0",
+    "remark-html": "^13.0.0",
+    "remark-shiki-twoslash": "^2.0.11",
+    "rss": "^1.2.2",
+    "typescript": "^4.3.5"
+  }
+}
