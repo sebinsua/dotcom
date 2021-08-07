@@ -1,9 +1,7 @@
 ---
 title: The first post
 slug: first-post
-date: '2018-09-19T00:00:00.000Z'
-description: This is the first post
-author: Engineering Team
+date: "2018-09-19"
 ---
 
 Here is some text.

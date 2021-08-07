@@ -1,1 +1,26 @@
-@import './shiki.css';
+@import "./shiki.css";
+
+body {
+  font-family: monospace;
+  font-size: 13px;
+  line-height: 1.7rem;
+}
+
+pre {
+  border: 0;
+  margin: 0;
+}
+pre code {
+  font-size: 13px;
+}
+
+a {
+  text-decoration: none;
+  color: #0000ee;
+}
+a:visited {
+  color: #551a8b;
+}
+a:active {
+  color: #ee0000;
+}

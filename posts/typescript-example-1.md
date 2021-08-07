@@ -1,9 +1,7 @@
 ---
-title: TypeScript Example 2
-slug: typescript-example-2
-date: '2020-03-19T00:00:00.000Z'
-description: This is a blog post with some code examples.
-author: Seb Insua
+title: TypeScript Example 1
+slug: typescript-example-1
+date: "2020-02-19"
 ---
 
 Here is some text.
@@ -16,16 +14,16 @@ And some more text. And some more text. And some more text. And some more text. 
 
 ```ts twoslash
 interface Properties {
-  id: number
-  name: string
+  id: number;
+  name: string;
 }
 
 // ---cut---
 function createLabel(idOrName: Properties): void {
-  throw 'unimplemented'
+  throw "unimplemented";
 }
 
-let a = createLabel({ id: 123, name: 'typescript' })
+let a = createLabel({ id: 123, name: "typescript" });
 ```
 
 Then a quote:

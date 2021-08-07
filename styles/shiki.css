@@ -30,7 +30,7 @@ pre {
   position: relative;
 }
 pre.shiki {
-  overflow-x: auto;
+  overflow-x: visible;
 }
 pre.shiki:hover .dim {
   opacity: 1;
@@ -45,7 +45,7 @@ pre.shiki div.highlight {
 }
 pre.shiki div.highlight {
   opacity: 1;
-  background-color: #f1f8ff;
+  /* background-color: #f1f8ff; */
 }
 pre.shiki div.line {
   min-height: 1rem;
@@ -63,7 +63,7 @@ pre.twoslash {
 
 /** When you mouse over the pre, show the underlines */
 pre.twoslash:hover data-lsp {
-  border-color: #747474;
+  /* border-color: #747474; */
 }
 
 /** The tooltip-like which provides the LSP response */
@@ -77,14 +77,14 @@ pre.twoslash data-lsp:hover::before {
   text-align: left;
   padding: 5px 8px;
   border-radius: 2px;
-  font-family: 'JetBrains Mono', Menlo, Monaco, Consolas, Courier New, monospace;
+  font-family: "JetBrains Mono", Menlo, Monaco, Consolas, Courier New, monospace;
   font-size: 14px;
   white-space: pre-wrap;
   z-index: 100;
 }
 
 pre .code-container {
-  overflow: auto;
+  /* overflow: auto; */
 }
 /* The try button */
 pre .code-container > a {
@@ -116,7 +116,7 @@ pre .code-container:hover a {
 
 pre code {
   font-size: 15px;
-  font-family: 'JetBrains Mono', Menlo, Monaco, Consolas, Courier New, monospace;
+  font-family: "JetBrains Mono", Menlo, Monaco, Consolas, Courier New, monospace;
   white-space: pre;
   -webkit-overflow-scrolling: touch;
 }
@@ -213,7 +213,7 @@ pre .inline-completions ul.dropdown::before {
   position: absolute;
   top: -1.2rem;
   left: -3px;
-  content: ' ';
+  content: " ";
 }
 pre .inline-completions ul.dropdown li {
   overflow-x: hidden;
