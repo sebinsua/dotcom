@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import Head from "next/head";
 
 import { Page } from "@components/Page";
@@ -14,7 +16,13 @@ export default function NotFoundPage() {
         <h1>404</h1>
 
         <Link href="/" passHref>
-          <a sx={{ color: "white" }}>Go Home</a>
+          <a
+            css={css`
+              color: lightgrey;
+            `}
+          >
+            Go Home
+          </a>
         </Link>
       </>
     </Page>

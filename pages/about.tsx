@@ -2,7 +2,6 @@
 import { css } from "@emotion/react";
 
 import { Page } from "@components/Page";
-import { Link } from "@components/Link";
 
 export default function AboutPage() {
   return (
