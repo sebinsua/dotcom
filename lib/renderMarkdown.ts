@@ -1,8 +1,9 @@
-import { unified } from "unified";
+import unified from "unified";
 import remarkParse from "remark-parse";
 import remarkShikiTwoSlash from "remark-shiki-twoslash";
 import rehype from "remark-rehype";
 import rehypeRaw from "rehype-raw";
+// @ts-ignore
 import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
 
@@ -23,7 +24,7 @@ const render = (markdown: string) =>
     .process(markdown);
 
 export async function renderMarkdown(markdown: string): Promise<string> {
-  const { value } = await render(markdown);
+  const { contents } = await render(markdown);
 
-  return String(value);
+  return String(contents);
 }
