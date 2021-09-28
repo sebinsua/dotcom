@@ -17,10 +17,9 @@ export default function AboutPage() {
             #f76631 35%,
             #1778e9
           );
-          background-clip: text;
-          flex-grow: 0;
-          flex-basis: 50%;
           text-decoration: none;
+          background-clip: text;
+          -webkit-background-clip: text;
           h3 {
             font-size: 1rem;
             line-height: 1.9em;
@@ -35,7 +34,10 @@ export default function AboutPage() {
             text-decoration: none;
           }
           strong {
-            color: transparent;
+            color: rgba(255, 255, 255, 0);
+            /* See: https://bugs.webkit.org/show_bug.cgi?id=169125 */
+            background-clip: text;
+            -webkit-background-clip: text;
           }
         `}
       >
