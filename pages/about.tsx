@@ -37,14 +37,6 @@ export default function AboutPage() {
           strong {
             color: transparent;
           }
-          @media (max-width: 768px) {
-            flex-grow: initial;
-            flex-basis: initial;
-            padding: 0 1rem;
-          }
-          @media (max-width: 480px) {
-            padding: 0 1rem;
-          }
         `}
       >
         <h3>

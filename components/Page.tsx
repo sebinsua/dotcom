@@ -131,6 +131,10 @@ function Header(_: HeaderProps) {
     <header
       css={css`
         width: 100px;
+
+        @media (max-width: 480px) {
+          width: unset;
+        }
       `}
     >
       <nav
@@ -140,6 +144,11 @@ function Header(_: HeaderProps) {
           justify-content: flex-end;
           & a {
             color: black;
+          }
+
+          @media (max-width: 480px) {
+            justify-content: flex-start;
+            padding: 0 1rem;
           }
         `}
       >
@@ -159,6 +168,18 @@ function Header(_: HeaderProps) {
           .selected {
             pointer-events: none;
             border-bottom: 1px solid lightgrey;
+          }
+
+          @media (max-width: 480px) {
+            justify-content: flex-start;
+            padding: 0 1rem;
+            & ul {
+              display: flex;
+              padding: 0;
+            }
+            & li:not(:last-child) {
+              padding-right: 0.5rem;
+            }
           }
         `}
       >
@@ -217,6 +238,15 @@ function Footer({ slug }: FooterProps) {
           & a {
             color: lightgrey;
           }
+
+          @media (max-width: 768px) {
+            flex-grow: initial;
+            flex-basis: initial;
+            padding: 0 1rem;
+          }
+          @media (max-width: 480px) {
+            padding: 0 1rem;
+          }
         `}
       >
         {slug !== "/about" ? (
@@ -256,6 +286,10 @@ export function Page({
         display: flex;
         justify-content: space-between;
         width: 800px;
+
+        @media (max-width: 480px) {
+          flex-direction: column;
+        }
       `}
     >
       <SeoHeader
@@ -270,9 +304,26 @@ export function Page({
       <div
         css={css`
           width: 80%;
+
+          @media (max-width: 480px) {
+            width: 100%;
+          }
         `}
       >
-        <main>{children}</main>
+        <main
+          css={css`
+            @media (max-width: 768px) {
+              flex-grow: initial;
+              flex-basis: initial;
+              padding: 0 1rem;
+            }
+            @media (max-width: 480px) {
+              padding: 0 1rem;
+            }
+          `}
+        >
+          {children}
+        </main>
         <Footer slug={slug} />
       </div>
     </div>
