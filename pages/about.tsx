@@ -42,8 +42,8 @@ export default function AboutPage() {
         `}
       >
         <h3>
-          {"I'm"} <strong>Seb Insua</strong>, a consultant software engineer
-          based in <abbr title="London, United Kingdom">London</abbr>.
+          {"I'm"} <strong>Seb Insua</strong>, a software engineer residing in{" "}
+          <abbr title="London, United Kingdom">London</abbr>.
         </h3>
         <p className="intention">
           I like to advise on how to maximise{" "}
