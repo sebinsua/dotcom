@@ -37,7 +37,7 @@ export default function AboutPage() {
             font-size: 1.1rem;
             line-height: 1.9em;
             font-weight: normal;
-            & a {
+            a {
               font-weight: bold;
             }
           }
@@ -48,7 +48,7 @@ export default function AboutPage() {
             padding-bottom: 0;
           }
           .likes {
-            & em {
+            em {
               font-style: normal;
               border-bottom: 1px solid lightgrey;
             }

@@ -25,11 +25,11 @@ function PostNavigation({ previous, next }: PostNavigationProps) {
   return (
     <footer
       css={css`
-        & hr {
+        hr {
           opacity: 0.2;
           color: lightgrey;
         }
-        & a {
+        a {
           color: grey;
         }
       `}

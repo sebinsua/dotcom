@@ -142,7 +142,7 @@ function Header(_: HeaderProps) {
           padding-top: 2px;
           display: flex;
           justify-content: flex-end;
-          & a {
+          a {
             color: black;
           }
 
@@ -158,7 +158,7 @@ function Header(_: HeaderProps) {
         css={css`
           display: flex;
           justify-content: flex-end;
-          & ul {
+          ul {
             list-style-type: none;
             text-align: right;
           }
@@ -173,11 +173,11 @@ function Header(_: HeaderProps) {
           @media (max-width: 480px) {
             justify-content: flex-start;
             padding: 0 1rem;
-            & ul {
+            ul {
               display: flex;
               padding: 0;
             }
-            & li:not(:last-child) {
+            li:not(:last-child) {
               padding-right: 0.5rem;
             }
           }
@@ -235,7 +235,7 @@ function Footer({ slug }: FooterProps) {
           display: flex;
           flex-direction: row-reverse;
 
-          & a {
+          a {
             color: lightgrey;
           }
 
