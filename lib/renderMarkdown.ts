@@ -1,5 +1,6 @@
 import unified from "unified";
 import remarkParse from "remark-parse";
+// @ts-ignore
 import remarkOembed from "remark-oembed";
 import remarkShikiTwoSlash from "remark-shiki-twoslash";
 import rehype from "remark-rehype";
