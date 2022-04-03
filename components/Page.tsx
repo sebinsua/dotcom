@@ -193,17 +193,17 @@ function Header(_: HeaderProps) {
           </li>
           <li>
             <Link href="https://gist.github.com/sebinsua" external>
-              <a>gists</a>
+              gists
             </Link>
           </li>
           <li>
             <Link href="https://github.com/sebinsua" external>
-              <a>github</a>
+              github
             </Link>
           </li>
           <li>
             <Link href="https://twitter.com/sebinsua" external>
-              <a>twitter</a>
+              twitter
             </Link>
           </li>
           <li>
@@ -254,8 +254,8 @@ function Footer({ slug }: FooterProps) {
             <a>rss</a>
           </Link>
         ) : (
-          <Link href="mailto:me@sebinsua.com" passHref external>
-            <a>email</a>
+          <Link href="mailto:me@sebinsua.com" external>
+            email
           </Link>
         )}
       </footer>

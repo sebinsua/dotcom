@@ -107,7 +107,7 @@ export default function AboutPage() {
           </p>
         </div>
         <p className="likes">
-          I like <em>working in public</em>,{" "}
+          I like <em>working in public</em>,{" "}<em>writing cultures</em>,{" "}
           <em>studying old software &amp; protocols</em>,{" "}
           <em>asynchronous communication</em>, <em>literate programming</em>,{" "}
           <em>crypto</em>, <em>poetry</em>,{" "}
