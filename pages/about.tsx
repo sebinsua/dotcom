@@ -28,6 +28,7 @@ export default function AboutPage() {
               align-self: center;
             }
             img {
+              object-fit: cover;
               filter: grayscale(100%) contrast(75%) brightness(85%);
             }
           }
@@ -107,7 +108,7 @@ export default function AboutPage() {
           </p>
         </div>
         <p className="likes">
-          I like <em>working in public</em>,{" "}<em>writing cultures</em>,{" "}
+          I like <em>working in public</em>, <em>writing cultures</em>,{" "}
           <em>studying old software &amp; protocols</em>,{" "}
           <em>asynchronous communication</em>, <em>literate programming</em>,{" "}
           <em>crypto</em>, <em>poetry</em>,{" "}

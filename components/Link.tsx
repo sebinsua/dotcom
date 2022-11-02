@@ -29,7 +29,7 @@ export function Link({
   }
 
   return (
-    <NextLink href={href} passHref={passHref}>
+    <NextLink href={href} passHref={passHref} legacyBehavior>
       {passHref ? children : <a>{children}</a>}
     </NextLink>
   );
