@@ -289,6 +289,7 @@ export function Page({
 
         @media (max-width: 480px) {
           flex-direction: column;
+          width: 100%;
         }
       `}
     >
