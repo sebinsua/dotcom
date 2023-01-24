@@ -105,7 +105,7 @@ export default function AboutPage() {
             <a href="https://www.typescriptlang.org/">TypeScript</a> and{" "}
             <a href="https://www.rust-lang.org/">Rust</a>, and am an expert
             within the <a href="https://nodejs.org/en/">Node.js</a> and{" "}
-            <a href="https://reactjs.org/">React</a> ecosystem, where I have 12
+            <a href="https://reactjs.org/">React</a> ecosystems, where I have 12
             and 9 years of experience respectively.
           </p>
         </div>
