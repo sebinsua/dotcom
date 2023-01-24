@@ -88,8 +88,8 @@ export default function AboutPage() {
             When writing software my focus is on readability and reliability. An
             unfortunate industry norm is for software to be rewritten afresh as
             a greenfield project every two to three years. It is a story of
-            repeated institutional knowledge loss and the companies that learn
-            to do better than this surpass those that do not.
+            repeated institutional knowledge loss and companies that learn to do
+            better here have the opportunity to surpass those that do not.
           </p>
           <p>
             To bring about lasting software, software quality and cultural
@@ -105,16 +105,15 @@ export default function AboutPage() {
             <a href="https://www.typescriptlang.org/">TypeScript</a> and{" "}
             <a href="https://www.rust-lang.org/">Rust</a>, and am an expert
             within the <a href="https://nodejs.org/en/">Node.js</a> and{" "}
-            <a href="https://reactjs.org/">React</a> ecosystem, where I have 11
-            and 7 years of experience respectively.
+            <a href="https://reactjs.org/">React</a> ecosystem, where I have 12
+            and 9 years of experience respectively.
           </p>
         </div>
         <p className="likes">
           I like <em>working in public</em>, <em>writing cultures</em>,{" "}
-          <em>studying old software &amp; protocols</em>,{" "}
-          <em>asynchronous communication</em>, <em>literate programming</em>,{" "}
-          <em>crypto</em>, <em>poetry</em>,{" "}
-          <em>high leverage but low cost approaches</em>,{" "}
+          <em>software &amp; protocols</em>, <em>asynchronous communication</em>
+          , <em>literate programming</em>, <em>cryptography</em>,{" "}
+          <em>poetry</em>, <em>high leverage but low cost approaches</em>,{" "}
           <em>vertical integration</em>,{" "}
           <em>defactoring, inlining and colocation</em>,{" "}
           <em>decisions that allow problems to be circumvented</em>,{" "}
