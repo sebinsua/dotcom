@@ -111,9 +111,9 @@ export default function AboutPage() {
         </div>
         <p className="likes">
           I like <em>working in public</em>, <em>writing cultures</em>,{" "}
-          <em>software &amp; protocols</em>, <em>asynchronous communication</em>
-          , <em>literate programming</em>, <em>cryptography</em>,{" "}
-          <em>poetry</em>, <em>high leverage but low cost approaches</em>,{" "}
+          <em>protocols</em>, <em>asynchronous communication</em>,{" "}
+          <em>literate programming</em>, <em>cryptography</em>, <em>poetry</em>,{" "}
+          <em>high leverage but low cost approaches</em>,{" "}
           <em>vertical integration</em>,{" "}
           <em>defactoring, inlining and colocation</em>,{" "}
           <em>decisions that allow problems to be circumvented</em>,{" "}
