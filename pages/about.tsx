@@ -101,10 +101,13 @@ export default function AboutPage() {
             organisation’s software, systems and people.
           </p>
           <p>
-            I program in{" "}
-            <a href="https://www.typescriptlang.org/">TypeScript</a> and{" "}
-            <a href="https://www.rust-lang.org/">Rust</a>, and am an expert
-            within the <a href="https://nodejs.org/en/">Node.js</a> and{" "}
+            I usually program in{" "}
+            <a href="https://www.typescriptlang.org/">TypeScript</a>,{" "}
+            <a href="https://www.python.org">Python</a>
+            and <a href="https://www.rust-lang.org/">Rust</a> but have hundreds
+            of hours of experience using other languages and technologies going
+            back decades. I am an expert within the{" "}
+            <a href="https://nodejs.org/en/">Node.js</a> and{" "}
             <a href="https://reactjs.org/">React</a> ecosystems, where I have 12
             and 9 years of experience respectively.
           </p>
