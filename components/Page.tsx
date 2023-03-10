@@ -192,6 +192,17 @@ function Header(_: HeaderProps) {
             </Link>
           </li>
           <li>
+            <Link href="/blogroll" passHref>
+              <a
+                className={
+                  router.pathname === "/blogroll" ? "selected" : undefined
+                }
+              >
+                blogroll
+              </a>
+            </Link>
+          </li>
+          <li>
             <Link href="https://gist.github.com/sebinsua" external>
               gists
             </Link>
