@@ -97,8 +97,12 @@ export default function AboutPage() {
             the cost of continuous, meaningful improvements by individual
             contributors. Subsequently the job of engineering leaders is to help
             others to carve out career-defining work from within legacy systems
-            and to ensure that knowledge is permanently embedded into their
-            organisation’s software, systems and people.
+            and to ensure that{" "}
+            <a href="https://pages.cs.wisc.edu/~remzi/Naur.pdf">
+              knowledge is permanently embedded into their organisation’s
+              software, systems and people
+            </a>
+            .
           </p>
           <p>
             I usually program in{" "}
