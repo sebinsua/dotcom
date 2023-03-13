@@ -23,6 +23,9 @@ export default function BlogrollPage() {
           pre {
             display: inline;
             padding: 0;
+            font-weight: normal;
+            color: black;
+            font-style: normal;
           }
           em {
             font-weight: bold;
