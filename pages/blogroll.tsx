@@ -57,8 +57,7 @@ export default function BlogrollPage() {
             <a href="https://two-wrongs.com/data-consistency-is-overrated.html">
               <em>“Data Consistency Is Overrated”</em> (2023)
             </a>{" "}
-            by <a href="https://xkqr.org/profile">Christoffer Stjernlöf</a> of{" "}
-            <a href="https://two-wrongs.com/">Two Wrongs</a>.
+            by <a href="https://xkqr.org/profile">Christoffer Stjernlöf</a>.
           </li>
           <li>
             <a href="https://jvns.ca/blog/2015/04/14/strace-zine/">
