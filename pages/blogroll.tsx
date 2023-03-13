@@ -48,6 +48,12 @@ export default function BlogrollPage() {
             by <a href="https://xkqr.org/profile">Christoffer Stjernlöf</a> of{" "}
             <a href="https://two-wrongs.com/">Two Wrongs</a>.
           </li>
+          <li>
+            <a href="https://dominictarr.com/post/154769946347/fairly-tale-cryptography-2-hashes">
+              <em>“Fairy Tale Cryptography 2: Hashes”</em>
+            </a>{" "}
+            by <a href="https://dominictarr.com/">Dominic Tarr</a>.
+          </li>
         </ul>
       </div>
     </Page>
