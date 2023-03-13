@@ -45,7 +45,7 @@ export default function BlogrollPage() {
             <a href="https://christopherolah.wordpress.com/2011/07/31/you-already-know-calculus-derivatives/">
               <em>“You Already Know Calculus: Derivatives”</em> (2011)
             </a>{" "}
-            by <a href="https://christopherolah.com/">Christopher Olah</a>.
+            by <a href="https://colah.github.io/">Christopher Olah</a>.
           </li>
           <li>
             <a href="https://dominictarr.com/post/154769946347/fairly-tale-cryptography-2-hashes">
@@ -59,6 +59,27 @@ export default function BlogrollPage() {
             </a>{" "}
             by <a href="https://xkqr.org/profile">Christoffer Stjernlöf</a> of{" "}
             <a href="https://two-wrongs.com/">Two Wrongs</a>.
+          </li>
+          <li>
+            <a href="https://jvns.ca/blog/2015/04/14/strace-zine/">
+              <em>
+                How to spy on your programs with <pre>strace</pre>
+              </em>{" "}
+              (2015)
+            </a>{" "}
+            by <a href="https://jvns.ca/">Julia Evans</a>.
+          </li>
+          <li>
+            <a href="https://danluu.com/file-consistency/">
+              <em>“Files are hard”</em> (2017)
+            </a>{" "}
+            by <a href="https://danluu.com/">Dan Luu</a>.
+          </li>
+          <li>
+            <a href="https://wordsandbuttons.online/sine_and_cosine.html">
+              <em>“Sine and cosine”</em> (2020)
+            </a>{" "}
+            by <a href="https://wordsandbuttons.online/">Oleksandr Kaleniuk</a>.
           </li>
         </ul>
       </div>
