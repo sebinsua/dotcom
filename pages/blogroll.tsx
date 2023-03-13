@@ -158,6 +158,18 @@ export default function BlogrollPage() {
             </a>{" "}
             by <a href="https://mrale.ph/">Vyacheslav Egorov</a>.
           </li>
+          <li>
+            <a href="https://www.igvita.com/2014/05/05/minimum-viable-block-chain/">
+              <em>“Minimum Viable Blockchain”</em> (2014)
+            </a>{" "}
+            by <a href="https://www.igvita.com/">Ilya Grigorik</a>.
+          </li>
+          <li>
+            <a href="https://web.archive.org/web/20160306114307/http://szabo.best.vwh.net/history.html">
+              <em>“History and the Security of Property”</em> (2006)
+            </a>{" "}
+            by <a href="https://unenumerated.blogspot.com/">Nick Szabo</a>.
+          </li>
         </ul>
       </div>
     </Page>
