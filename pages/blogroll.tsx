@@ -121,10 +121,7 @@ export default function BlogrollPage() {
           </li>
           <li>
             <a href="https://macwright.com/2021/02/17/the-naming-of-things.html">
-              <em>
-                “Picking better names for variables, functions, and projects”
-              </em>{" "}
-              (2021)
+              <em>“The naming of things”</em> (2021)
             </a>{" "}
             by <a href="https://macwright.com/">Tom MacWright</a>.
           </li>
