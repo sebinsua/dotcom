@@ -42,17 +42,23 @@ export default function BlogrollPage() {
         </p>
         <ul>
           <li>
-            <a href="https://two-wrongs.com/data-consistency-is-overrated.html">
-              <em>“Data Consistency Is Overrated”</em>
+            <a href="https://christopherolah.wordpress.com/2011/07/31/you-already-know-calculus-derivatives/">
+              <em>“You Already Know Calculus: Derivatives”</em> (2011)
             </a>{" "}
-            by <a href="https://xkqr.org/profile">Christoffer Stjernlöf</a> of{" "}
-            <a href="https://two-wrongs.com/">Two Wrongs</a>.
+            by <a href="https://christopherolah.com/">Christopher Olah</a>.
           </li>
           <li>
             <a href="https://dominictarr.com/post/154769946347/fairly-tale-cryptography-2-hashes">
-              <em>“Fairy Tale Cryptography 2: Hashes”</em>
+              <em>“Fairy Tale Cryptography 2: Hashes”</em> (2017)
             </a>{" "}
             by <a href="https://dominictarr.com/">Dominic Tarr</a>.
+          </li>
+          <li>
+            <a href="https://two-wrongs.com/data-consistency-is-overrated.html">
+              <em>“Data Consistency Is Overrated”</em> (2023)
+            </a>{" "}
+            by <a href="https://xkqr.org/profile">Christoffer Stjernlöf</a> of{" "}
+            <a href="https://two-wrongs.com/">Two Wrongs</a>.
           </li>
         </ul>
       </div>
