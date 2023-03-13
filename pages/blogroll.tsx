@@ -78,10 +78,28 @@ export default function BlogrollPage() {
             by <a href="https://danluu.com/">Dan Luu</a>.
           </li>
           <li>
-            <a href="https://wordsandbuttons.online/sine_and_cosine.html">
-              <em>“Sine and cosine”</em> (2020)
+            <a href="https://wordsandbuttons.online/programmers_guide_to_polynomials_and_splines.html">
+              <em>“Programmer’s guide to polynomials and splines”</em> (2019)
             </a>{" "}
             by <a href="https://wordsandbuttons.online/">Oleksandr Kaleniuk</a>.
+          </li>
+          <li>
+            <a href="https://sophiebits.com/2018/12/03/yak-shaving-fixing.html">
+              <em>“Yak shaving and fixing”</em> (2018)
+            </a>{" "}
+            by <a href="https://sophiebits.com/">Sophie Alpert</a>.
+          </li>
+          <li>
+            <a href="https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction">
+              <em>“The Wrong Abstraction”</em> (2016)
+            </a>{" "}
+            by <a href="https://sandimetz.com/">Sandi Metz</a>.
+          </li>
+          <li>
+            <a href="https://lethain.com/learn-to-never-be-wrong/">
+              <em>“Learn to never be wrong”</em> (2020)
+            </a>{" "}
+            by <a href="https://lethain.com/">Will Larson</a>.
           </li>
         </ul>
       </div>
