@@ -40,8 +40,12 @@ export default function BlogrollPage() {
         `}
       >
         <p>
-          Here are some articles by other blog writers that I’ve found
-          insightful:
+          I highly recommend the following blogs and have selected an article
+          for each that, while not their most well-known, showcases the quality
+          of their content. Some of the writers no longer maintain active blogs,
+          having moved on to other pursuits, while others are lesser-known but
+          offer insightful thinking. They all offer though-provoking perpectives
+          and are well worth reading.
         </p>
         <ul>
           <li>
@@ -175,6 +179,13 @@ export default function BlogrollPage() {
               <em>“Orthogonality”</em> (2018)
             </a>{" "}
             by <a href="https://mulledthoughts.substack.com">Guo Liang Oon</a>.
+          </li>
+          <li>
+            <a href="https://macroresilience.substack.com/p/metrics-codification-and-objectivity">
+              <em>“Metrics, codification and objectivity”</em> (2022)
+            </a>{" "}
+            by{" "}
+            <a href="https://www.macroresilience.com/">Ashwin Parameswaran</a>.
           </li>
         </ul>
       </div>
