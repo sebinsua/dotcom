@@ -170,6 +170,12 @@ export default function BlogrollPage() {
             </a>{" "}
             by <a href="https://unenumerated.blogspot.com/">Nick Szabo</a>.
           </li>
+          <li>
+            <a href="https://sarkology.wordpress.com/2018/05/19/orthogonality/">
+              <em>“Orthogonality”</em> (2018)
+            </a>{" "}
+            by <a href="https://mulledthoughts.substack.com">Guo Liang Oon</a>.
+          </li>
         </ul>
       </div>
     </Page>
