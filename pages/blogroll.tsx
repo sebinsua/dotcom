@@ -241,7 +241,7 @@ export default function BlogrollPage() {
           </li>
           <li>
             <a href="https://thesublemon.tumblr.com/post/185806217082/pornography-vs-fetishism">
-              <em>“pornography vs fetishism”</em> (2021)
+              <em>“Pornography vs fetishism”</em> (2021)
             </a>{" "}
             by <a href="http://haleythurston.com/writing">Haley Thurston</a> (
             <a href="https://thesublemon.tumblr.com/tagged/posts:%20art">
