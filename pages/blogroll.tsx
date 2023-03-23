@@ -292,6 +292,15 @@ export default function BlogrollPage() {
             monomorphic operations and the challenges of optimizing polymorphic
             and megamorphic operations.
           </li>
+          <li>
+            <a href="http://catern.com/compdist.html">
+              <em>“Your computer is a distributed system”</em> (2022)
+            </a>{" "}
+            by <a href="http://catern.com">Spencer Baugh</a> argues that most
+            computers are actually distributed systems with many components
+            running concurrently and communicating over internal buses, and
+            explores the implications of this for programming and performance.
+          </li>
         </ul>
       </div>
     </Page>
