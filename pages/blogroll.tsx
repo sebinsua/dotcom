@@ -1,5 +1,4 @@
-/** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
+import { css } from "@linaria/core";
 
 import { Page } from "@components/Page";
 
@@ -7,7 +6,7 @@ export default function BlogrollPage() {
   return (
     <Page title="Blogroll" slug="/blogroll">
       <div
-        css={css`
+        className={css`
           font-size: 0.8rem;
           line-height: 1.5rem;
           margin-top: 1.475em;

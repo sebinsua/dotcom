@@ -1,5 +1,4 @@
-/** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
+import { css } from "@linaria/core";
 import NextHead from "next/head";
 import { useRouter } from "next/router";
 
@@ -89,7 +88,7 @@ function Title({ children }: TitleProps) {
   if (router.pathname === rootPath) {
     return (
       <h1
-        css={css`
+        className={css`
           font-size: 1rem;
           line-height: 1.9rem;
         `}
@@ -105,7 +104,7 @@ function Title({ children }: TitleProps) {
 
   return (
     <h1
-      css={css`
+      className={css`
         font-size: 1rem;
         line-height: 1.9rem;
       `}
@@ -129,7 +128,7 @@ function Header(_: HeaderProps) {
 
   return (
     <header
-      css={css`
+      className={css`
         width: 100px;
 
         @media (max-width: 480px) {
@@ -138,7 +137,7 @@ function Header(_: HeaderProps) {
       `}
     >
       <nav
-        css={css`
+        className={css`
           padding-top: 2px;
           display: flex;
           justify-content: flex-end;
@@ -155,7 +154,7 @@ function Header(_: HeaderProps) {
         <Title>{packageJson.blog.title}</Title>
       </nav>
       <div
-        css={css`
+        className={css`
           display: flex;
           justify-content: flex-end;
           ul {
@@ -242,7 +241,7 @@ function Footer({ slug }: FooterProps) {
   return (
     <>
       <footer
-        css={css`
+        className={css`
           display: flex;
           flex-direction: row-reverse;
 
@@ -293,7 +292,7 @@ export function Page({
 }: PageProps) {
   return (
     <div
-      css={css`
+      className={css`
         display: flex;
         justify-content: space-between;
         width: 800px;
@@ -314,7 +313,7 @@ export function Page({
       <Header slug={slug} title={title} />
 
       <div
-        css={css`
+        className={css`
           width: 80%;
 
           @media (max-width: 480px) {
@@ -323,7 +322,7 @@ export function Page({
         `}
       >
         <main
-          css={css`
+          className={css`
             @media (max-width: 768px) {
               flex-grow: initial;
               flex-basis: initial;

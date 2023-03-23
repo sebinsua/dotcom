@@ -1,5 +1,4 @@
-/** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
+import { css } from "@linaria/core";
 import parseISO from "date-fns/parseISO";
 import formatISO9075 from "date-fns/formatISO9075";
 
@@ -19,13 +18,13 @@ interface PostItemProps {
 function PostItem({ title, slug, date }: PostItemProps) {
   return (
     <li
-      css={css`
+      className={css`
         margin-bottom: 1.65rem;
       `}
     >
       <header>
         <h4
-          css={css`
+          className={css`
             display: flex;
             justify-content: space-between;
             margin: 0;
@@ -48,7 +47,7 @@ interface PostsListProps {
 function PostsList({ posts }: PostsListProps) {
   return (
     <ul
-      css={css`
+      className={css`
         list-style-type: none;
         padding: 0;
         margin-top: 1.1rem;

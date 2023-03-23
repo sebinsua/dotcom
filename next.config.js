@@ -1,10 +1,12 @@
+const withLinaria = require("next-with-linaria");
+
 /**
- * @type {import('next').NextConfig}
+ * @type {import('next-with-linaria').LinariaConfig}
  */
-const nextConfig = {
+const config = {
   images: {
     loader: "custom",
   },
 };
 
-module.exports = nextConfig;
+module.exports = withLinaria(config);

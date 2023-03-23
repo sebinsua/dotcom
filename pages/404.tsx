@@ -1,5 +1,4 @@
-/** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
+import { css } from "@linaria/core";
 import Head from "next/head";
 
 import { Page } from "@components/Page";
@@ -17,7 +16,7 @@ export default function NotFoundPage() {
 
         <Link href="/" passHref>
           <a
-            css={css`
+            className={css`
               color: lightgrey;
             `}
           >

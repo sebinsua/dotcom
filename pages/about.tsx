@@ -1,5 +1,4 @@
-/** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
+import { css } from "@linaria/core";
 import Image from "next/image";
 
 import { Page } from "@components/Page";
@@ -8,7 +7,7 @@ export default function AboutPage() {
   return (
     <Page title="About me" slug="/about">
       <div
-        css={css`
+        className={css`
           font-size: 0.8rem;
           line-height: 1.5rem;
           margin-top: 0.95em;

@@ -1,5 +1,4 @@
-/** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
+import { css } from "@linaria/core";
 import Head from "next/head";
 import parseISO from "date-fns/parseISO";
 import format from "date-fns/format";
@@ -24,7 +23,7 @@ interface PostNavigationProps {
 function PostNavigation({ previous, next }: PostNavigationProps) {
   return (
     <footer
-      css={css`
+      className={css`
         hr {
           opacity: 0.2;
           color: lightgrey;
@@ -38,7 +37,7 @@ function PostNavigation({ previous, next }: PostNavigationProps) {
       {(previous || next) && (
         <nav>
           <ul
-            css={css`
+            className={css`
               display: flex;
               justify-content: space-between;
               list-style-type: none;
@@ -86,7 +85,7 @@ function Post({
     <>
       <header>
         <h2
-          css={css`
+          className={css`
             font-size: 1rem;
             line-height: 1.9rem;
             margin-top: 0.95rem;
@@ -95,7 +94,7 @@ function Post({
           {title}
         </h2>
         <div
-          css={css`
+          className={css`
             padding-top: 0.75rem;
           `}
         >
