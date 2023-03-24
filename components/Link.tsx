@@ -3,18 +3,21 @@ import NextLink from "next/link";
 import type { ReactNode } from "react";
 import type { LinkProps as NextLinkProps } from "next/link";
 
-export type LinkProps = Pick<NextLinkProps, "href" | "passHref"> & {
+export type LinkProps<RouteType> = Pick<
+  NextLinkProps<RouteType>,
+  "href" | "passHref"
+> & {
   external?: boolean;
   children?: ReactNode;
 };
 
-export function Link({
+export function Link<RouteType>({
   href,
   passHref,
   external,
   children,
   ...props
-}: LinkProps) {
+}: LinkProps<RouteType>) {
   if (external) {
     return (
       <a
