@@ -1,5 +1,5 @@
-import * as path from "path";
-import * as fs from "fs-extra";
+import * as path from "node:path";
+import * as fs from "node:fs/promises";
 import matter from "gray-matter";
 import formatISO from "date-fns/formatISO";
 

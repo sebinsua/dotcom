@@ -1,1 +1,0 @@
-{"code":"const a: string = \"word\";","extension":"ts","highlights":[],"queries":[],"staticQuickInfos":[{"text":"const a: string","docs":"","start":6,"length":1,"line":0,"character":6,"targetString":"a"}],"errors":[],"playgroundURL":"https://www.typescriptlang.org/play/#code/MYewdgzgLgBAhgLhtATgSzAcxgXhgIgHcQUATfAbiA","tags":[]}
