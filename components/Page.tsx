@@ -30,9 +30,13 @@ function Footer({ slug }: FooterProps) {
       `}
     >
       {slug === "/about" ? (
-        <a href="mailto:me@sebinsua.com">email</a>
+        <a href="mailto:me@sebinsua.com" style={{ color: "lightgrey" }}>
+          email
+        </a>
       ) : (
-        <a href="/feed.xml">rss</a>
+        <a href="/feed.xml" style={{ color: "lightgrey" }}>
+          rss
+        </a>
       )}
     </footer>
   );
