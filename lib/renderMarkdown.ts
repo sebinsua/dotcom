@@ -1,4 +1,4 @@
-import unified from "unified";
+import { unified } from "unified";
 import remarkParse from "remark-parse";
 // @ts-ignore
 import remarkOembed from "remark-oembed";
@@ -27,7 +27,7 @@ const render = (markdown: string) =>
     .process(markdown);
 
 export async function renderMarkdown(markdown: string): Promise<string> {
-  const { contents } = await render(markdown);
+  const vfile = await render(markdown);
 
-  return String(contents);
+  return String(vfile.value);
 }
