@@ -15,8 +15,13 @@ export default function RootLayout({
         <div
           className={css`
             display: flex;
-            width: 100%;
             justify-content: center;
+            width: 100%;
+
+            @media (max-width: 768px) {
+              display: revert;
+              justify-content: unset;
+            }
           `}
         >
           <PathnameContainer>{children}</PathnameContainer>

@@ -36,7 +36,7 @@ export function Header(_: HeaderProps) {
       className={css`
         width: 100px;
 
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
           width: unset;
         }
       `}
@@ -50,7 +50,7 @@ export function Header(_: HeaderProps) {
             color: black;
           }
 
-          @media (max-width: 480px) {
+          @media (max-width: 768px) {
             justify-content: flex-start;
             padding: 0 1rem;
           }
@@ -76,7 +76,7 @@ export function Header(_: HeaderProps) {
             border-bottom: 1px solid lightgrey;
           }
 
-          @media (max-width: 480px) {
+          @media (max-width: 768px) {
             justify-content: flex-start;
             padding: 0 1rem;
             ul {

@@ -36,8 +36,14 @@ async function getPost(props: PostPageProps) {
     throw new Error("No post was found for the slug: " + props.params.slug);
   }
 
-  const previous = posts[postIndex + 1] ?? null;
-  const next = posts[postIndex - 1] ?? null;
+  const previous =
+    posts[postIndex + 1] && posts[postIndex + 1].meta.hidden !== true
+      ? posts[postIndex + 1]
+      : null;
+  const next =
+    posts[postIndex - 1] && posts[postIndex - 1].meta.hidden !== true
+      ? posts[postIndex - 1]
+      : null;
 
   const meta = post.meta;
   const html = await renderMarkdown(post.content);

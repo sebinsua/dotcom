@@ -1,6 +1,6 @@
 import RSS from "rss";
 
-import { getPosts } from "@lib/getPosts";
+import { getVisiblePosts } from "@lib/getPosts";
 import { renderMarkdown } from "@lib/renderMarkdown";
 
 import packageJson from "../../package.json";
@@ -15,7 +15,7 @@ async function getRss() {
     language: "en",
   });
 
-  const posts = await getPosts();
+  const posts = await getVisiblePosts();
 
   await Promise.all(
     posts.map(async (post) => {

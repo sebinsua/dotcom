@@ -1,3 +1,5 @@
+@import "../node_modules/katex/dist/katex.min.css";
+
 @import "./shiki.css";
 
 body {
@@ -23,4 +25,8 @@ a:visited {
 }
 a:active {
   color: #ee0000;
+}
+
+.math-display {
+  margin: 1.5rem 0;
 }

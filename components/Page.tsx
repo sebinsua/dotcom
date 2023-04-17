@@ -24,9 +24,6 @@ function Footer({ slug }: FooterProps) {
           flex-basis: initial;
           padding: 0 1rem;
         }
-        @media (max-width: 480px) {
-          padding: 0 1rem;
-        }
       `}
     >
       {slug === "/about" ? (
@@ -59,7 +56,7 @@ export function Page({ slug, title, children }: PageProps) {
         justify-content: space-between;
         width: 800px;
 
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
           flex-direction: column;
           width: 100%;
         }
@@ -71,7 +68,7 @@ export function Page({ slug, title, children }: PageProps) {
         className={css`
           width: 80%;
 
-          @media (max-width: 480px) {
+          @media (max-width: 768px) {
             width: 100%;
           }
         `}
@@ -81,9 +78,6 @@ export function Page({ slug, title, children }: PageProps) {
             @media (max-width: 768px) {
               flex-grow: initial;
               flex-basis: initial;
-              padding: 0 1rem;
-            }
-            @media (max-width: 480px) {
               padding: 0 1rem;
             }
           `}

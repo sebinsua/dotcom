@@ -5,7 +5,7 @@ import formatISO9075 from "date-fns/formatISO9075";
 import { createMetadata } from "@lib/createMetadata";
 import { Page } from "@components/Page";
 import { Link } from "@components/Link";
-import { getPosts } from "@lib/getPosts";
+import { getVisiblePosts } from "@lib/getPosts";
 
 import type { PostData } from "@lib/getPosts";
 
@@ -72,7 +72,7 @@ function PostsList({ posts }: PostsListProps) {
 }
 
 export default async function HomePage() {
-  const posts = await getPosts();
+  const posts = await getVisiblePosts();
 
   return (
     <Page>

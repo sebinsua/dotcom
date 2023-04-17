@@ -51,3 +51,9 @@ export async function getPosts(): Promise<PostData[]> {
     (a, b) => new Date(b.meta.date).getTime() - new Date(a.meta.date).getTime()
   );
 }
+
+export async function getVisiblePosts(): Promise<PostData[]> {
+  const posts = await getPosts();
+
+  return posts.filter((post) => post.meta.hidden !== true);
+}
