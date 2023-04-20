@@ -31,7 +31,7 @@ As an example, suppose we have a balloon being inflated such that its volume and
 There are two ways this can be expressed. The first highlights the derivative as a composition of functions (Lagrange’s notation), while the latter is the more common form and uses the symbol `∂` to denote [“partial derivative”](https://www.khanacademy.org/math/multivariable-calculus/multivariable-derivatives/partial-derivative-and-gradient-articles/a/introduction-to-partial-derivatives) (Leibniz’s notation).
 
 $$
-V(r(t))' =  \cdot r'(t) \cdot V'(r)
+V(r(t))' = r'(t) \cdot V'(r)
 $$
 
 $$
@@ -53,38 +53,54 @@ To vastly over-simplify, it might look like this:
 
 function neuron(inputs) {
   // ...`weights` and `bias` available for each neuron...
-  //
-  // Note: In languages with operator overloading (e.g. Python)
-  //       you can avoid creating functions for every mathematical
-  //       operation through the use of operator overloading.
-  //       This leads to easier to read mathematical expressions,
-  //       however, the con is that the creation of the computational
-  //       graph might not be clear to whoever reads the code.
-  return activation(add(sum(multiply(weights, inputs)), bias));
+  return {
+    weights,
+    bias,
+    forwardPass(inputs) {
+      // ...`activation`, `add`, `sum`, and `multiply` functions
+      // would be available and would allow us to create mathematical
+      // expressions that would create a "computational graph".
+      //
+      // Note: In languages with operator overloading (e.g. Python)
+      //       you can avoid creating functions for every mathematical
+      //       operation through the use of operator overloading.
+      //       This leads to easier to read mathematical expressions,
+      //       however, the con is that the creation of the computational
+      //       graph might not be clear to whoever reads the code.
+      return activation(add(sum(multiply(weights, inputs)), bias));
+    },
+  };
 }
 
-function layer(inputs) {
+function layer() {
   // ...`neurons` available for each layer...
-  return neurons.map((neuron) => neuron(inputs));
+  return {
+    neurons,
+    forwardPass(inputs) {
+      return neurons.map((neuron) => neuron.forwardPass(inputs));
+    },
+  };
 }
 
-function model(input) {
-  // ...layers would be pre-configured instead of hardcoded...
-
-  // Output Layer
-  return layer(
-    // Hidden Layer 3
-    layer(
-      // Hidden Layer 2
-      layer(
-        // Hidden Layer 1
-        layer(
-          // Input Layer
-          layer(inputs)
-        )
-      )
-    )
-  );
+function model() {
+  // ...`layers` would be available...
+  return {
+    *parameters() {
+      for (let layer of layers) {
+        for (let neuron of layer.neurons) {
+          yield* neuron.weights;
+          yield neuron.bias;
+        }
+      }
+    },
+    forwardPass(inputs) {
+      let outputs = inputs;
+      for (let layer of layers) {
+        outputs = layer.forwardPass(outputs);
+      }
+      return outputs;
+    },
+  };
 }
 
 // The computational graph looks like a "parse tree" or "directed acyclic
@@ -136,8 +152,7 @@ function model(input) {
 //   ...
 // ]
 //
-// Calling the `model` function executes the "forward pass".
-const computationalGraph = model(inputs);
+const computationalGraph = model().forwardPass(inputs);
 ```
 
 Being able to decompose large functions into compositions of many smaller functions is helpful when implementing a neural network, as when coupled with the chain rule and the ability to calculate the local derivative of an input with respect to its output, this allows us to decompose the relative “impact” of each input parameter on the final output. This is incredibly useful as it means we can determine the impact of each weight and bias on the overall model outputs.
@@ -292,6 +307,64 @@ Once your neural network’s huge mathematical expression is producing a loss va
 This `gradient` can then be used in a process called “gradient descent” to update the weight or bias in a way that reduces the total loss of the network — e.g. if the `gradient` of a weight is positive, then the weight should be decreased, while if the `gradient` of a weight is negative, then the weight should be increased; similarly if the `gradient` is large, then the weight should be updated by a large amount, while if the `gradient` is small, then the weight should be updated by a small amount.
 
 The process described above is repeated for each “epoch” (iteration) of the training loop, and the magnitude of these updates to the weights and biases are also controlled by a “learning rate”. Both the learning rate and the number of epochs are [hyperparameters](<https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning)>) that can be tuned to improve the performance of the network, alongside other aspects of the network such as the number of layers, the number of neurons in each layer, the activation function used in each layer, amongst other things.
+
+A very basic training loop might look a bit like this:
+
+```javascript
+function zip(as, bs) {
+  return as.map((a, i) => [a, bs[i]]);
+}
+
+function mse(predictions, actuals) {
+  // ...`multiply`, `divide`, `sum`, `power` and `subtract` functions
+  // would be available and would allow us to create mathematical expressions
+  // that produce a "computational graph".
+  return multiply(
+    divide(1, actuals.length),
+    sum(
+      zip(predictions, actuals).map(([predicted, actual]) =>
+        power(subtract(predicted, actual), 2)
+      )
+    )
+  );
+}
+
+function loss(xData, yData, model) {
+  const yPredictions = xData.map((x) => model.forwardPass(x));
+
+  return mse(yPredictions, yData);
+}
+
+const epochs = 1000;
+const learningRate = 0.01;
+
+for (const epoch = 0; epoch < epochs; epoch++) {
+  // ...`xTrainingData`, `yTrainingData` and `model` would be available.
+  const totalLoss = loss(xTrainingData, yTrainingData, model);
+
+  // Zero out all gradients before backpropagation to avoid
+  // accumulating gradients from previous iterations, which
+  // would result in erratic parameter updates.
+  for (const parameter of model.parameters()) {
+    parameter.gradient = 0;
+  }
+
+  backpropagation(totalLoss);
+
+  // As we wish to minimize the loss, we move the parameters in
+  // the opposite direction of the gradient. If the gradient is
+  // positive, then the parameter is adjusted in the negative
+  // direction, and if the gradient is negative, the parameter
+  // is adjusted in the positive direction.
+  for (const parameter of model.parameters()) {
+    parameter.data -= learningRate * parameter.gradient;
+  }
+
+  if (epoch % 10 === 0) {
+    console.log(`Epoch: ${epoch} / Loss: ${totalLoss.data}`);
+  }
+}
+```
 
 ### Neural networks: magical function approximators that sacrifice interpretability
 
