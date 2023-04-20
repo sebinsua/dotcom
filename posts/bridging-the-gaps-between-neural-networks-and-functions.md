@@ -6,7 +6,7 @@ date: "2023-04-19"
 
 As AI increasingly affects our lives, businesses may look to their software engineers for explanations regarding AI model outputs and guidance implementing and integrating these systems. Understanding the foundations of AI may become essential, even for software engineers that do not aspire to becoming AI researchers. In this series of articles, I shall attempt to produce a layperson software engineer’s guide to understanding neural networks, transformers and mechanistic interpretability. Instead of the guide serving as a fully comprehensive reference, I’m aiming for it to be an approachable yet detailed deep-dive into necessary intuitions for understanding and complementary to existing educational materials (which I will link to where I can).
 
-A fundamental technique in AI is the application of neural networks, which are proven by the [“universal approximation theorem”](https://ai.stackexchange.com/a/13319) to be “universal function approximators”. They can reproduce the behaviour of any continuous function within a specified domain, provided they have the appropriate structure and size. In practice, neural networks can also reproduce functions with [discontinuities](https://en.wikipedia.org/wiki/Classification_of_discontinuities) and capture trends in non-deterministic processes by smoothing over issues and learning expected behaviours.
+A fundamental technique in AI is the application of neural networks, which are proven by the [“universal approximation theorem”](https://ai.stackexchange.com/a/13319) to be “universal function approximators”. They can reproduce the behavior of any continuous function within a specified domain, provided they have the appropriate structure and size. In practice, neural networks can also reproduce functions with [discontinuities](https://en.wikipedia.org/wiki/Classification_of_discontinuities) and capture trends in non-deterministic processes by smoothing over issues and learning expected behaviors.
 
 ### Interpretability
 
@@ -42,7 +42,7 @@ The equations above represent the chain rule applied to the balloon example, whe
 
 If you still feel unclear on the chain rule check out the article [“You Already Know Calculus: Derivatives” (2011)](https://christopherolah.wordpress.com/2011/07/31/you-already-know-calculus-derivatives/) which skillfully uses everyday examples to explain calculus rules including the chain rule.
 
-Returning to neural networks, a common pattern is to implement the mathematical expressions within it so that instead of only computing outputs they build a computional graph on application of each operation/function. This computational graph can later be traversed outwards-in to compute the derivatives of each value with respect to the final output value.
+Returning to neural networks, a common pattern is to implement the mathematical expressions within it so that instead of only computing outputs they build a computational graph on application of each operation/function. This computational graph can later be traversed outwards-in to compute the derivatives of each value with respect to the final output value.
 
 To vastly over-simplify, it might look like this:
 
@@ -291,13 +291,13 @@ Once your neural network’s huge mathematical expression is producing a loss va
 
 This `gradient` can then be used in a process called “gradient descent” to update the weight or bias in a way that reduces the total loss of the network — e.g. if the `gradient` of a weight is positive, then the weight should be decreased, while if the `gradient` of a weight is negative, then the weight should be increased; similarly if the `gradient` is large, then the weight should be updated by a large amount, while if the `gradient` is small, then the weight should be updated by a small amount.
 
-The process described above is repeated for each “epoch” (iteration) of the training loop, and the magnitude of these updates to the weights and biases are also controlled by a “learning rate”. Both the learning rate and the number of epochs are hyperparameters that can be tuned to improve the performance of the network, alongside other aspects of the network such as the number of layers, the number of neurons in each layer, the activation function used in each layer, amongst other things.
+The process described above is repeated for each “epoch” (iteration) of the training loop, and the magnitude of these updates to the weights and biases are also controlled by a “learning rate”. Both the learning rate and the number of epochs are [hyperparameters](<https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning)>) that can be tuned to improve the performance of the network, alongside other aspects of the network such as the number of layers, the number of neurons in each layer, the activation function used in each layer, amongst other things.
 
 ### Neural networks: magical function approximators that sacrifice interpretability
 
 In our pursuit of computers that can autonomously figure out how to achieve desired outcomes, we discovered that neural networks are “universal function approximators” capable of approximating arbitrary functions.
 
-To achieve this, we stack layers (parameterised affine transformations followed by non-linear activation functions) and train our model by repeatedly adjusting its parameters until it behaves like the function we’d like to approximate.
+To achieve this, we stack layers (parameterized affine transformations followed by non-linear activation functions) and train our model by repeatedly adjusting its parameters until it behaves like the function we’d like to approximate.
 
 As layers are stacked, the overall function becomes increasingly non-linear, allowing the model to represent more complex functions. However, this comes with a bit of a devil’s bargain, as the mathematics behind neural networks constrain our ability to represent functions in ways that are naturally interpretable:
 
