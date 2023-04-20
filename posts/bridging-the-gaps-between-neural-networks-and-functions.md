@@ -44,9 +44,13 @@ If you still feel unclear on the chain rule check out the article [“You Alread
 
 Returning to neural networks, a common pattern is to implement the mathematical expressions within it so that instead of only computing outputs they build a computional graph on application of each operation/function. This computational graph can later be traversed outwards-in to compute the derivatives of each value with respect to the final output value.
 
-To vastly over-simplify, in psuedo-code it looks like this:
+To vastly over-simplify, it might look like this:
 
 ```javascript
+// This is a very cut-down example to help give you the gist of the
+// high-level architecture of a neural network and what we mean when
+// we say "computational graph".
+
 function neuron(inputs) {
   // ...`weights` and `bias` available for each neuron...
   //
@@ -54,7 +58,7 @@ function neuron(inputs) {
   //       you can avoid creating functions for every mathematical
   //       operation through the use of operator overloading.
   //       This leads to easier to read mathematical expressions,
-  //       however, the con is that the creation of the compuational
+  //       however, the con is that the creation of the computational
   //       graph might not be clear to whoever reads the code.
   return activation(add(sum(multiply(weights, inputs)), bias));
 }
@@ -83,33 +87,38 @@ function model(input) {
   );
 }
 
-// The computational tree looks like a "parse tree" or "directed acyclic graph"
-// (DAG), in that, it is a a hierarchical data structure representing the
-// computations of the function.
+// The computational graph looks like a "parse tree" or "directed acyclic
+// graph" (DAG), in that, it is a a hierarchical data structure representing
+// the computations of the function.
 //
 // e.g.
 //
 // [
 //   {
-//     operation: 'activation',
+//     operation: 'relu-activation',
 //     output: 5,
+//     gradient: 0.0,
 //     inputs: [
 //       {
 //         operation: 'add',
 //         output: 5,
+//         gradient: 0.0,
 //         inputs: [
 //           {
 //             operation: 'add',
 //             output: 3,
+//             gradient: 0.0,
 //             inputs: [
 //               {
 //                 operation: 'source',
 //                 output: 1,
+//                 gradient: 0.0,
 //                 inputs: []
 //               },
 //               {
 //                 operation: 'source',
 //                 output: 2,
+//                 gradient: 0.0,
 //                 inputs: []
 //               }
 //             ]
@@ -117,6 +126,7 @@ function model(input) {
 //           {
 //             operation: 'source',
 //             output: 2,
+//             gradient: 0.0,
 //             inputs: []
 //           }
 //         ]
@@ -125,25 +135,136 @@ function model(input) {
 //   },
 //   ...
 // ]
+//
+// Calling the `model` function executes the "forward pass".
 const computationalGraph = model(inputs);
 ```
 
 Being able to decompose large functions into compositions of many smaller functions is helpful when implementing a neural network, as when coupled with the chain rule and the ability to calculate the local derivative of an input with respect to its output, this allows us to decompose the relative “impact” of each input parameter on the final output. This is incredibly useful as it means we can determine the impact of each weight and bias on the overall model outputs.
 
 $$
-\frac{∂L}{∂input\_weight\_or\_bias} \mathrel{+}= \frac{∂current\_weight\_or\_bias}{∂input\_weight\_or\_bias} \cdot \frac{∂L}{∂current\_weight\_or\_bias}
+\frac{∂L}{∂input\_value} \mathrel{+}= \frac{∂current\_value}{∂input\_value} \cdot \frac{∂L}{∂current\_value}
 $$
 
 The equation above represents the chain rule applied to a node within a neural network’s computational graph and shows how we can compute the partial derivative of _“the loss function with respect to an input weight or bias”_ by multiplying the local derivative of the _“current weight or bias with respect to its input weight or bias”_ by the partial derivative of _“the loss function with respect to the current weight or bias”_. (Note: we’ll discuss loss functions later on — for now substitute the final output wherever you see the loss function $L$ mentioned.)
 
-- In the example above $\frac{∂L}{∂current\_weight\_or\_bias}$ (the `gradient`) would have been computed as $\frac{∂L}{∂input\_weight\_or\_bias}$ by a prior iteration of the backpropagation algorithm and therefore can be substituted with the value of the `gradient`.
-- On the other hand, $\frac{∂current\_weight\_or\_bias}{∂input\_weight\_or\_bias}$ is the local derivative and must be computed based on the type of operation/function and its input values.
+- The $input\_value$ and $current\_value$ will alternate between being weights and biases, transitory computed values, hardcoded values that are part of computations, and at the edges of the computational graph, its input values and (expected) output values. However, from the perspective of training our network we ultimately care about the updates made to the “the loss function with respect to a weight or bias” (the `gradient`).
+- In the example above $\frac{∂L}{∂current\_value}$ (the `gradient`) would have been computed as $\frac{∂L}{∂input\_value}$ by a prior iteration of the backpropagation algorithm and therefore can be substituted with the value of the `gradient`.
+- On the other hand, $\frac{∂current\_value}{∂input\_value}$ is the local derivative and must be computed based on the type of operation/function and its input values.
   - A function is differentiable if it is continuous and has a derivative at every point in its domain.
   - Mathematical operators like multiply and add are [trivially differentiable](https://github.com/sebinsua/micrograd-rs/blob/8dfd2edc5b9f1521bd0d9884c2933803ff4ba3cc/src/engine.rs#L635-L667).
   - Discontinuities in a function can make it non-differentiable at those specific points. For example, the non-linear activation function $ReLU(x) = max(0, x)$ is discontinuous at $x = 0$ and therefore is not differentiable at that point, however, it is still differentiable otherwise (e.g. $ReLU'(x) = 0, x < 0$ or $ReLU'(x) = 1, x > 0$). In practice, $x = 0$ is very rare and we can safely set the subderivative to 0 at that point.
-- We accumulate (e.g. $\mathrel{+}=$) the result of multiplying these two partial derivatives into $\frac{∂L}{∂input\_weight\_or\_bias}$ which means that multiple output values of the network could contribute to the gradient of a single input weight or bias. Only after all functions/operations that an input weight or bias is involved in have been processed will the $\frac{∂L}{∂input\_weight\_or\_bias}$ have been computed and be ready for use as a $\frac{∂L}{∂current\_weight\_or\_bias}$ in a future iteration of the backpropagation algorithm. A topological sort may be used to ensure that this is the case.
+- We accumulate (e.g. $\mathrel{+}=$) the result of multiplying these two partial derivatives into $\frac{∂L}{∂input\_value}$ which means that multiple output values of the network could contribute to the gradient of a single input weight or bias. Only after all functions/operations that an input weight or bias is involved in have been processed will the $\frac{∂L}{∂input\_value}$ have been computed and be ready for use as a $\frac{∂L}{∂current\_value}$ in a future iteration of the backpropagation algorithm. A topological sort may be used to ensure that this is the case.
 
 As long as there is a way to compute or approximate the local derivative of every function/operation, we can use this to help compute the derivative of the loss function with respect to every input weight and bias in the neural network.
+
+A tiny implementation of backpropagation showing how `gradient`s can be computed is given below:
+
+```javascript
+function updateInputGradientsForAdd(value) {
+  const inputA = value.inputs[0];
+  const inputB = value.inputs[1];
+
+  // local derivative:
+  // ∂current_value/∂input_a = 1
+  //
+  // gradient accumulation update rule:
+  // (∂L/input_a) += (∂current_value/∂input_a) * (∂L/∂current_value)
+  inputA.gradient += 1.0 * value.gradient;
+
+  // local derivative:
+  // ∂current_value/∂input_b = 1
+  //
+  // gradient accumulation update rule:
+  // (∂L/input_b) += (∂current_value/∂input_b) * (∂L/∂current_value)
+  inputB.gradient += 1.0 * value.gradient;
+}
+
+function updateInputGradientsForMultiply(value) {
+  const inputA = value.inputs[0];
+  const inputB = value.inputs[1];
+
+  // local derivative:
+  // ∂current_value/∂input_a = input_b
+  //
+  // gradient accumulation update rule:
+  // (∂L/input_a) += (∂current_value/∂input_a) * (∂L/∂current_value)
+  inputA.gradient += inputB.output * value.gradient;
+
+  // local derivative:
+  // ∂current_value/∂input_b = input_a
+  //
+  // gradient accumulation update rule:
+  // (∂L/input_b) += (∂current_value/∂input_b) * (∂L/∂current_value)
+  inputB.gradient += inputA.output * value.gradient;
+}
+
+function updateInputGradientsForReluActivation(value) {
+  const input = value.inputs[0];
+
+  // local derivative:
+  // ∂current_value/∂input = 1.0, if input > 0
+  //                         = 0.0, otherwise
+  //
+  // gradient accumulation update rule:
+  // ∂L/∂input += (∂current_value/∂input) * (∂L/∂current_value)
+  input.gradient += (value.output > 0.0 ? 1.0 : 0.0) * value.gradient;
+}
+
+function sortTopologically(
+  value,
+  visited = new Set(),
+  topologicallySortedValues = []
+) {
+  if (!visited.has(value)) {
+    visited.add(value);
+
+    for (const input of value.inputs) {
+      sortTopologically(input, visited, topologicallySortedValues);
+    }
+
+    topologicallySortedValues.push(value);
+  }
+
+  return topologicallySortedValues;
+}
+
+function backpropagation(rootValue) {
+  // Perform a topological sort of all of the `inputs` values in the graph
+  // and then reverse this so that the output values are before their
+  // respective input values.
+  const topologicallySortedValues = sortTopologically(rootValue).reverse();
+
+  // The derivative of a value with respect to itself is always 1.0 so we
+  // set the gradient of the output value to this to begin with before
+  // beginning backwards propagation.
+  topologicallySortedValues[0].gradient = 1.0;
+
+  // Given the reversed topologically ordered values, we will be starting
+  // at the output value and applying the chain rule on each iteration to
+  // update the gradients of the current value's inputs.
+  for (const value of topologicallySortedValues) {
+    switch (value.operation) {
+      case "multiply": {
+        updateInputGradientsForMultiply(value);
+        break;
+      }
+      case "add": {
+        updateInputGradientsForAdd(value);
+        break;
+      }
+      case "relu-activation": {
+        updateInputGradientsForReluActivation(value);
+        break;
+      }
+      default:
+        throw new Error(`Unrecognized operation: ${value.operation}`);
+    }
+  }
+}
+
+backpropagation(computationalGraph);
+```
 
 For further discussion on computational graphs and the efficiency benefits of applying derivatives using these I can’t recommend [“Calculus on Computational Graphs: Backpropagation” (2015)](https://colah.github.io/posts/2015-08-Backprop/) highly enough. It’s a very easy-to-understand guide to computing derivatives that is detailed as well as economical with your time.
 
