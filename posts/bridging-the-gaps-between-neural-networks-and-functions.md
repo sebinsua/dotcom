@@ -332,6 +332,16 @@ function mse(predictions, actuals) {
 function loss(xData, yData, model) {
   const yPredictions = xData.map((x) => model.forwardPass(x));
 
+  // Passing `yPredictions` into `mse` extends the computation graph of
+  // the `model` so that it also contains the computation of "loss".
+  // This is possible because neural networks are composable and allows
+  // us to start at the loss output and backpropagate all the way back
+  // through the model's weights and biases to the inputs.
+  //
+  // Note that the connection between the result of the `loss` function
+  // and the `model` is one-way; the `model` is not connected to the
+  // `loss` function and `loss` does not participate in the computation
+  //  when `forwardPass` is called on the `model`.
   return mse(yPredictions, yData);
 }
 
@@ -374,7 +384,7 @@ To achieve this, we stack layers (parameterized affine transformations followed 
 
 As layers are stacked, the overall function becomes increasingly non-linear, allowing the model to represent more complex functions. However, this comes with a bit of a devil’s bargain, as the mathematics behind neural networks constrain our ability to represent functions in ways that are naturally interpretable:
 
-1.  All operations/functions used by a neural network to produce its output _must be_ differentiable.
+1.  All operations/functions used by a neural network to produce its output _must be_ differentiable and composable.
 
 2.  Any logic or understanding learnt will be generically represented by the network’s weights and biases (its parameters) and because these participate in the calculations of derivatives these _must be_ real-valued numeric values.
 
