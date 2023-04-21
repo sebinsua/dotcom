@@ -31,14 +31,14 @@ As an example, suppose we have a balloon being inflated such that its volume and
 There are two ways this can be expressed. The first highlights the derivative as a composition of functions (Lagrange’s notation), while the latter is the more common form and uses the symbol `∂` to denote [“partial derivative”](https://www.khanacademy.org/math/multivariable-calculus/multivariable-derivatives/partial-derivative-and-gradient-articles/a/introduction-to-partial-derivatives) (Leibniz’s notation).
 
 $$
-V(r(t))' = r'(t) \cdot V'(r)
+\textcolor{red}{V(r(t))'} = \textcolor{green}{r'(t)}  \cdot \textcolor{blue}{V'(r)}
 $$
 
 $$
-\frac{∂V}{∂t} = \frac{∂r}{∂t} \cdot \frac{∂V}{∂r}
+\textcolor{red}{\frac{∂V}{∂t}} = \textcolor{green}{\frac{∂r}{∂t}} \cdot \textcolor{blue}{\frac{∂V}{∂r}}
 $$
 
-The equations above represent the chain rule applied to the balloon example, where $r$ is the radius, $V$ is the volume, and $t$ is time. The left-hand side represents _“the rate of change of the volume with respect to time”_, while the right-hand side represents the product of _“the rate of change of the radius with respect to time”_ and _“the rate of change of the volume with respect to the radius”_.
+The equations above represent the chain rule applied to the balloon example, where $r$ is the radius, $V$ is the volume, and $t$ is time. The left-hand side represents _<span style="color: red;">“the rate of change of the volume with respect to time”</span>_, while the right-hand side represents the product of _<span style="color: green;">“the rate of change of the radius with respect to time”</span>_ and _<span style="color: blue;">“the rate of change of the volume with respect to the radius”</span>_.
 
 If you still feel unclear on the chain rule check out the article [“You Already Know Calculus: Derivatives” (2011)](https://christopherolah.wordpress.com/2011/07/31/you-already-know-calculus-derivatives/) which skillfully uses everyday examples to explain calculus rules including the chain rule.
 
@@ -158,18 +158,18 @@ const computationalGraph = model().forwardPass(inputs);
 Being able to decompose large functions into compositions of many smaller functions is helpful when implementing a neural network, as when coupled with the chain rule and the ability to calculate the local derivative of an input with respect to its output, this allows us to decompose the relative “impact” of each input parameter on the final output. This is incredibly useful as it means we can determine the impact of each weight and bias on the overall model outputs.
 
 $$
-\frac{∂L}{∂input\_value} \mathrel{+}= \frac{∂current\_value}{∂input\_value} \cdot \frac{∂L}{∂current\_value}
+\textcolor{red}{\frac{∂L}{∂input\_value}} \mathrel{+}= \textcolor{green}{\frac{∂current\_value}{∂input\_value}} \cdot \textcolor{blue}{\frac{∂L}{∂current\_value}}
 $$
 
-The equation above represents the chain rule applied to a node within a neural network’s computational graph and shows how we can compute the partial derivative of _“the loss function with respect to an input weight or bias”_ by multiplying the local derivative of the _“current weight or bias with respect to its input weight or bias”_ by the partial derivative of _“the loss function with respect to the current weight or bias”_. (Note: we’ll discuss loss functions later on — for now substitute the final output wherever you see the loss function $L$ mentioned.)
+The equation above represents the chain rule applied to a node within a neural network’s computational graph and shows how we can compute the partial derivative of _<span style="color: red;">“the loss function with respect to an input weight or bias”</span>_ by multiplying the local derivative of the _<span style="color: green;">“current weight or bias with respect to its input weight or bias”</span>_ by the partial derivative of _<span style="color: blue;">“the loss function with respect to the current weight or bias”</span>_. (Note: we’ll discuss loss functions later on — for now substitute the final output wherever you see the loss function $L$ mentioned.)
 
 - The $input\_value$ and $current\_value$ will alternate between being weights and biases, transitory computed values, hardcoded values that are part of computations, and at the edges of the computational graph, its input values and (expected) output values. However, from the perspective of training our network we ultimately care about the updates made to the “the loss function with respect to a weight or bias” (the `gradient`).
-- In the example above $\frac{∂L}{∂current\_value}$ (the `gradient`) would have been computed as $\frac{∂L}{∂input\_value}$ by a prior iteration of the backpropagation algorithm and therefore can be substituted with the value of the `gradient`.
-- On the other hand, $\frac{∂current\_value}{∂input\_value}$ is the local derivative and must be computed based on the type of operation/function and its input values.
+- In the example above $\textcolor{blue}{\frac{∂L}{∂current\_value}}$ (the `gradient`) would have been computed as $\textcolor{red}{\frac{∂L}{∂input\_value}}$ by a prior iteration of the backpropagation algorithm and therefore can be substituted with the value of the `gradient`.
+- On the other hand, $\textcolor{green}{\frac{∂current\_value}{∂input\_value}}$ is the local derivative and must be computed based on the type of operation/function and its input values.
   - A function is differentiable if it is continuous and has a derivative at every point in its domain.
   - Mathematical operators like multiply and add are [trivially differentiable](https://github.com/sebinsua/micrograd-rs/blob/8dfd2edc5b9f1521bd0d9884c2933803ff4ba3cc/src/engine.rs#L635-L667).
   - Discontinuities in a function can make it non-differentiable at those specific points. For example, the non-linear activation function $ReLU(x) = max(0, x)$ is discontinuous at $x = 0$ and therefore is not differentiable at that point, however, it is still differentiable otherwise (e.g. $ReLU'(x) = 0, x < 0$ or $ReLU'(x) = 1, x > 0$). In practice, $x = 0$ is very rare and we can safely set the subderivative to 0 at that point.
-- We accumulate (e.g. $\mathrel{+}=$) the result of multiplying these two partial derivatives into $\frac{∂L}{∂input\_value}$ which means that multiple output values of the network could contribute to the gradient of a single input weight or bias. Only after all functions/operations that an input weight or bias is involved in have been processed will the $\frac{∂L}{∂input\_value}$ have been computed and be ready for use as a $\frac{∂L}{∂current\_value}$ in a future iteration of the backpropagation algorithm. A topological sort may be used to ensure that this is the case.
+- We accumulate (e.g. $\mathrel{+}=$) the result of multiplying these two partial derivatives into $\textcolor{red}{\frac{∂L}{∂input\_value}}$ which means that multiple output values of the network could contribute to the gradient of a single input weight or bias. Only after all functions/operations that an input weight or bias is involved in have been processed will the $\textcolor{red}{\frac{∂L}{∂input\_value}}$ have been computed and be ready for use as a $\textcolor{blue}{\frac{∂L}{∂current\_value}}$ in a future iteration of the backpropagation algorithm. A topological sort may be used to ensure that this is the case.
 
 As long as there is a way to compute or approximate the local derivative of every function/operation, we can use this to help compute the derivative of the loss function with respect to every input weight and bias in the neural network.
 
