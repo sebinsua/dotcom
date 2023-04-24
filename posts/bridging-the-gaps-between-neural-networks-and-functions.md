@@ -31,11 +31,15 @@ As an example, suppose we have a balloon being inflated such that its volume and
 There are two ways this can be expressed. The first highlights the derivative as a composition of functions (Lagrange’s notation), while the latter is the more common form and uses the symbol `∂` to denote [“partial derivative”](https://www.khanacademy.org/math/multivariable-calculus/multivariable-derivatives/partial-derivative-and-gradient-articles/a/introduction-to-partial-derivatives) (Leibniz’s notation).
 
 $$
-\textcolor{red}{V(r(t))'} = \textcolor{green}{r'(t)}  \cdot \textcolor{blue}{V'(r)}
-$$
+\begin{equation*}
+  \begin{aligned}
+    \textcolor{red}{V(r(t))'} &= \textcolor{green}{r'(t)}  \cdot \textcolor{blue}{V'(r)}
 
-$$
-\textcolor{red}{\frac{∂V}{∂t}} = \textcolor{green}{\frac{∂r}{∂t}} \cdot \textcolor{blue}{\frac{∂V}{∂r}}
+    \\\\
+
+    \textcolor{red}{\frac{∂V}{∂t}} &= \textcolor{green}{\frac{∂r}{∂t}} \cdot \textcolor{blue}{\frac{∂V}{∂r}}
+  \end{aligned}
+\end{equation*}
 $$
 
 The equations above represent the chain rule applied to the balloon example, where $r$ is the radius, $V$ is the volume, and $t$ is time. The left-hand side represents _<span style="color: red;">“the rate of change of the volume with respect to time”</span>_, while the right-hand side represents the product of _<span style="color: green;">“the rate of change of the radius with respect to time”</span>_ and _<span style="color: blue;">“the rate of change of the volume with respect to the radius”</span>_.
