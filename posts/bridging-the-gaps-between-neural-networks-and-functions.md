@@ -166,9 +166,52 @@ The equation above represents the chain rule applied to a node within a neural n
 - The $input\_value$ and $current\_value$ will alternate between being weights and biases, transitory computed values, hardcoded values that are part of computations, and at the edges of the computational graph, its input values and (expected) output values. However, from the perspective of training our network we ultimately care about the updates made to the “the loss function with respect to a weight or bias” (the `gradient`).
 - In the example above $\textcolor{blue}{\frac{∂L}{∂current\_value}}$ (the `gradient`) would have been computed as $\textcolor{red}{\frac{∂L}{∂input\_value}}$ by a prior iteration of the backpropagation algorithm and therefore can be substituted with the `gradient` of the current value.
 - On the other hand, $\textcolor{green}{\frac{∂current\_value}{∂input\_value}}$ is the local derivative and must be computed based on the type of operation/function and its input values.
+
   - A function is differentiable if it is continuous and has a derivative at every point in its domain.
-  - Mathematical operators like multiply and add are [trivially differentiable](https://github.com/sebinsua/micrograd-rs/blob/8dfd2edc5b9f1521bd0d9884c2933803ff4ba3cc/src/engine.rs#L635-L667).
-  - Discontinuities in a function can make it non-differentiable at those specific points. For example, the non-linear activation function $ReLU(x) = max(0, x)$ is discontinuous at $x = 0$ and therefore is not differentiable at that point, however, it is still differentiable otherwise (e.g. $ReLU'(x) = 0, x < 0$ or $ReLU'(x) = 1, x > 0$). In practice, $x = 0$ is very rare and we can safely set the subderivative to 0 at that point.
+  - Basic mathematical operators are [trivially differentiable](https://github.com/sebinsua/micrograd-rs/blob/8dfd2edc5b9f1521bd0d9884c2933803ff4ba3cc/src/engine.rs#L635-L667). For example:
+
+    <u>Addition</u>: When $current\_value$ was produced by $weighted\_sum + bias$ where $weighted\_sum = sum(weight \times input)$, calculating the derivative of $\textcolor{green}{\frac{∂current\_value}{∂input\_value}}$ for each input while holding the other constant:
+
+    $$
+    \begin{equation*}
+      \begin{aligned}
+        \textcolor{green}{\frac{∂(weighted\_sum + bias)}{∂weighted\_sum}}
+        &= \textcolor{green}{\frac{∂weighted\_sum} {∂weighted\_sum} + \frac{∂bias}{∂weighted\_sum}} \\
+        &= \textcolor{green}{1 + 0} \\
+        &= \textcolor{green}{1}
+
+        \\\\
+
+        \textcolor{green}{\frac{∂(weighted\_sum + bias)}{∂bias}}
+        &= \textcolor{green}{\frac{∂weighted\_sum}{∂bias} + \frac{∂bias}{∂bias}} \\
+        &= \textcolor{green}{0 + 1} \\
+        &= \textcolor{green}{1}
+      \end{aligned}
+    \end{equation*}
+    $$
+
+    <u>Multiplication</u>: When $current\_value$ was produced by $weight \times input$, calculating the derivative of $\textcolor{green}{\frac{∂current\_value}{∂input\_value}}$ for each input while holding the other constant:
+
+    $$
+    \begin{equation*}
+      \begin{aligned}
+        \textcolor{green}{\frac{∂(weight \times input)}{∂weight}}
+        &= \textcolor{green}{input \times \frac{∂weight}{∂weight} + weight \times \frac{∂input}{∂weight}} \\
+        &= \textcolor{green}{input \times 1 + weight \times 0} \\
+        &= \textcolor{green}{input}
+
+        \\\\
+
+        \textcolor{green}{\frac{∂(weight \times input)}{∂input}}
+        &= \textcolor{green}{input \times \frac{∂weight}{∂input} + weight \times \frac{∂input}{∂input}} \\
+        &= \textcolor{green}{input \times 0 + weight \times 1} \\
+        &= \textcolor{green}{weight}
+      \end{aligned}
+    \end{equation*}
+    $$
+
+- Discontinuities in a function can make it non-differentiable at those specific points. For example, the non-linear activation function $ReLU(x) = max(0, x)$ is discontinuous at $x = 0$ and therefore is not differentiable at that point, however, it is still differentiable otherwise (e.g. $ReLU'(x) = 0, x < 0$ or $ReLU'(x) = 1, x > 0$). In practice, $x = 0$ is very rare and we can safely set the subderivative to 0 at that point.
+
 - We accumulate (e.g. $\mathrel{+}=$) the result of multiplying these two partial derivatives into $\textcolor{red}{\frac{∂L}{∂input\_value}}$ which means that multiple output values of the network could contribute to the gradient of a single input weight or bias. Only after all functions/operations that an input weight or bias is involved in have been processed will the $\textcolor{red}{\frac{∂L}{∂input\_value}}$ have been computed and be ready for use as a $\textcolor{blue}{\frac{∂L}{∂current\_value}}$ in a future iteration of the backpropagation algorithm. A topological sort may be used to ensure that this is the case.
 
 As long as there is a way to compute or approximate the local derivative of every function/operation, we can use this to help compute the derivative of the loss function with respect to every input weight and bias in the neural network.
