@@ -174,7 +174,7 @@ The equation above represents the chain rule applied to a node within a neural n
   - A function is differentiable if it is continuous and has a derivative at every point in its domain.
   - Basic mathematical operators are [trivially differentiable](https://github.com/sebinsua/micrograd-rs/blob/8dfd2edc5b9f1521bd0d9884c2933803ff4ba3cc/src/engine.rs#L635-L667). For example:
 
-    <u>Addition</u>: When $current\_value$ was produced by $weighted\_sum + bias$ where $weighted\_sum = sum(weight \times input)$, calculating the derivative of $\textcolor{green}{\frac{∂current\_value}{∂input\_value}}$ for each input while holding the other constant:
+    <u>Addition</u>: When $current\_value$ was produced by $weighted\_sum + bias$ where $weighted\_sum = sum(weights \times inputs)$, calculating the derivative of $\textcolor{green}{\frac{∂current\_value}{∂input\_value}}$ for each input while holding the other constant:
 
     $$
     \begin{equation*}
