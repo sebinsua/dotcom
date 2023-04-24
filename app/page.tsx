@@ -37,7 +37,13 @@ function PostItem({ title, slug, date }: PostItemProps) {
           <Link href={`/${slug}`} passHref>
             <a>{title}</a>
           </Link>
-          <time>{formatISO9075(date, { representation: "date" })}</time>
+          <time
+            className={css`
+              word-break: keep-all;
+            `}
+          >
+            {formatISO9075(date, { representation: "date" })}
+          </time>
         </h4>
       </header>
     </li>
