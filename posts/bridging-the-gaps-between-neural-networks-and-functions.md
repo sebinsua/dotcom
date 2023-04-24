@@ -214,7 +214,7 @@ The equation above represents the chain rule applied to a node within a neural n
     \end{equation*}
     $$
 
-- Discontinuities in a function can make it non-differentiable at those specific points. For example, the non-linear activation function $ReLU(x) = max(0, x)$ is discontinuous at $x = 0$ and therefore is not differentiable at that point, however, it is still differentiable otherwise (e.g. $ReLU'(x) = 0, x < 0$ or $ReLU'(x) = 1, x > 0$). In practice, $x = 0$ is very rare and we can safely set the subderivative to 0 at that point.
+  - Discontinuities in a function can make it non-differentiable at those specific points. For example, the non-linear activation function $ReLU(x) = max(0, x)$ is discontinuous at $x = 0$ and therefore is not differentiable at that point, however, it is still differentiable otherwise (e.g. $ReLU'(x) = 0, x < 0$ or $ReLU'(x) = 1, x > 0$). In practice, $x = 0$ is very rare and we can safely set the subderivative to 0 at that point.
 
 - We accumulate (e.g. $\mathrel{+}=$) the result of multiplying these two partial derivatives into $\textcolor{red}{\frac{∂L}{∂input\_value}}$ which means that multiple output values of the network could contribute to the gradient of a single input weight or bias. Only after all functions/operations that an input weight or bias is involved in have been processed will the $\textcolor{red}{\frac{∂L}{∂input\_value}}$ have been computed and be ready for use as a $\textcolor{blue}{\frac{∂L}{∂current\_value}}$ in a future iteration of the backpropagation algorithm. A topological sort may be used to ensure that this is the case.
 
