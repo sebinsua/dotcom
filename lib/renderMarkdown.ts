@@ -1,3 +1,7 @@
+import path from "path";
+import fs from "fs";
+import typescript from "typescript";
+import { knownLibFilesForCompilerOptions } from "@typescript/vfs";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 // @ts-ignore
@@ -11,12 +15,35 @@ import rehypeKatex from "rehype-katex";
 import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
 
+function createDefaultMapFromNodeModules(
+  compilerOptions: typescript.CompilerOptions
+) {
+  function getLibContents(name: string) {
+    return fs.readFileSync(
+      path.join(".", "node_modules", "typescript", "lib", name),
+      "utf8"
+    );
+  }
+
+  const fsMap = knownLibFilesForCompilerOptions(
+    compilerOptions,
+    typescript
+  ).reduce((m, lib) => {
+    return m.set("/" + lib, getLibContents(lib));
+  }, new Map<string, string>());
+
+  return fsMap;
+}
+
 const render = (markdown: string) =>
   unified()
     .use(remarkParse)
     .use(remarkOembed)
     .use(remarkShikiTwoSlash, {
       theme: "vitesse-dark",
+      fsMap: createDefaultMapFromNodeModules({
+        target: typescript.ScriptTarget.ES2020,
+      }),
     })
     .use(remarkMath)
     .use(
