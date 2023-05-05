@@ -1,8 +1,7 @@
 ---
 title: Type-safe tensors
 slug: type-safe-tensors
-date: "2023-05-02"
-hidden: true
+date: "2023-05-05"
 ---
 
 Recently, [Ben Newhouse](http://bennewhouse.com) released a TypeScript-based implementation of GPT called `potatogpt`. Although the performance may be slow, it [contains a very interesting approach to type-checking tensor arithmetic](https://github.com/newhouseb/potatogpt/tree/main#-fully-typed-tensors). This approach eliminates the need to run your code to verify whether operations are allowed or to keep track of the sizes of tensors in your head.
