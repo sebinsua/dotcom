@@ -173,6 +173,9 @@ type ArrayEveryElementIsNumericLiteralOrVar<
 // Tests
 const fourDimensionalTensorWithStaticSizes = tensor([10, 100, 1000, 10000]);
 const threeDimensionalTensorWithRuntimeSize = tensor([5, Var(3, "dim"), 10]);
+
+const invalidTensor1 = tensor([10 as number, 100, 1000, 10000]);
+const invalidTensor2 = tensor([5, 3 as 3 | 6 | 9, 10]);
 ```
 
 If you need to, you can read further on the more advanced TypeScript techniques here:
@@ -273,6 +276,9 @@ export function matrix<const Shape extends readonly [Dimension, Dimension]>(
 // Tests
 const matrixWithStaticSizes = matrix([25, 50]);
 const matrixWithRuntimeSize = matrix([10, Var(100, "configuredDimensionName")]);
+
+const invalidMatrix1 = matrix([25 as number, 50]);
+const invalidMatrix2 = matrix([10, 100 as 100 | 115]);
 ```
 
 ### `Vector`
@@ -407,9 +413,14 @@ export function vector<
 const vectorWithStaticSize = vector(2);
 const vectorWithRuntimeSize = vector(Var(4, "configuredDimensionName"));
 const vectorWithSizeFromData = vector([1, 2, 3]);
+
+const invalidVector1 = vector(2 as number);
+const invalidVector2 = vector(100 as 100 | 115);
 ```
 
 ### `zip`
+
+Finally, we can write a zip function that combines two vectors of the same size. Similarly, although not shown here, it's possible to create functions that expect two operands with different but compatible shapes. To do this, we can make the type of one operand a generic type, which produces a new type based on the exact type of the other operand.
 
 ```typescript twoslash
 type IsNumericLiteral<T> = number extends T
