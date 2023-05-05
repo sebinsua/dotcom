@@ -182,6 +182,7 @@ If you need to, you can read further on the more advanced TypeScript techniques 
 
 - ["mapped types"](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html).
 - ["conditional types"](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html).
+- ["branded types"](https://twitter.com/mattpocockuk/status/1625173884885401600).
 
 ### `Matrix`
 
