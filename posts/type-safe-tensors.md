@@ -1,18 +1,18 @@
 ---
 title: Type-safe tensors
 slug: type-safe-tensors
-date: "2023-05-05"
+date: "2023-05-10"
 ---
 
 Recently, [Ben Newhouse](http://bennewhouse.com) released a TypeScript-based implementation of GPT called `potatogpt`. Although the performance may be slow, it [contains a very interesting approach to type-checking tensor arithmetic](https://github.com/newhouseb/potatogpt/tree/main#-fully-typed-tensors). This approach eliminates the need to run your code to verify whether operations are allowed or to keep track of the sizes of tensors in your head.
 
-The implementation is quite complex, employing several advanced TypeScript techniques. In order to make it more accessible and easier to understand, I've attempted to simplify and explain the implementation with clarifying comments below.
+The implementation is quite complex, employing several advanced TypeScript techniques. In order to make it more accessible and easier to understand, I’ve attempted to simplify and explain the implementation with clarifying comments below.
 
 Finally, I show how this approach allows us to easily create type-safe versions of functions like `zip`.
 
 ### Exact dimensions
 
-In order that `Tensor`s can have exact dimensions we need to support only numeric literals (e.g. `16`, `768`, etc) for sizes known at compile time, and "branded types" for sizes only known at runtime. We must disallow non-literal `number` types or unions of `number`s (e.g. `16 | 768`) as if these get introduced into an application, data produced using these would also lack exact dimensions.
+In order that `Tensor`s can have exact dimensions we need to support only numeric literals (e.g. `16`, `768`, etc) for sizes known at compile time, and “branded types” for sizes only known at runtime. We must disallow non-literal `number` types or unions of `number`s (e.g. `16 | 768`) as if these get introduced into an application, data produced using these would also lack exact dimensions.
 
 ```typescript twoslash
 // We check whether `T` is a numeric literal by checking that `number`
@@ -76,12 +76,11 @@ If you need to, you can read further on the more advanced TypeScript techniques 
 
 - [`IsUnion`](https://stackoverflow.com/a/53955431).
 - [`UnionToIntersection`](https://stackoverflow.com/a/50375286/9259778).
-- ["distributive conditional types"](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html#distributive-conditional-types).
+- [“distributive conditional types”](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html#distributive-conditional-types).
 
 ### `Tensor`
 
-We can then implement a type-safe `Tensor` using these. TypeScript currently has a limitation that stops us from applying the `IsNumericLiteralOrVar` constraint at the argument-level so instead we make TypeScript produce `InvalidTensor` return types if
-the `shape` argument is not valid using a conditional return type.
+We can then implement a type-safe `Tensor` using these. Note that, we diverged from Ben’s original implementation by enforcing the constraint that dimensions must be numeric literals or “branded types” at the argument-level instead of doing so [at the return-level with a conditional return type that produces an invalid tensor](https://github.com/newhouseb/potatogpt/blob/d2ee0cae82c7429bd5f8c140e64ff3d70ef7ff87/math.ts#L34). The downside of this is that you must use `as const` on the `shape` argument to prevent TypeScript from widening the literal types to `number`.
 
 ```typescript twoslash
 type IsNumericLiteral<T> = number extends T
@@ -125,28 +124,16 @@ export type Tensor<Shape extends readonly Dimension[]> = {
   data: Float32Array;
   shape: Shape;
 };
-export type InvalidTensor<Shape extends readonly Dimension[]> = [
-  never,
-  "Invalid tensor: please provide an array of only numeric literals or `Var`s.",
-  Shape
-];
-// Due to TypeScript limitations, we can't apply constraints like
-// `ArrayEveryElementIsNumericLiteralOrVar` directly to the generic
-// `Shape` argument. Instead, we use a conditional type in the
-// return type. This results in a type mismatch, requiring the use
-// of `as any` to return the expected `Tensor`.
 export function tensor<const Shape extends readonly Dimension[]>(
-  shape: Shape,
+  shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
   init?: number[]
-): true extends ArrayEveryElementIsNumericLiteralOrVar<Shape>
-  ? Tensor<Shape>
-  : InvalidTensor<Shape> {
+): Tensor<Shape> {
   return {
     data: init
       ? new Float32Array(init)
-      : new Float32Array(shape.reduce((a, b) => a * b, 1)),
-    shape,
-  } as any;
+      : new Float32Array((shape as Shape).reduce((a, b) => a * b, 1)),
+    shape: shape as Shape,
+  };
 }
 
 // `ArrayEveryElementIsNumericLiteralOrVar` is similar to JavaScript's
@@ -170,19 +157,38 @@ type ArrayEveryElementIsNumericLiteralOrVar<
     : false
   : false;
 
-// Tests
-const fourDimensionalTensorWithStaticSizes = tensor([10, 100, 1000, 10000]);
-const threeDimensionalTensorWithRuntimeSize = tensor([5, Var(3, "dim"), 10]);
+type InvalidArgument<T> = readonly [never, T];
+type AssertShapeEveryElementIsNumericLiteralOrVar<
+  T extends ReadonlyArray<number | Var<string>>
+> = true extends ArrayEveryElementIsNumericLiteralOrVar<T>
+  ? T
+  : ReadonlyArray<
+      InvalidArgument<"The `shape` argument must be marked `as const` and only contain number literals or branded types.">
+    >;
 
-const invalidTensor1 = tensor([10 as number, 100, 1000, 10000]);
-const invalidTensor2 = tensor([5, 3 as 3 | 6 | 9, 10]);
+// Tests
+const fourDimensionalTensorWithStaticSizes = tensor([
+  10, 100, 1000, 10000,
+] as const);
+const threeDimensionalTensorWithRuntimeSize = tensor([
+  5,
+  Var(3, "dim"),
+  10,
+] as const);
+
+// @errors: 2322
+const invalidTensor1 = tensor([10, 100, 1000, 10000]);
+// @errors: 2322 2345
+const invalidTensor2 = tensor([10 as number, 100, 1000, 10000] as const);
+// @errors: 2322 2345
+const invalidTensor3 = tensor([5, 3 as 3 | 6 | 9, 10] as const);
 ```
 
 If you need to, you can read further on the more advanced TypeScript techniques here:
 
-- ["mapped types"](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html).
-- ["conditional types"](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html).
-- ["branded types"](https://twitter.com/mattpocockuk/status/1625173884885401600).
+- [“mapped types”](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html).
+- [“conditional types”](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html).
+- [“branded types”](https://twitter.com/mattpocockuk/status/1625173884885401600).
 
 ### `Matrix`
 
@@ -226,23 +232,16 @@ export type Tensor<Shape extends readonly Dimension[]> = {
   data: Float32Array;
   shape: Shape;
 };
-export type InvalidTensor<Shape extends readonly Dimension[]> = [
-  never,
-  "Invalid tensor: please provide an array of only numeric literals or `Var`s.",
-  Shape
-];
 export function tensor<const Shape extends readonly Dimension[]>(
-  shape: Shape,
+  shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
   init?: number[]
-): true extends ArrayEveryElementIsNumericLiteralOrVar<Shape>
-  ? Tensor<Shape>
-  : InvalidTensor<Shape> {
+): Tensor<Shape> {
   return {
     data: init
       ? new Float32Array(init)
-      : new Float32Array(shape.reduce((a, b) => a * b, 1)),
-    shape,
-  } as any;
+      : new Float32Array((shape as Shape).reduce((a, b) => a * b, 1)),
+    shape: shape as Shape,
+  };
 }
 
 type ArrayEveryElementIsNumericLiteralOrVar<
@@ -255,31 +254,40 @@ type ArrayEveryElementIsNumericLiteralOrVar<
     : false
   : false;
 
+type InvalidArgument<T> = readonly [never, T];
+type AssertShapeEveryElementIsNumericLiteralOrVar<
+  T extends ReadonlyArray<number | Var<string>>
+> = true extends ArrayEveryElementIsNumericLiteralOrVar<T>
+  ? T
+  : ReadonlyArray<
+      InvalidArgument<"The `shape` argument must be marked `as const` and only contain number literals or branded types.">
+    >;
+
 /// ---cut---
 
 export type Matrix<Rows extends Dimension, Columns extends Dimension> = Tensor<
-  [Rows, Columns]
+  readonly [Rows, Columns]
 >;
-export type InvalidMatrix<Shape extends readonly [Dimension, Dimension]> = [
-  never,
-  "Invalid matrix: please provide an array of only numeric literals or `Var`s.",
-  Shape
-];
 export function matrix<const Shape extends readonly [Dimension, Dimension]>(
-  shape: Shape,
+  shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
   init?: number[]
-): true extends ArrayEveryElementIsNumericLiteralOrVar<Shape>
-  ? Matrix<Shape[0], Shape[1]>
-  : InvalidMatrix<Shape> {
-  return tensor(shape, init) as any;
+): Matrix<Shape[0], Shape[1]> {
+  return tensor(shape, init);
 }
 
 // Tests
-const matrixWithStaticSizes = matrix([25, 50]);
-const matrixWithRuntimeSize = matrix([10, Var(100, "configuredDimensionName")]);
+const matrixWithStaticSizes = matrix([25, 50] as const);
+const matrixWithRuntimeSize = matrix([
+  10,
+  Var(100, "configuredDimensionName"),
+] as const);
 
-const invalidMatrix1 = matrix([25 as number, 50]);
-const invalidMatrix2 = matrix([10, 100 as 100 | 115]);
+// @errors: 2322
+const invalidMatrix1 = matrix([25, 50]);
+// @errors: 2322 2345
+const invalidMatrix2 = matrix([25 as number, 50] as const);
+// @errors: 2322 2345
+const invalidMatrix3 = matrix([10, 100 as 100 | 115] as const);
 ```
 
 ### `Vector`
@@ -324,23 +332,16 @@ export type Tensor<Shape extends readonly Dimension[]> = {
   data: Float32Array;
   shape: Shape;
 };
-export type InvalidTensor<Shape extends readonly Dimension[]> = [
-  never,
-  "Invalid tensor: please provide an array of only numeric literals or `Var`s.",
-  Shape
-];
 export function tensor<const Shape extends readonly Dimension[]>(
-  shape: Shape,
+  shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
   init?: number[]
-): true extends ArrayEveryElementIsNumericLiteralOrVar<Shape>
-  ? Tensor<Shape>
-  : InvalidTensor<Shape> {
+): Tensor<Shape> {
   return {
     data: init
       ? new Float32Array(init)
-      : new Float32Array(shape.reduce((a, b) => a * b, 1)),
-    shape,
-  } as any;
+      : new Float32Array((shape as Shape).reduce((a, b) => a * b, 1)),
+    shape: shape as Shape,
+  };
 }
 
 type ArrayEveryElementIsNumericLiteralOrVar<
@@ -353,61 +354,56 @@ type ArrayEveryElementIsNumericLiteralOrVar<
     : false
   : false;
 
+type InvalidArgument<T> = readonly [never, T];
+type AssertShapeEveryElementIsNumericLiteralOrVar<
+  T extends ReadonlyArray<number | Var<string>>
+> = true extends ArrayEveryElementIsNumericLiteralOrVar<T>
+  ? T
+  : ReadonlyArray<
+      InvalidArgument<"The `shape` argument must be marked `as const` and only contain number literals or branded types.">
+    >;
+
 export type Matrix<Rows extends Dimension, Columns extends Dimension> = Tensor<
-  [Rows, Columns]
+  readonly [Rows, Columns]
 >;
-export type InvalidMatrix<Shape extends readonly [Dimension, Dimension]> = [
-  never,
-  "Invalid matrix: please provide an array of only numeric literals or `Var`s.",
-  Shape
-];
 export function matrix<const Shape extends readonly [Dimension, Dimension]>(
-  shape: Shape,
+  shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
   init?: number[]
-): true extends ArrayEveryElementIsNumericLiteralOrVar<Shape>
-  ? Matrix<Shape[0], Shape[1]>
-  : InvalidMatrix<Shape> {
-  return tensor(shape, init) as any;
+): Matrix<Shape[0], Shape[1]> {
+  return tensor(shape, init);
 }
 
 /// ---cut---
 
-export type RowVector<Size extends number> = Tensor<[1, Size]>;
-export type Vector<Size extends number> = RowVector<Size>;
-export type InvalidVector<Size extends Dimension | readonly number[]> = [
-  never,
-  "Invalid vector: please provide either a numeric literal or a `Var`.",
-  Size
-];
-export function vector<const Size extends number>(
-  size: Size,
-  init?: number[]
-): true extends IsNumericLiteralOrVar<Size>
-  ? Vector<Size>
-  : InvalidVector<Size>;
+type AssertSizeIsNumericLiteralOrVar<T extends Dimension> =
+  true extends IsNumericLiteralOrVar<T>
+    ? T
+    : InvalidArgument<"The `size` argument must only contain number literals or branded types.">;
+
+export type RowVector<Size extends Dimension> = Tensor<readonly [1, Size]>;
+export type Vector<Size extends Dimension> = RowVector<Size>;
 export function vector<const Size extends Dimension>(
-  size: Size,
+  size: AssertSizeIsNumericLiteralOrVar<Size>,
   init?: number[]
-): true extends IsNumericLiteralOrVar<Size>
-  ? Vector<Size>
-  : InvalidVector<Size>;
-export function vector<const Array extends readonly [number, ...number[]]>(
+): Vector<Size>;
+export function vector<const Array extends readonly Dimension[]>(
   init: Array
 ): Vector<Array["length"]>;
-export function vector<
-  const Size extends number | Var<string> | readonly number[]
->(size: Size, init?: number[]): Vector<any> {
-  let shape: Dimension[];
+export function vector<const Size extends Dimension>(
+  size: AssertSizeIsNumericLiteralOrVar<Size>,
+  init?: number[]
+): Vector<Size> {
+  let shape: readonly [1, any];
   if (typeof size === "number") {
     shape = [1, size];
   } else if (Array.isArray(size)) {
     shape = [1, size.length];
     init = size;
   } else {
-    throw new Error("Invalid input type for vector.");
+    throw new Error("Invalid size type for vector.");
   }
 
-  return tensor(shape, init) as any;
+  return tensor(shape, init);
 }
 
 // Tests
@@ -415,13 +411,15 @@ const vectorWithStaticSize = vector(2);
 const vectorWithRuntimeSize = vector(Var(4, "configuredDimensionName"));
 const vectorWithSizeFromData = vector([1, 2, 3]);
 
+// @errors: 2769
 const invalidVector1 = vector(2 as number);
+// @errors: 2769
 const invalidVector2 = vector(100 as 100 | 115);
 ```
 
 ### `zip`
 
-Finally, we can write a zip function that combines two vectors of the same size. Similarly, although not shown here, it's possible to create functions that expect two operands with different but compatible shapes. To do this, we can make the type of one operand a generic type, which produces a new type based on the exact type of the other operand.
+Finally, we can write a zip function that combines two vectors of the same size. Similarly, although not shown here, it’s possible to create functions that expect two operands with different but compatible shapes. To do this, we can make the type of one operand a generic type, which produces a new type based on the exact type of the other operand.
 
 ```typescript twoslash
 type IsNumericLiteral<T> = number extends T
@@ -463,23 +461,16 @@ export type Tensor<Shape extends readonly Dimension[]> = {
   data: Float32Array;
   shape: Shape;
 };
-export type InvalidTensor<Shape extends readonly Dimension[]> = [
-  never,
-  "Invalid tensor: please provide an array of only numeric literals or `Var`s.",
-  Shape
-];
 export function tensor<const Shape extends readonly Dimension[]>(
-  shape: Shape,
+  shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
   init?: number[]
-): true extends ArrayEveryElementIsNumericLiteralOrVar<Shape>
-  ? Tensor<Shape>
-  : InvalidTensor<Shape> {
+): Tensor<Shape> {
   return {
     data: init
       ? new Float32Array(init)
-      : new Float32Array(shape.reduce((a, b) => a * b, 1)),
-    shape,
-  } as any;
+      : new Float32Array((shape as Shape).reduce((a, b) => a * b, 1)),
+    shape: shape as Shape,
+  };
 }
 
 type ArrayEveryElementIsNumericLiteralOrVar<
@@ -492,59 +483,54 @@ type ArrayEveryElementIsNumericLiteralOrVar<
     : false
   : false;
 
+type InvalidArgument<T> = readonly [never, T];
+type AssertShapeEveryElementIsNumericLiteralOrVar<
+  T extends ReadonlyArray<number | Var<string>>
+> = true extends ArrayEveryElementIsNumericLiteralOrVar<T>
+  ? T
+  : ReadonlyArray<
+      InvalidArgument<"The `shape` argument must be marked `as const` and only contain number literals or branded types.">
+    >;
+
 export type Matrix<Rows extends Dimension, Columns extends Dimension> = Tensor<
-  [Rows, Columns]
+  readonly [Rows, Columns]
 >;
-export type InvalidMatrix<Shape extends readonly [Dimension, Dimension]> = [
-  never,
-  "Invalid matrix: please provide an array of only numeric literals or `Var`s.",
-  Shape
-];
 export function matrix<const Shape extends readonly [Dimension, Dimension]>(
-  shape: Shape,
+  shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
   init?: number[]
-): true extends ArrayEveryElementIsNumericLiteralOrVar<Shape>
-  ? Matrix<Shape[0], Shape[1]>
-  : InvalidMatrix<Shape> {
-  return tensor(shape, init) as any;
+): Matrix<Shape[0], Shape[1]> {
+  return tensor(shape, init);
 }
 
-export type RowVector<Size extends number> = Tensor<[1, Size]>;
-export type Vector<Size extends number> = RowVector<Size>;
-export type InvalidVector<Size extends Dimension | readonly number[]> = [
-  never,
-  "Invalid vector: please provide either a numeric literal or a `Var`.",
-  Size
-];
-export function vector<const Size extends number>(
-  size: Size,
-  init?: number[]
-): true extends IsNumericLiteralOrVar<Size>
-  ? Vector<Size>
-  : InvalidVector<Size>;
+type AssertSizeIsNumericLiteralOrVar<T extends Dimension> =
+  true extends IsNumericLiteralOrVar<T>
+    ? T
+    : InvalidArgument<"The `size` argument must only contain number literals or branded types.">;
+
+export type RowVector<Size extends Dimension> = Tensor<readonly [1, Size]>;
+export type Vector<Size extends Dimension> = RowVector<Size>;
 export function vector<const Size extends Dimension>(
-  size: Size,
+  size: AssertSizeIsNumericLiteralOrVar<Size>,
   init?: number[]
-): true extends IsNumericLiteralOrVar<Size>
-  ? Vector<Size>
-  : InvalidVector<Size>;
-export function vector<const Array extends readonly [number, ...number[]]>(
+): Vector<Size>;
+export function vector<const Array extends readonly Dimension[]>(
   init: Array
 ): Vector<Array["length"]>;
-export function vector<
-  const Size extends number | Var<string> | readonly number[]
->(size: Size, init?: number[]): Vector<any> {
-  let shape: Dimension[];
+export function vector<const Size extends Dimension>(
+  size: AssertSizeIsNumericLiteralOrVar<Size>,
+  init?: number[]
+): Vector<Size> {
+  let shape: readonly [1, any];
   if (typeof size === "number") {
     shape = [1, size];
   } else if (Array.isArray(size)) {
     shape = [1, size.length];
     init = size;
   } else {
-    throw new Error("Invalid input type for vector.");
+    throw new Error("Invalid size type for vector.");
   }
 
-  return tensor(shape, init) as any;
+  return tensor(shape, init);
 }
 
 /// ---cut---
@@ -581,7 +567,7 @@ function zip<SameVector extends Vector<number>>(
     resultData.push(a.data[i], b.data[i]);
   }
 
-  return matrix([length, 2], resultData) as any;
+  return matrix([length as any, 2] as const, resultData);
 }
 
 // Tests
