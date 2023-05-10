@@ -80,7 +80,7 @@ If you need to, you can read further on the more advanced TypeScript techniques 
 
 ### `Tensor`
 
-We can then implement a type-safe `Tensor` using these. Note that, we diverged from Ben’s original implementation by enforcing the constraint that dimensions must be numeric literals or “branded types” at the argument-level instead of doing so [at the return-level with a conditional return type that produces an invalid tensor](https://github.com/newhouseb/potatogpt/blob/d2ee0cae82c7429bd5f8c140e64ff3d70ef7ff87/math.ts#L34). The downside of this is that you must use `as const` on the `shape` argument to prevent TypeScript from widening the literal types to `number`.
+We can then implement a type-safe `Tensor` with a unique constraint: the dimensions must be specified using numeric literals or “branded types”. This approach pushes the limits of TypeScript’s standard type-checking capabilities and requires a non-idiomatic usage of conditional types to represent these errors. Note that, we diverged from Ben’s original implementation by enforcing this dimensional constraint at the argument-level instead of doing so [at the return-level with a conditional return type that produces an invalid tensor](https://github.com/newhouseb/potatogpt/blob/d2ee0cae82c7429bd5f8c140e64ff3d70ef7ff87/math.ts#L34). The downside of this is that you must use `as const` on the `shape` argument to prevent TypeScript from widening the literal types to `number`.
 
 ```typescript twoslash
 type IsNumericLiteral<T> = number extends T
