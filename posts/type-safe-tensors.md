@@ -265,14 +265,53 @@ type AssertShapeEveryElementIsNumericLiteralOrVar<
 
 /// ---cut---
 
+function isDimensionArray(
+  maybeDimensionArray: any
+): maybeDimensionArray is readonly Dimension[] {
+  return (
+    Array.isArray(maybeDimensionArray) &&
+    maybeDimensionArray.some((d) => typeof d === "number")
+  );
+}
+function is2DArray(maybe2DArray: any): maybe2DArray is number[][] {
+  return (
+    Array.isArray(maybe2DArray) &&
+    maybe2DArray.some((row) => Array.isArray(row))
+  );
+}
+function flat<T>(arr: T[][]): T[] {
+  let result: T[] = [];
+  for (let i = 0; i < arr.length; i++) {
+    result.push.apply(result, arr[i]);
+  }
+  return result;
+}
+
 export type Matrix<Rows extends Dimension, Columns extends Dimension> = Tensor<
   readonly [Rows, Columns]
 >;
+export function matrix<
+  const TwoDArray extends ReadonlyArray<ReadonlyArray<number>>
+>(init: TwoDArray): Matrix<TwoDArray["length"], TwoDArray[0]["length"]>;
+export function matrix<const Shape extends readonly [Dimension, Dimension]>(
+  shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
+  init?: number[]
+): Matrix<Shape[0], Shape[1]>;
 export function matrix<const Shape extends readonly [Dimension, Dimension]>(
   shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
   init?: number[]
 ): Matrix<Shape[0], Shape[1]> {
-  return tensor(shape, init);
+  let resolvedShape: readonly [any, any];
+  if (isDimensionArray(shape)) {
+    resolvedShape = shape;
+  } else if (is2DArray(shape)) {
+    resolvedShape = [shape.length, shape[0].length];
+    init = flat(shape);
+  } else {
+    throw new Error("Invalid shape type for matrix.");
+  }
+
+  return tensor(resolvedShape, init);
 }
 
 // Tests
@@ -281,12 +320,17 @@ const matrixWithRuntimeSize = matrix([
   10,
   Var(100, "configuredDimensionName"),
 ] as const);
+const matrixWithSizeFromData = matrix([
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+]);
 
-// @errors: 2322
+// @errors: 2322 2769
 const invalidMatrix1 = matrix([25, 50]);
-// @errors: 2322 2345
+// @errors: 2322 2345 2769
 const invalidMatrix2 = matrix([25 as number, 50] as const);
-// @errors: 2322 2345
+// @errors: 2322 2345 2769
 const invalidMatrix3 = matrix([10, 100 as 100 | 115] as const);
 ```
 
@@ -363,14 +407,53 @@ type AssertShapeEveryElementIsNumericLiteralOrVar<
       InvalidArgument<"The `shape` argument must be marked `as const` and only contain number literals or branded types.">
     >;
 
+function isDimensionArray(
+  maybeDimensionArray: any
+): maybeDimensionArray is readonly Dimension[] {
+  return (
+    Array.isArray(maybeDimensionArray) &&
+    maybeDimensionArray.some((d) => typeof d === "number")
+  );
+}
+function is2DArray(maybe2DArray: any): maybe2DArray is number[][] {
+  return (
+    Array.isArray(maybe2DArray) &&
+    maybe2DArray.some((row) => Array.isArray(row))
+  );
+}
+function flat<T>(arr: T[][]): T[] {
+  let result: T[] = [];
+  for (let i = 0; i < arr.length; i++) {
+    result.push.apply(result, arr[i]);
+  }
+  return result;
+}
+
 export type Matrix<Rows extends Dimension, Columns extends Dimension> = Tensor<
   readonly [Rows, Columns]
 >;
+export function matrix<
+  const TwoDArray extends ReadonlyArray<ReadonlyArray<number>>
+>(init: TwoDArray): Matrix<TwoDArray["length"], TwoDArray[0]["length"]>;
+export function matrix<const Shape extends readonly [Dimension, Dimension]>(
+  shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
+  init?: number[]
+): Matrix<Shape[0], Shape[1]>;
 export function matrix<const Shape extends readonly [Dimension, Dimension]>(
   shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
   init?: number[]
 ): Matrix<Shape[0], Shape[1]> {
-  return tensor(shape, init);
+  let resolvedShape: readonly [any, any];
+  if (isDimensionArray(shape)) {
+    resolvedShape = shape;
+  } else if (is2DArray(shape)) {
+    resolvedShape = [shape.length, shape[0].length];
+    init = flat(shape);
+  } else {
+    throw new Error("Invalid shape type for matrix.");
+  }
+
+  return tensor(resolvedShape, init);
 }
 
 /// ---cut---
@@ -382,13 +465,13 @@ type AssertSizeIsNumericLiteralOrVar<T extends Dimension> =
 
 export type RowVector<Size extends Dimension> = Tensor<readonly [1, Size]>;
 export type Vector<Size extends Dimension> = RowVector<Size>;
+export function vector<const OneDArray extends readonly Dimension[]>(
+  init: OneDArray
+): Vector<OneDArray["length"]>;
 export function vector<const Size extends Dimension>(
   size: AssertSizeIsNumericLiteralOrVar<Size>,
   init?: number[]
 ): Vector<Size>;
-export function vector<const Array extends readonly Dimension[]>(
-  init: Array
-): Vector<Array["length"]>;
 export function vector<const Size extends Dimension>(
   size: AssertSizeIsNumericLiteralOrVar<Size>,
   init?: number[]
@@ -492,14 +575,53 @@ type AssertShapeEveryElementIsNumericLiteralOrVar<
       InvalidArgument<"The `shape` argument must be marked `as const` and only contain number literals or branded types.">
     >;
 
+function isDimensionArray(
+  maybeDimensionArray: any
+): maybeDimensionArray is readonly Dimension[] {
+  return (
+    Array.isArray(maybeDimensionArray) &&
+    maybeDimensionArray.some((d) => typeof d === "number")
+  );
+}
+function is2DArray(maybe2DArray: any): maybe2DArray is number[][] {
+  return (
+    Array.isArray(maybe2DArray) &&
+    maybe2DArray.some((row) => Array.isArray(row))
+  );
+}
+function flat<T>(arr: T[][]): T[] {
+  let result: T[] = [];
+  for (let i = 0; i < arr.length; i++) {
+    result.push.apply(result, arr[i]);
+  }
+  return result;
+}
+
 export type Matrix<Rows extends Dimension, Columns extends Dimension> = Tensor<
   readonly [Rows, Columns]
 >;
+export function matrix<
+  const TwoDArray extends ReadonlyArray<ReadonlyArray<number>>
+>(init: TwoDArray): Matrix<TwoDArray["length"], TwoDArray[0]["length"]>;
+export function matrix<const Shape extends readonly [Dimension, Dimension]>(
+  shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
+  init?: number[]
+): Matrix<Shape[0], Shape[1]>;
 export function matrix<const Shape extends readonly [Dimension, Dimension]>(
   shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
   init?: number[]
 ): Matrix<Shape[0], Shape[1]> {
-  return tensor(shape, init);
+  let resolvedShape: readonly [any, any];
+  if (isDimensionArray(shape)) {
+    resolvedShape = shape;
+  } else if (is2DArray(shape)) {
+    resolvedShape = [shape.length, shape[0].length];
+    init = flat(shape);
+  } else {
+    throw new Error("Invalid shape type for matrix.");
+  }
+
+  return tensor(resolvedShape, init);
 }
 
 type AssertSizeIsNumericLiteralOrVar<T extends Dimension> =
@@ -509,13 +631,13 @@ type AssertSizeIsNumericLiteralOrVar<T extends Dimension> =
 
 export type RowVector<Size extends Dimension> = Tensor<readonly [1, Size]>;
 export type Vector<Size extends Dimension> = RowVector<Size>;
+export function vector<const OneDArray extends readonly Dimension[]>(
+  init: OneDArray
+): Vector<OneDArray["length"]>;
 export function vector<const Size extends Dimension>(
   size: AssertSizeIsNumericLiteralOrVar<Size>,
   init?: number[]
 ): Vector<Size>;
-export function vector<const Array extends readonly Dimension[]>(
-  init: Array
-): Vector<Array["length"]>;
 export function vector<const Size extends Dimension>(
   size: AssertSizeIsNumericLiteralOrVar<Size>,
   init?: number[]
@@ -551,7 +673,7 @@ export function vector<const Size extends Dimension>(
  *
  * Memory layout in Float32Array: [a1, b1, a2, b2, a3, b3]
  */
-function zip<SameVector extends Vector<number>>(
+function zip<SameVector extends Vector<Dimension>>(
   a: SameVector,
   b: SameVector
 ): Matrix<SameVector["shape"][1], 2> {
