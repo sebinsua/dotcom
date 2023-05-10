@@ -74,11 +74,11 @@ type UnionToIntersection<Union> = (
 
 If you need to, you can read further on the more advanced TypeScript techniques here:
 
-- [`IsUnion`](https://stackoverflow.com/a/53955431).
-- [`UnionToIntersection`](https://stackoverflow.com/a/50375286/9259778).
-- [“distributive conditional types”](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html#distributive-conditional-types).
+- [`IsUnion`](https://stackoverflow.com/a/53955431)
+- [`UnionToIntersection`](https://stackoverflow.com/a/50375286/9259778)
+- [“distributive conditional types”](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html#distributive-conditional-types)
 
-### `Tensor`
+### Tensor
 
 We can then implement a type-safe `Tensor` with a unique constraint: the dimensions must be specified using numeric literals or “branded types”. This approach pushes the limits of TypeScript’s standard type-checking capabilities and requires a non-idiomatic usage of conditional types to represent these errors. Note that, we diverged from Ben’s original implementation by enforcing this dimensional constraint at the argument-level instead of doing so [at the return-level with a conditional return type that produces an invalid tensor](https://github.com/newhouseb/potatogpt/blob/d2ee0cae82c7429bd5f8c140e64ff3d70ef7ff87/math.ts#L34). The downside of this is that you must use `as const` on the `shape` argument to prevent TypeScript from widening the literal types to `number`.
 
@@ -186,11 +186,11 @@ const invalidTensor3 = tensor([5, 3 as 3 | 6 | 9, 10] as const);
 
 If you need to, you can read further on the more advanced TypeScript techniques here:
 
-- [“mapped types”](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html).
-- [“conditional types”](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html).
-- [“branded types”](https://twitter.com/mattpocockuk/status/1625173884885401600).
+- [“mapped types”](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html)
+- [“conditional types”](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html)
+- <a href="https://twitter.com/mattpocockuk/status/1625173884885401600">“branded types”</a>
 
-### `Matrix`
+### Matrix
 
 ```typescript twoslash
 type IsNumericLiteral<T> = number extends T
@@ -334,7 +334,7 @@ const invalidMatrix2 = matrix([25 as number, 50] as const);
 const invalidMatrix3 = matrix([10, 100 as 100 | 115] as const);
 ```
 
-### `Vector`
+### Vector
 
 ```typescript twoslash
 type IsNumericLiteral<T> = number extends T
@@ -500,9 +500,9 @@ const invalidVector1 = vector(2 as number);
 const invalidVector2 = vector(100 as 100 | 115);
 ```
 
-### `zip`
+### zip
 
-Finally, we can write a zip function that combines two vectors of the same size. Similarly, although not shown here, it’s possible to create functions that expect two operands with different but compatible shapes. To do this, we can make the type of one operand a generic type, which produces a new type based on the exact type of the other operand.
+Finally, we can write a `zip` function that combines two `Vector`s of the same length into a `Matrix` of `[VectorLength, 2]`.
 
 ```typescript twoslash
 type IsNumericLiteral<T> = number extends T
@@ -709,3 +709,5 @@ const zipped2 = zip(threeElementVector3, threeElementVector4);
 // @errors: 2345
 const zippedError2 = zip(threeElementVector3, fourElementVector2);
 ```
+
+Finally, although not shown here, it’s possible to create functions that expect two operands with different but compatible shapes. To do this, we can make the type of one operand a generic type, which produces a new type based on the exact type of the other operand.

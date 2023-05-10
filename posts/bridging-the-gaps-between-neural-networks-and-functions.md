@@ -22,13 +22,13 @@ Backpropagation is, in essence, _just_ the chain rule on [(multivariate)](https:
 
 If you haven’t used calculus much since school and have forgotten this, an intuitive understanding of the chain rule is that it allows us to understand the relationships between different rates of change that can be observed in nature.
 
-> _“If a car travels twice as fast as a bicycle and the bicycle is four times as fast as a walking man, then the car travels `2 * 4 = 8` times as fast as the man.”_
+> _“If a car travels twice as fast as a bicycle and the bicycle is four times as fast as a walking man, then the car travels $2 * 4 = 8$ times as fast as the man.”_
 >
 > — George F. Simmons
 
 As an example, suppose we have a balloon being inflated such that its volume and radius are changing over time. We can use the chain rule to find out how fast the volume is changing by multiplying the rate of radius change with the rate of radius change per unit volume.
 
-There are two ways this can be expressed. The first highlights the derivative as a composition of functions (Lagrange’s notation), while the latter is the more common form and uses the symbol `∂` to denote [“partial derivative”](https://www.khanacademy.org/math/multivariable-calculus/multivariable-derivatives/partial-derivative-and-gradient-articles/a/introduction-to-partial-derivatives) (Leibniz’s notation).
+There are two ways this can be expressed. The first highlights the derivative as a composition of functions (Lagrange’s notation), while the latter is the more common form and uses the symbol $∂$ to denote [“partial derivative”](https://www.khanacademy.org/math/multivariable-calculus/multivariable-derivatives/partial-derivative-and-gradient-articles/a/introduction-to-partial-derivatives) (Leibniz’s notation).
 
 $$
 \begin{equation*}

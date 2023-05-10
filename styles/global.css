@@ -16,6 +16,25 @@ pre code {
   font-size: 13px;
 }
 
+code {
+  color: orangered;
+}
+.code-container code {
+  color: unset;
+}
+code::before,
+code::after {
+  content: "`";
+  display: inline;
+  color: slategrey;
+}
+.code-container code::before,
+.code-container code::after {
+  content: unset;
+  display: unset;
+  color: unset;
+}
+
 a {
   text-decoration: none;
   color: #0000ee;
