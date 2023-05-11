@@ -61,25 +61,25 @@ I’ve named this the “Inverse Number Spiral” problem and here is the proble
 
 ## Analysis
 
-My initial thought was that I could solve this problem by simply iterating over the spiral and checking if the current number is equal to the given number $N$. I imagined a robot starting at position $[1, 1]$, moving like a snake—right, down, left and up— while adjusting the number of steps in each direction. However, understanding the sequence of steps proved to be quite challenging. The pattern appeared complex and difficult to comprehend, making it difficult to implement (e.g. right 1, down 1, left 1, down 1, right 2, up 2, right 1, down 3, left 3, down 1, right 4, up 4).
+My initial thought was that I could solve this problem by simply iterating over the spiral and checking if the current number is equal to the given number $N$. I imagined a robot starting at position $[1, 1]$, moving like a snake—right, down, left and up—while adjusting the number of steps in each direction. However, understanding the sequence of steps proved to be quite challenging. The pattern appeared complex and difficult to comprehend, making it difficult to implement (e.g. right 1, down 1, left 1, down 1, right 2, up 2, right 1, down 3, left 3, down 1, right 4, up 4, and so on).
 
-Additionally, the time complexity of such an algorithm would be $O(N)$, and considering that the number of tests $t$ is also an input parameter the overall time complexity would be $O(t \cdot N)$. With potentially up to $10^{5}$ tests and $N$ values reaching up to $10^{9}$, the brute-force approach would require up to $10^{14}$ iterations which might cause the program to exceed the time limit.
+The time complexity of such an algorithm is $O(N)$. However, the number of tests $t$ is also an input parameter, which makes the overall time complexity $O(t \cdot N)$. Given that there can be up to $10^{5}$ tests and up to $10^{9}$ input numbers, a brute-force approach could potentially require up to $10^{14}$ iterations which may cause the program to exceed the time limit.
 
-Given these challenges, I decided to look to see whether I could find an alternative approach that would offer a more efficient and elegant solution.
+Given these challenges, I decided to look to see whether I could find an alternative approach.
 
-As I contemplated the spiral grid, I recognized a familiar pattern at the end of each layer of the spiral:
+As I contemplated the spiral grid, I recognised a familiar pattern at the end of each layer of the spiral:
 
 $$
 1, 4, 9, 16, 25
 $$
 
-It was the sequence of [square numbers](https://en.wikipedia.org/wiki/Square_number) (e.g. $n^2$), where $n$ was the layer of the spiral. This observation sparked my curiosity and led me to wonder if I could leverage this pattern to my advantage.
+It was the sequence of [square numbers](https://en.wikipedia.org/wiki/Square_number) (e.g. $n^2$). This observation sparked my curiosity and led me to wonder if I could leverage this pattern to my advantage.
 
 <p align="center" width="100%">
   <img alt="Layers" src="./assets/posts/inverse-number-spiral/number-spiral-2.png" />
 </p>
 
-I realised that the maximum value in each layer of the spiral was equal to the square of the layer number. For example, the maximum value in <span style="color: rgb(21, 52, 238)">layer 3 was $3^2 = 9$</span>, the maximum value in <span style="color: rgb(240, 80, 231)">layer 4 was $4^2 = 16$</span>, and so on. This meant that I could use the square root function to determine the layer number for a given value $N$. Only the square numbers of a layer would directly produce the layer number when taking a square root, however all values in the layer including its minimum produce a decimal value greater than the previous layer number and therefore as long as we round up this value to the nearest integer (e.g. `Math.ceil`) it produces the correct layer number.
+I realised that the maximum value in each layer of the spiral was equal to the square of the layer number $L$. For example, the maximum value in <span style="color: rgb(21, 52, 238)">layer 3 was $3^2 = 9$</span>, the maximum value in <span style="color: rgb(240, 80, 231)">layer 4 was $4^2 = 16$</span>, and so on. This meant that I could use the square root function to determine the layer number $L$ for a given value $N$. Only the square numbers of a layer would directly produce the layer number when taking a square root, however all values in the layer including its minimum produce a decimal value greater than the previous layer number and therefore as long as we round up this value to the nearest integer (e.g. `Math.ceil`) our method produces the correct layer number.
 
 ```typescript twoslash
 function layer(N: number) {
@@ -98,7 +98,7 @@ const L9 = layer(9); // 3
 const L10 = layer(10); // 4
 ```
 
-Once I had a layer $L$ number, I was able to use this to determine the range of values for that layer, as for a given layer $L$ the maximum value is $L^2$ and the minimum value is $(L-1)^2 + 1$ (if you add one to the maximum value of the previous layer you get the minimum of the layer that follows it).
+Once I had a layer number $L$, I was able to use this to determine the range of values for that layer, as for a given layer $L$ the maximum value is $L^2$ and the minimum value is $(L-1)^2 + 1$ (if you add one to the maximum value of the previous layer you get the minimum of the layer that follows it).
 
 ```typescript twoslash
 function layerRange(L: number) {
@@ -114,12 +114,14 @@ const R3 = layerRange(3); // [5, 9]
 const R4 = layerRange(4); // [10, 16]
 ```
 
-The way I saw it at this point was that a layer range represented a sort of one-dimensional version of each layer of the spiral. In order to determine the $[y, x]$ coordinates for a given value $N$, I needed to be able to determine the position of $N$ within this layer, and then to translate that position back into $[y, x]$ coordinates.
+The way I saw it at this point was that a layer range represented a sort of one-dimensional version of each layer of the spiral. In order to determine the $[y, x]$ coordinates for a given value $N$, I would need to be able to determine the position of $N$ within this layer, and then be able to translate that position back into $[y, x]$ coordinates.
 
-I found that I was able to get the position of $N$ within the one-dimensional layer range quite easily by subtracting the minimum value of the layer from $N$. For example, the position of $N = 7$ in layer 3 was $7 - 5 = 2$. However, in order to convert the one-dimensional position into two-dimensional $[y, x]$ coordinates within the grid, there were two further properties of the spiral that I needed to use to my advantage:
+I found that I was able to get the position of $N$ within the one-dimensional layer range quite easily by subtracting the minimum value of the layer from $N$. For example, the position of $N = 7$ in <span style="color: rgb(21, 52, 238)">layer 3 was $7 - 5 = 2$</span>. However, in order to convert the one-dimensional position into two-dimensional $[y, x]$ coordinates within the grid, there were two further properties of the spiral that I needed to use to my advantage:
 
 1. The spiral goes in a clockwise direction in even layers and an anti-clockwise direction in odd layers.
-2. Depending on the position of $N$ in relation to the mid-point of the layer range and the direction of the spiral, the $y$ or $x$ coordinates are either set to the layer number $L$ or calculated. For example, the spiral travels clockwise in the 5th layer and therefore when the position of $N$ within the layer range is less than or equal to its mid-point, the $y$ coordinate of $N$ is the layer number $L$, however, when the position of $N$ within the layer range is greater than its mid-point, the $x$ coordinate of $N$ is the layer number $L$. The inverse is true for odd layers.
+2. Depending on the position of $N$ in relation to the mid-point of the layer range and the direction of the spiral, the $y$ or $x$ coordinates are either set to the layer number $L$ or calculated. For example, the spiral travels anti-clockwise in the 5th layer and therefore when the position of $N$ within the layer range is less than or equal to its mid-point, the $y$ coordinate of $N$ is the layer number $L$, however, when the position of $N$ within the layer range is greater than its mid-point, the $x$ coordinate of $N$ is the layer number $L$. The inverse is true for even layers.
+
+## Solution
 
 With all of this in mind, I was finally able to determine the $[y, x]$ coordinates for a given value $N$, like so:
 
@@ -134,8 +136,6 @@ function layerRange(L: number) {
 
   return [start, end] as const;
 }
-
-/// ---cut---
 
 function direction(L: number, axis: "y" | "x") {
   switch (axis) {
@@ -162,29 +162,37 @@ function coord(N: number, axis: "y" | "x") {
 
   const [start, end] = layerRange(L);
 
-  // The sequence index is a zero-indexed "position" of N within the layer range.
+  // The `sequenceIndex` is a zero-indexed "position" of `N` within the layer
+  // range.
   const sequenceIndex = N - start;
 
-  // The mid index is the mid-point of the layer range.
+  // The `midIndex` is the zero-indexed mid-point of the layer range.
   const midIndex = (end - start) / 2;
 
-  // Depending on the direction of the spiral and the axis, the coordinate can be
-  // either (1) the layer number (L), (2) a position of N computed by starting
-  // from the beginning of the layer range, (3) a position of N computed by
-  // starting from the end of the layer range and counting back towards the
-  // center.
+  // Depending on the direction of the spiral and the axis, the coordinate
+  // can be either (1) the layer number `L`, (2) the position of `N` computed
+  // by starting from the beginning of the layer range, (3) the position of
+  // `N` computed by starting from the end of the layer range and counting
+  // backwards towards the center.
+  //
+  // The value of `D` might be somewhat difficult to grasp at first as it
+  // abstracts away the direction (clockwise/anti-clockwise) and the axis
+  // into a single value, that determines whether the coordinate is
+  // calculated by counting forwards towards the middle of the layer range
+  // or counting backwards from the end towards the middle of the layer
+  // range.
   const D = direction(L, axis);
   switch (D) {
     // If the direction is down or right.
     case 1: {
       if (sequenceIndex <= midIndex) {
         // For the first half of the sequence, the coordinate is simply the
-        // sequence index incremented by one to convert it from zero-indexed
-        // to one-indexed.
+        // `sequenceindex` incremented by one to convert it from
+        // zero-indexed to one-indexed.
         return 1 + sequenceIndex;
       }
 
-      // For the second half of the sequence, the coordinate is the layer (L)
+      // For the second half of the sequence, the coordinate is the layer `L`
       // itself.
       return L;
     }
@@ -192,13 +200,13 @@ function coord(N: number, axis: "y" | "x") {
     case -1: {
       if (sequenceIndex > midIndex) {
         // For the second half of the sequence, the coordinate is calculated
-        // by counting back from the maximum value of the outer layer (L)
+        // by counting back from the maximum value of the outer layer `L`
         // towards the center. We do this by subtracting the difference
-        // between the sequence index and the midIndex from the layer (L).
+        // between the `sequenceindex` and the `midIndex` from the layer `L`.
         return L - (sequenceIndex - midIndex);
       }
 
-      // For the first half of the sequence, the coordinate is the layer (L)
+      // For the first half of the sequence, the coordinate is the layer `L`
       // itself.
       return L;
     }
@@ -233,10 +241,12 @@ const F24 = f(24); // [2, 5]
 const F25 = f(25); // [1, 5]
 ```
 
-By identifying patterns in the number spiral and leveraging mathematical relationships, we were able to transform a seemingly complex problem into a solvable one. In the process, we developed an efficient algorithm that significantly reduces the time complexity compared to a brute-force approach.
+## Conclusion
+
+By identifying patterns in the number spiral and leveraging mathematical relationships, we were able to transform a seemingly complex problem into a solvable one. In the process, we developed an efficient algorithm that significantly reduced the time complexity compared to a brute-force approach.
 
 Because we are able to calculate the coordinates for a given number $N$ using only constant-time mathematical operations, the time complexity of the solution is $O(1)$. When we execute `f(N)` for each test case $t$ in the input, the overall time complexity becomes $O(t)$, a substantial improvement over the brute-force approach which would have a time complexity of $O(t \cdot N)$.
 
-Although further optimizations, such as memoizing the results of f(N) for each $N$ in the input to minimize duplicate calculations, could still be made, the current solution is both efficient and elegantly simple.
+Although further optimizations, such as memoizing `f(N)` to minimize duplicate calculations, could still be made, the current solution is both efficient and elegant.
 
-Now that you've seen our approach to solving this problem, we encourage you to try your hand at the original [“Number Spiral”](https://cses.fi/problemset/task/1071) problem. If you're looking for more challenges, the entire [CSES Problem Set](https://cses.fi/problemset/) is an excellent resource to explore, offering a wide range of problems to help hone your coding and problem-solving skills
+Now that you've seen our approach to solving this problem, we encourage you to try your hand at the original [“Number Spiral”](https://cses.fi/problemset/task/1071) problem. Finally, if you're looking for more challenges, the entire [CSES Problem Set](https://cses.fi/problemset/) is an excellent resource to explore, offering a wide range of problems to hone your coding and problem-solving skills.

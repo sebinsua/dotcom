@@ -7,7 +7,21 @@ body {
   font-size: 13px;
   line-height: 1.7rem;
 }
+h2 + p,
+h3 + p,
+h4 + p,
+h5 + p,
+h6 + p {
+  /* Counter the line-height. */
+  margin-top: -0.05rem;
+}
 
+blockquote {
+  overflow: auto;
+}
+blockquote pre.shiki {
+  margin-bottom: 0.5rem;
+}
 pre {
   border: 0;
   margin: 0;
