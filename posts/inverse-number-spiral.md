@@ -2,7 +2,6 @@
 title: Inverse number spiral
 slug: inverse-number-spiral
 date: "2023-05-11"
-hidden: true
 ---
 
 Recently, while working on a problem from the [CSES Problem Set](https://cses.fi/problemset/) known as [#1071: “Number Spiral”](https://cses.fi/problemset/task/1071), I accidentally misread the problem description and instead of finding $N$ for a given $[y, x]$, solved the inverse by finding $[y, x]$ for a given $N$. This problem turned out to have an interesting solution based on simple mathematical reasoning and as I couldn’t find any other solutions for this variant online, I thought I’d share my solution here.
