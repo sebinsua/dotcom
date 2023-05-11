@@ -8,7 +8,7 @@ Recently, [Ben Newhouse](http://bennewhouse.com) released a TypeScript-based imp
 
 The implementation is quite complex, employing several advanced TypeScript techniques. In order to make it more accessible and easier to understand, I’ve attempted to simplify and explain the implementation with clarifying comments below.
 
-Finally, I show how this approach allows us to easily create type-safe versions of functions like `zip`.
+Finally, I show how this approach allows us to easily create type-safe versions of functions like `zip` and `matmul`.
 
 ### Exact dimensions
 
@@ -502,7 +502,7 @@ const invalidVector2 = vector(100 as 100 | 115);
 
 ### zip
 
-Finally, we can write a `zip` function that combines two `Vector`s of the same length into a `Matrix` of `[VectorLength, 2]`.
+Once we have a `Vector` and `Matrix` type defined, we can use these to write a type-safe `zip` function that combines two `Vector`s of the same length into a `Matrix` of `[VectorLength, 2]`, like so:
 
 ```typescript twoslash
 type IsNumericLiteral<T> = number extends T
@@ -710,4 +710,216 @@ const zipped2 = zip(threeElementVector3, threeElementVector4);
 const zippedError2 = zip(threeElementVector3, fourElementVector2);
 ```
 
-Finally, although not shown here, it’s possible to create functions that expect two operands with different but compatible shapes. To do this, we can make the type of one operand a generic type, which produces a new type based on the exact type of the other operand.
+### matmul
+
+Finally, functions like [`matmul`](https://en.wikipedia.org/wiki/Matrix_multiplication) that expect two operands with different but compatible shapes, can be implemented using the same techniques:
+
+```typescript twoslash
+type IsNumericLiteral<T> = number extends T
+  ? false
+  : T extends number
+  ? true
+  : false;
+
+export type Var<Label extends string> = number & { label: Label };
+export const Var = <Label extends string>(size: number, label: Label) => {
+  return size as Var<Label>;
+};
+type IsVar<T> = T extends Var<string> ? true : false;
+
+type IsNumericLiteralOrVar<T extends number | Var<string>> = And<
+  // We disallow `T` to be a union of types.
+  Not<IsUnion<T>>,
+  Or<
+    // We allow `T` to be a numeric literal but not a number.
+    IsNumericLiteral<T>,
+    // We allow `T` to be a `Var`.
+    IsVar<T>
+  >
+>;
+
+type And<A, B> = A extends true ? (B extends true ? true : false) : false;
+type Or<A, B> = A extends true ? true : B extends true ? true : false;
+type Not<A> = A extends true ? false : true;
+
+type IsUnion<T> = [T] extends [UnionToIntersection<T>] ? false : true;
+type UnionToIntersection<Union> = (
+  Union extends unknown ? (distributedUnion: Union) => void : never
+) extends (mergedIntersection: infer Intersection) => void
+  ? Intersection
+  : never;
+
+export type Dimension = number | Var<string>;
+export type Tensor<Shape extends readonly Dimension[]> = {
+  data: Float32Array;
+  shape: Shape;
+};
+export function tensor<const Shape extends readonly Dimension[]>(
+  shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
+  init?: number[]
+): Tensor<Shape> {
+  return {
+    data: init
+      ? new Float32Array(init)
+      : new Float32Array((shape as Shape).reduce((a, b) => a * b, 1)),
+    shape: shape as Shape,
+  };
+}
+
+type ArrayEveryElementIsNumericLiteralOrVar<
+  T extends ReadonlyArray<number | Var<string>>
+> = T extends ReadonlyArray<unknown>
+  ? { [K in keyof T]: IsNumericLiteralOrVar<T[K]> } extends {
+      [K in keyof T]: true;
+    }
+    ? true
+    : false
+  : false;
+
+type InvalidArgument<T> = readonly [never, T];
+type AssertShapeEveryElementIsNumericLiteralOrVar<
+  T extends ReadonlyArray<number | Var<string>>
+> = true extends ArrayEveryElementIsNumericLiteralOrVar<T>
+  ? T
+  : ReadonlyArray<
+      InvalidArgument<"The `shape` argument must be marked `as const` and only contain number literals or branded types.">
+    >;
+
+function isDimensionArray(
+  maybeDimensionArray: any
+): maybeDimensionArray is readonly Dimension[] {
+  return (
+    Array.isArray(maybeDimensionArray) &&
+    maybeDimensionArray.some((d) => typeof d === "number")
+  );
+}
+function is2DArray(maybe2DArray: any): maybe2DArray is number[][] {
+  return (
+    Array.isArray(maybe2DArray) &&
+    maybe2DArray.some((row) => Array.isArray(row))
+  );
+}
+function flat<T>(arr: T[][]): T[] {
+  let result: T[] = [];
+  for (let i = 0; i < arr.length; i++) {
+    result.push.apply(result, arr[i]);
+  }
+  return result;
+}
+
+export type Matrix<Rows extends Dimension, Columns extends Dimension> = Tensor<
+  readonly [Rows, Columns]
+>;
+export function matrix<
+  const TwoDArray extends ReadonlyArray<ReadonlyArray<number>>
+>(init: TwoDArray): Matrix<TwoDArray["length"], TwoDArray[0]["length"]>;
+export function matrix<const Shape extends readonly [Dimension, Dimension]>(
+  shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
+  init?: number[]
+): Matrix<Shape[0], Shape[1]>;
+export function matrix<const Shape extends readonly [Dimension, Dimension]>(
+  shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
+  init?: number[]
+): Matrix<Shape[0], Shape[1]> {
+  let resolvedShape: readonly [any, any];
+  if (isDimensionArray(shape)) {
+    resolvedShape = shape;
+  } else if (is2DArray(shape)) {
+    resolvedShape = [shape.length, shape[0].length];
+    init = flat(shape);
+  } else {
+    throw new Error("Invalid shape type for matrix.");
+  }
+
+  return tensor(resolvedShape, init);
+}
+
+type AssertSizeIsNumericLiteralOrVar<T extends Dimension> =
+  true extends IsNumericLiteralOrVar<T>
+    ? T
+    : InvalidArgument<"The `size` argument must only contain number literals or branded types.">;
+
+export type RowVector<Size extends Dimension> = Tensor<readonly [1, Size]>;
+export type Vector<Size extends Dimension> = RowVector<Size>;
+export function vector<const OneDArray extends readonly Dimension[]>(
+  init: OneDArray
+): Vector<OneDArray["length"]>;
+export function vector<const Size extends Dimension>(
+  size: AssertSizeIsNumericLiteralOrVar<Size>,
+  init?: number[]
+): Vector<Size>;
+export function vector<const Size extends Dimension>(
+  size: AssertSizeIsNumericLiteralOrVar<Size>,
+  init?: number[]
+): Vector<Size> {
+  let shape: readonly [1, any];
+  if (typeof size === "number") {
+    shape = [1, size];
+  } else if (Array.isArray(size)) {
+    shape = [1, size.length];
+    init = size;
+  } else {
+    throw new Error("Invalid size type for vector.");
+  }
+
+  return tensor(shape, init);
+}
+
+/// ---cut---
+
+function matmul<
+  RowsA extends Dimension,
+  SharedDimension extends Dimension,
+  ColumnsB extends Dimension
+>(
+  a: Matrix<RowsA, SharedDimension>,
+  b: Not<IsUnion<SharedDimension>> extends true
+    ? Matrix<SharedDimension, ColumnsB>
+    : InvalidArgument<"The rows dimension of the `b` matrix must match the columns dimension of the `a` matrix.">
+): Matrix<RowsA, ColumnsB> {
+  const aMatrix = a;
+  const bMatrix = b as Matrix<SharedDimension, ColumnsB>;
+
+  const [aRows, aCols] = aMatrix.shape;
+  const [bRows, bCols] = bMatrix.shape;
+  if (aCols !== bRows) {
+    throw new Error(
+      "The rows dimension of the `b` matrix must match the columns dimension of the `a` matrix."
+    );
+  }
+
+  const shape = [aRows, bCols] as AssertShapeEveryElementIsNumericLiteralOrVar<
+    [RowsA, ColumnsB]
+  >;
+  const data = Array<number>(aRows * bCols).fill(0);
+  for (let rowIndex = 0; rowIndex < aRows; rowIndex++) {
+    for (let columnIndex = 0; columnIndex < bCols; columnIndex++) {
+      let dotProduct = 0;
+      for (
+        let sharedDimensionIndex = 0;
+        sharedDimensionIndex < aCols;
+        sharedDimensionIndex++
+      ) {
+        const rowCellFromA =
+          aMatrix.data[rowIndex * aCols + sharedDimensionIndex];
+        const columnCellFromB =
+          bMatrix.data[sharedDimensionIndex * bCols + columnIndex];
+        dotProduct += rowCellFromA * columnCellFromB;
+      }
+
+      data[rowIndex * bCols + columnIndex] = dotProduct;
+    }
+  }
+
+  return matrix(shape, data);
+}
+
+// Tests
+const a = matrix([2, 3] as const);
+const b = matrix([3, 2] as const);
+const c = matrix([7, 7] as const);
+
+const validMatmul = matmul(a, b);
+// @errors: 2345
+const invalidMatmul = matmul(a, c);
+```
