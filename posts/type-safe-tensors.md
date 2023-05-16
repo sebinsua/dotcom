@@ -873,7 +873,7 @@ function matmul<
   ColumnsB extends Dimension
 >(
   a: Matrix<RowsA, SharedDimension>,
-  b: Not<IsUnion<SharedDimension>> extends true
+  b: IsNumericLiteralOrVar<SharedDimension> extends true
     ? Matrix<SharedDimension, ColumnsB>
     : InvalidArgument<"The rows dimension of the `b` matrix must match the columns dimension of the `a` matrix.">
 ): Matrix<RowsA, ColumnsB> {
