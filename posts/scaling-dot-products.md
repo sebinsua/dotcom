@@ -2,6 +2,7 @@
 title: "Scaling dot products is all you need"
 slug: scaling-dot-products
 date: "2023-05-31"
+description: "A layperson software engineer’s guide to dot products, their use in high-dimensional vector spaces, and how matrix multiplication enables their parallelization."
 ---
 
 This post builds on [my first post on neural networks “Bridging the gap between neural networks and functions”](https://sebinsua.com/bridging-the-gap), by explaining how scaling up dot product operations using matrix multiplication enables modern machine learning models. As with the rest of this series, we'll keep the explanations intuitive yet detailed, aiming for software engineers to build a foundation for understanding.
