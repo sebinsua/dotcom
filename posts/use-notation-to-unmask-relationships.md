@@ -26,7 +26,14 @@ With the constraints given of $0 \leq x_1 \leq x_2 \leq 10000$ and $1 \leq v_1 \
 e.g.
 
 ```python
-def number_line_jumps(x1: int, v1: int, x2: int, v2: int) -> "YES" | "NO":
+from typing import Literal
+
+def number_line_jumps(
+    x1: int,
+    v1: int,
+    x2: int,
+    v2: int
+) -> Literal["YES", "NO"]:
     if x1 == x2:
         return "YES"
 
@@ -43,7 +50,14 @@ def number_line_jumps(x1: int, v1: int, x2: int, v2: int) -> "YES" | "NO":
 However, if we remove the limit of $10000$ from each constraint, we have difficulties. If the kangaroos never land on the same spot, we get an infinite loop! We can still solve this using iteration but must ensure that we only iterate while the kangaroos are getting closer to each other, and that we exit our loop if each iteration has the kangaroos getting further apart. Unfortunately, this has us keeping track of the distance between the kangaroos, complicating our solution quite a bit. For example, in Python, we might write something like the following:
 
 ```python
-def number_line_jumps(x1: int, v1: int, x2: int, v2: int) -> "YES" | "NO":
+from typing import Literal
+
+def number_line_jumps(
+    x1: int,
+    v1: int,
+    x2: int,
+    v2: int
+) -> Literal["YES", "NO"]:
     # If the kangaroos start at the same location, then we can
     # immediately return YES.
     if x1 == x2:
@@ -148,7 +162,14 @@ This equation is almost directly applicable to solving this problem, apart from 
 After resolving these two issues, the finished solution looks like this:
 
 ```python
-def number_line_jumps(x1: int, v1: int, x2: int, v2: int) -> "YES" | "NO":
+from typing import Literal
+
+def number_line_jumps(
+    x1: int,
+    v1: int,
+    x2: int,
+    v2: int
+) -> Literal["YES", "NO"]:
     # If the kangaroos start at the same location, then we can
     # immediately return YES.
     if x1 == x2:
