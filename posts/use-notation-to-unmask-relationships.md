@@ -1,6 +1,6 @@
 ---
-title: "Using notation to unmask relationships when problem solving"
-slug: using-notation-to-unmask-relationships-when-problem-solving
+title: "Use notation to unmask relationships when problem solving"
+slug: use-notation-to-unmask-relationships
 date: "2023-06-07"
 ---
 
@@ -15,10 +15,10 @@ date: "2023-06-07"
 
 **NOTE:** Although not explicitly stated, it’s implied that the kangaroos always jump at the same time.
 
-### Iteration
+### Iteration and its limits
 
 <p align="center" width="100%">
-  <img alt="Example" src="./assets/posts/using-notation-to-unmask-relationships-when-problem-solving/using-notation-to-unmask-relationships-when-problem-solving-1.png" />
+  <img alt="Example" src="./assets/posts/use-notation-to-unmask-relationships/use-notation-to-unmask-relationships-1.png" />
 </p>
 
 With the constraints given of $0 \leq x_1 \leq x_2 \leq 10000$ and $1 \leq v_1 \leq 10000$ and $1 \leq v_2 \leq 10000$, the problem is very simple and can be easily solved with a brute force approach. As we know there will be no more than $10000$ jumps, we can iteratively simulate the jumps of both kangaroos and check if they ever land on the same spot, returning `YES` if they do while otherwise returning `NO`. This approach gives us a time complexity of $O(n)$ which should be acceptable when $n \leq 10000$.
@@ -49,8 +49,8 @@ def number_line_jumps(x1: int, v1: int, x2: int, v2: int) -> "YES" | "NO":
     if x1 == x2:
         return "YES"
 
-    # If the kangaroo furthest away is moving faster, they will
-    # never catch up.
+    # If the kangaroo furthest away is moving faster, the other
+    # will never catch up.
     if x1 >= x2 and v1 >= v2:
         return "NO"
     if x2 >= x1 and v2 >= v1:
@@ -114,6 +114,10 @@ $$
 
             \\\\
 
+            v_1j &= v_2j + x_2 - x_1
+
+            \\\\
+
             v_1j - v_2j &= v_2j - v_2j + x_2 - x_1
 
             \\\\
@@ -141,7 +145,7 @@ This equation is almost directly applicable to solving this problem, apart from 
 
 2. When $j$ is a non-integer, it implies that the kangaroos will be at the same position mid-jump but never land on the same spot.
 
-The finished solution looks like this:
+After resolving these two issues, the finished solution looks like this:
 
 ```python
 def number_line_jumps(x1: int, v1: int, x2: int, v2: int) -> "YES" | "NO":
@@ -160,6 +164,14 @@ def number_line_jumps(x1: int, v1: int, x2: int, v2: int) -> "YES" | "NO":
     # derived above to determine whether j is an integer or not
     # by using the modulo operator to check that the remainder
     # of the division is zero.
+    #
+    # Put in another way, the difference between their starting
+    # positions must be divisible evenly by the difference in
+    # their speeds for them to meet. The reason for this is that
+    # the difference (v1 - v2) represents the incremental step size
+    # in the difference between the two starting positions. If it
+    # doesn't divide evenly, that means they will never land on the
+    # same spot.
     if (x2 - x1) % (v1 - v2) == 0:
         return "YES"
 
@@ -170,4 +182,6 @@ This solution is not only much more elegant than the iterative solution, it’s 
 
 I think it’s very easy to get tunnel vision when programming and to not see mathematical relationships. For those of you that grew up in the UK, this is [Key Stage 3 material that is covered prior to GCSE maths](https://www.bbc.co.uk/bitesize/topics/z83rkqt/articles/z6f6nk7), yet it wasn’t my first instinct to reach for it.
 
-The learning I took away from this problem was that even if you haven’t yet developed the right mindset to immediately discern mathematical solutions, writing things down using mathematical notation can be a very useful tool in your arsenal as it can make these relationships more apparent and help with pattern matching approaches to solving problems.
+### Conclusion
+
+The learning I took away from this was that even if you haven’t yet developed the right mindset to immediately discern mathematical solutions, writing things down using mathematical notation can be a very useful tool in your arsenal. It can make these relationships more apparent and help with pattern matching mathematical approaches to solving problems.
