@@ -2,7 +2,6 @@
 title: "Using notation to unmask relationships when problem solving"
 slug: using-notation-to-unmask-relationships-when-problem-solving
 date: "2023-06-07"
-hidden: true
 ---
 
 [HackerRank](hackerrank.com) has a simple programming problem called [Number Line Jumps](https://www.hackerrank.com/challenges/kangaroo/problem) that states:
