@@ -5,3 +5,4 @@ node_modules
 .vercel
 tsconfig.tsbuildinfo
 out/
+public/sitemap.xml
