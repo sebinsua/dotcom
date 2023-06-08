@@ -86,7 +86,7 @@ def number_line_jumps(
     return "NO"
 ```
 
-I think it’s quite natural for a software engineer to reach for a solution like this. _When all you have is iteration, everything looks like a loop_.
+I think it’s quite natural for a software engineer to reach for a solution like this. When all you have is iteration, everything looks like a loop.
 
 But, there’s a much more elegant solution to this question that naturally follows from use of mathematical notation.
 
