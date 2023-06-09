@@ -270,6 +270,14 @@ export default function BlogrollPage() {
             representations of reality.
           </li>
           <li>
+            <a href="https://gravitylobby.club/dewey.html">
+              <em>“Refactoring Aesthetics”</em> (2017)
+            </a>
+            by <a href="https://gravitylobby.club">Chris Beiser</a> contains a
+            primer on some of the ideas of the philosopher John Dewey relating
+            to aesthetic fulfillment.
+          </li>
+          <li>
             <a href="https://web.archive.org/web/20160306114307/http://szabo.best.vwh.net/history.html">
               <em>“History and the Security of Property”</em> (2006)
             </a>{" "}
@@ -307,6 +315,18 @@ export default function BlogrollPage() {
             computers are actually distributed systems with many components
             running concurrently and communicating over internal buses, and
             explores the implications of this for programming and performance.
+          </li>
+          <li>
+            <a href="https://cprimozic.net/blog/reverse-engineering-a-small-neural-network/">
+              <em>
+                “Reverse engineering a neural network’s clever solution to
+                binary addition”
+              </em>{" "}
+              (2023)
+            </a>
+            by <a href="https://cprimozic.net/">Casey Primozic</a> explores the
+            surprising mechanics behind how a neural network learns to
+            accomplish binary addition.
           </li>
         </ul>
       </div>
