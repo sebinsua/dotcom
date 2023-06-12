@@ -12,7 +12,8 @@
   "scripts": {
     "lint": "next lint && prettier --write '**/*.{ts,tsx}'",
     "dev": "next dev",
-    "build": "next build && next-sitemap",
+    "build": "next build",
+    "sitemap": "yarn build && next-sitemap",
     "typecheck": "tsc"
   },
   "pre-commit": "lint",
@@ -45,11 +46,11 @@
   },
   "devDependencies": {
     "@types/node": "^20.3.0",
-    "@types/react": "^18.2.11",
-    "@types/react-dom": "^18.2.4",
+    "@types/react": "^18.2.12",
+    "@types/react-dom": "^18.2.5",
     "@types/rss": "^0.0.30",
-    "@typescript-eslint/eslint-plugin": "^5.59.9",
-    "@typescript-eslint/parser": "^5.59.9",
+    "@typescript-eslint/eslint-plugin": "^5.59.11",
+    "@typescript-eslint/parser": "^5.59.11",
     "babel-eslint": "^10.1.0",
     "babel-plugin-module-resolver": "^5.0.0",
     "eslint": "^8.42.0",
@@ -60,5 +61,5 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.8"
   },
-  "packageManager": "yarn@3.5.0"
+  "packageManager": "yarn@3.6.0"
 }

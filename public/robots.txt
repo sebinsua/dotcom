@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://sebinsua.com
-
-# Sitemaps
-Sitemap: https://sebinsua.com/sitemap.xml
