@@ -242,13 +242,13 @@ This problem is considerably worse when a function has over 20 branches or is ov
 
 Nowadays I recommend using static typing in your app. But, the underlying theory is to reduce the number of possible shapes that your data can take, as this affords you the ability to reason about your application’s state more easily while also requiring less complication in your logic.
 
-### Use of mutable global state
+### Issues with use of mutable global state
 
 Within the earlier `reducer` code example, there are also a few other issues:
 
 #### Switching into ‘editing’ mode, and then resetting state on cancellation
 
-Mutating the data that is currently displayed on the screen, and then resetting it if the edit is cancelled is a bad pattern. It’s preferable to mimic [transactions](https://en.wikipedia.org/wiki/Database_transaction) by placing the data that is going to be edited into another store where it can be mutated, and then only choosing to mutate the original data if the operation is successful. This is better since it is less destructive by default, and side-effects only when it needs to.
+Mutating the data that is currently displayed on the screen, and then resetting it if the edit is cancelled is a bad pattern. It’s preferable to mimic [transactions](https://en.wikipedia.org/wiki/Database_transaction) by copying the data that is going to be edited into a separate property where it can be mutated, and then only choosing to mutate the original data if the operation is successful. This is better since it is less destructive by default, and side-effects only when it needs to.
 
 #### Making multiple, dynamic key-value changes
 

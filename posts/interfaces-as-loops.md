@@ -89,7 +89,3 @@ If I was to visualise the mental model I have of an interface I would draw a loo
 Technology is rapidly allowing us to interface with the world in new and profound ways. We shouldn’t let old notions of what an interface is dictate to us how we interact with the world. We must always remember that user experience is a function of who and where we are.
 
 Interfaces start in your head.
-
----
-
-**[You should follow me on twitter here.](http://twitter.com/sebinsua)**
