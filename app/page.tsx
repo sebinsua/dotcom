@@ -13,6 +13,36 @@ export async function generateMetadata() {
   return createMetadata({});
 }
 
+interface GetOpacityForDateOptions {
+  minValue?: number;
+  maxValue?: number;
+  numberOfYears?: number;
+}
+
+function getOpacityForDate(
+  date: Date,
+  {
+    minValue = 0.1,
+    maxValue = 1.0,
+    numberOfYears = 8,
+  }: GetOpacityForDateOptions = {}
+) {
+  const now = new Date();
+
+  const minDate = new Date();
+  minDate.setFullYear(now.getFullYear() - numberOfYears);
+  if (date.getTime() < minDate.getTime()) {
+    return minValue;
+  }
+
+  const totalRangeMillis = now.getTime() - minDate.getTime();
+  const datePositionMillis = date.getTime() - minDate.getTime();
+
+  return (
+    minValue + (datePositionMillis / totalRangeMillis) * (maxValue - minValue)
+  );
+}
+
 interface PostItemProps {
   title: string;
   slug: string;
@@ -33,6 +63,7 @@ function PostItem({ title, slug, date }: PostItemProps) {
             justify-content: space-between;
             margin: 0;
           `}
+          style={{ opacity: getOpacityForDate(date) }}
         >
           <Link href={`/${slug}`} passHref>
             <a>{title}</a>
