@@ -79,6 +79,7 @@ export function Header(_: HeaderProps) {
           @media (max-width: 768px) {
             justify-content: flex-start;
             padding: 0 1rem;
+            font-size: 0.8rem;
             ul {
               display: flex;
               padding: 0;

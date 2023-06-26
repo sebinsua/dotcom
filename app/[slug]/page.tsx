@@ -127,8 +127,8 @@ function Post({
       <header>
         <h2
           className={css`
-            font-size: 1rem;
-            line-height: 1.9rem;
+            font-size: 1.1rem;
+            line-height: 2rem;
             margin-top: 0.95rem;
           `}
         >

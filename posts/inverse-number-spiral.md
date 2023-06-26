@@ -17,7 +17,7 @@ I’ve named this the “Inverse Number Spiral” problem and here is the proble
 > A number spiral is an infinite grid whose upper-left square has number 1. Here are the first five layers of the spiral:
 >
 > <p align="center" width="100%">
->   <img alt="Number Spiral" src="./assets/posts/inverse-number-spiral/number-spiral-1.png" />
+>   <img alt="Number Spiral" src="./assets/posts/inverse-number-spiral/number-spiral-1.png" width="169" height="169" />
 > </p>
 >
 > Your task is to find out the row $y$ and column $x$ given a number $N$.
@@ -76,7 +76,7 @@ $$
 It was the sequence of [square numbers](https://en.wikipedia.org/wiki/Square_number) (e.g. $n^2$). This observation sparked my curiosity and led me to wonder if I could leverage this pattern to my advantage.
 
 <p align="center" width="100%">
-  <img alt="Layers" src="./assets/posts/inverse-number-spiral/number-spiral-2.png" />
+  <img alt="Layers" src="./assets/posts/inverse-number-spiral/number-spiral-2.png" width="169" height="169" />
 </p>
 
 I realised that the maximum value in each layer of the spiral was equal to the square of the layer number $L$. For example, the maximum value in <span style="color: rgb(21, 52, 238)">layer 3 was $3^2 = 9$</span>, the maximum value in <span style="color: rgb(240, 80, 231)">layer 4 was $4^2 = 16$</span>, and so on. This meant that I could use the square root function to determine the layer number $L$ for a given value $N$. Only the square numbers of a layer would directly produce the layer number when taking a square root, however all values in the layer including its minimum produce a decimal value greater than the previous layer number and therefore as long as we round up this value to the nearest integer (e.g. `Math.ceil`) our method produces the correct layer number.

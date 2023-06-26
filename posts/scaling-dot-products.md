@@ -54,7 +54,7 @@ const weightedSum = dotProduct(weights, inputs); // 32
 A vector is a representation of a multi-dimensional quantity with a [magnitude](https://mathinsight.org/definition/magnitude_vector) and [direction](https://en.wikipedia.org/wiki/Euclidean_vector). It can be thought of as an arrow starting from the origin of the coordinate system $(0, 0, 0, ...)$ and ending at a point in vector space $(x, y, z, ...)$.
 
 <p align="center" width="100%">
-  <img alt="Vector in 3D space" src="./assets/posts/scaling-dot-products/scaling-dot-products-1.png" />
+  <img alt="Vector in 3D space" src="./assets/posts/scaling-dot-products/scaling-dot-products-1.png" width="576" height="485" />
 </p>
 
 For example, in the code above, the `weights` vector `[1, 2, 3]` can be thought of as an arrow starting from the origin of the coordinate system $(0, 0, 0)$ and ending at the point $(1, 2, 3)$, while the `inputs` vector `[4, 5, 6]` can be thought of as an arrow starting from the origin of the coordinate system $(0, 0, 0)$ and ending at the point $(4, 5, 6)$.
@@ -74,7 +74,7 @@ Originally these embeddings were learned using specific algorithms such as [Word
 The capacity to capture the semantic relationships between words is the essence of why “word embeddings” are able to represent words. And, they are in fact, so effective at achieving this that not only do they allow us to see similarities between words, but they also enable us to perform arithmetic operations on these; a classic example being [$king - man + woman ≈ queen$](https://p.migdal.pl/blog/2017/01/king-man-woman-queen-why/).
 
 <p align="center" width="100%">
-  <img alt="Semantic space" src="./assets/posts/scaling-dot-products/scaling-dot-products-2.png" />
+  <img alt="Semantic space" src="./assets/posts/scaling-dot-products/scaling-dot-products-2.png" width="343" height="330" />
 </p>
 
 Semantic arithmetic is more than just a novelty — it’s consequential and carries significant implications. It means that the [vector space](https://en.wikipedia.org/wiki/Vector_space) is a [semantic space](https://en.wikipedia.org/wiki/Semantic_space) that _captures meaning itself_. This semantic space can provide a kind of substrate for models to operate on allowing for (1) small iterative arithmetic adjustments to reflect nuanced changes in meaning, (2) avoidance of discontinuities in meaning and possibility of interpolated or intermediate meanings during computation, and (3) representation of the nameless or even ineffable.
@@ -88,7 +88,7 @@ In practice, the vectors used in machine learning can have an overwhelmingly lar
 For example, if we ran a dimensionality reduction algorithm on the word embeddings of the words “dog”, “cat” and “democracy” and plotted these on a graph, we might see something like this:
 
 <p align="center" width="100%">
-  <img alt="Similarity between vectors" src="./assets/posts/scaling-dot-products/scaling-dot-products-3.png" />
+  <img alt="Similarity between vectors" src="./assets/posts/scaling-dot-products/scaling-dot-products-3.png" width="500" height="614" />
 </p>
 
 Dimensionality reduction does lead to some information loss and isn’t perfect but it can be very useful when dealing with high-dimensional data that otherwise would be practically impossible to interpret.

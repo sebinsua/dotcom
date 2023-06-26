@@ -115,7 +115,7 @@ pre .code-container:hover a {
 }
 
 pre code {
-  font-size: 15px;
+  font-size: 14px;
   font-family: "JetBrains Mono", Menlo, Monaco, Consolas, Courier New, monospace;
   white-space: pre;
   -webkit-overflow-scrolling: touch;

@@ -18,7 +18,7 @@ date: "2023-06-07"
 ### Iteration and its limits
 
 <p align="center" width="100%">
-  <img alt="Example" src="./assets/posts/use-notation-to-unmask-relationships/use-notation-to-unmask-relationships-1.png" />
+  <img alt="Example" src="./assets/posts/use-notation-to-unmask-relationships/use-notation-to-unmask-relationships-1.png"  width="670" height="211" />
 </p>
 
 With the constraints given of $0 \leq x_1 \leq x_2 \leq 10000$ and $1 \leq v_1 \leq 10000$ and $1 \leq v_2 \leq 10000$, the problem is very simple and can be easily solved with a brute force approach. As we know there will be no more than $10000$ jumps, we can iteratively simulate the jumps of both kangaroos and check if they ever land on the same spot, returning `YES` if they do while otherwise returning `NO`. This approach gives us a time complexity of $O(n)$ which should be acceptable when $n \leq 10000$.

@@ -15,8 +15,6 @@ export default function BlogrollPage() {
     <Page title="Blogroll" slug="/blogroll">
       <div
         className={css`
-          font-size: 0.8rem;
-          line-height: 1.5rem;
           margin-top: 1.475em;
           background: linear-gradient(
             100deg,
@@ -157,7 +155,7 @@ export default function BlogrollPage() {
             by <a href="https://tiarkrompf.github.io/">Tiark Rompf</a> is a
             hands-on guide written in a literate programming style that walks
             the reader through implementing a parser by hand all the way up to
-            adding support for arbitrary operators with varying precendence
+            adding support for arbitrary operators with varying precedence
             levels and associativity behaviours.
           </li>
           <li>
@@ -165,7 +163,7 @@ export default function BlogrollPage() {
               <em>“Files are hard”</em> (2017)
             </a>{" "}
             by <a href="https://danluu.com/">Dan Luu</a> examines the
-            intracacies and hurdles in developing reliable file systems and
+            intricacies and hurdles in developing reliable file systems and
             managing errors in application code, underscoring the importance of
             better testing methods.
           </li>

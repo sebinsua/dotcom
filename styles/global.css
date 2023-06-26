@@ -1,11 +1,16 @@
-@import "../node_modules/katex/dist/katex.min.css";
-
+@import "./katex.css";
 @import "./shiki.css";
 
 body {
   font-family: monospace;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.7rem;
+}
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+    line-height: 2rem;
+  }
 }
 h2 + p,
 h3 + p,
@@ -27,7 +32,7 @@ pre {
   margin: 0;
 }
 pre code {
-  font-size: 13px;
+  font-size: 14px;
 }
 
 code {
