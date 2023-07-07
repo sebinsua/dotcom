@@ -34,7 +34,7 @@ async function getRss() {
         date: new Date(post.meta.date),
         author: post.meta.author ?? packageJson.blog.author,
       });
-    })
+    }),
   );
 
   const rss = feed.xml({
