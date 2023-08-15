@@ -164,7 +164,7 @@ Often back-end engineers that work in languages with static typing produce deepl
 
 Engineers with less experience working with JavaScript won’t realise that they have a problem until it’s too late. And, they will sometimes [exasperate the problem](https://en.wikipedia.org/wiki/Law_of_Demeter) often attempting to resolve the problem while also trying to reduce key strokes: for example, by choosing to pass through kitchen-and-sink objects so function signatures look simpler.
 
-Of course, there are best practices. For example: objects can be flattened, nullability reduced at the source, defaults can be provided, [TypeScript](hhttps://www.typescriptlang.org) definitions setup, [transforms](https://github.com/yury-dymov/json-api-normalizer) moved to the edges, [selectors](https://github.com/reduxjs/reselect) configured, and finally when there is no other choice careful use of [deep property selector functions](http://ramdajs.com/docs/#prop).
+Of course, there are best practices. For example: objects can be flattened, nullability reduced at the source, defaults can be provided, [TypeScript](https://www.typescriptlang.org) definitions setup, [transforms](https://github.com/yury-dymov/json-api-normalizer) moved to the edges, [selectors](https://github.com/reduxjs/reselect) configured, and finally when there is no other choice careful use of [deep property selector functions](http://ramdajs.com/docs/#prop).
 
 ### Too many potential output shapes
 

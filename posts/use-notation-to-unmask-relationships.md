@@ -4,7 +4,7 @@ slug: use-notation-to-unmask-relationships
 date: "2023-06-07"
 ---
 
-[HackerRank](hackerrank.com) has a simple programming problem called [Number Line Jumps](https://www.hackerrank.com/challenges/kangaroo/problem) that states:
+[HackerRank](https://www.hackerrank.com) has a simple programming problem called [Number Line Jumps](https://www.hackerrank.com/challenges/kangaroo/problem) that states:
 
 > You are choreographing a circus show with various animals. For one act, you are given two kangaroos on a number line ready to jump in the positive direction (i.e, toward positive infinity).
 >
