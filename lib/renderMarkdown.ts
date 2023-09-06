@@ -11,7 +11,6 @@ import remarkMath from "remark-math";
 import rehype from "remark-rehype";
 import rehypeRaw from "rehype-raw";
 import rehypeKatex from "rehype-katex";
-// @ts-ignore
 import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
 
@@ -37,7 +36,7 @@ function createDefaultMapFromNodeModules(
 
 const render = (markdown: string) =>
   unified()
-    .use(remarkParse)
+    .use(remarkParse as any)
     .use(remarkOembed)
     .use(remarkShikiTwoSlash, {
       theme: "vitesse-dark",
@@ -45,14 +44,14 @@ const render = (markdown: string) =>
         target: typescript.ScriptTarget.ES2020,
       }),
     })
-    .use(remarkMath)
+    .use(remarkMath as any)
     .use(
-      rehype,
+      rehype as any,
       // @ts-ignore
       { allowDangerousHtml: true },
     )
     .use(rehypeRaw)
-    .use(rehypeKatex)
+    .use(rehypeKatex as any)
     .use(rehypeFormat)
     .use(rehypeStringify)
     .process(markdown);

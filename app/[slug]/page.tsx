@@ -130,6 +130,10 @@ function Post({
             font-size: 1.1rem;
             line-height: 2rem;
             margin-top: 0.95rem;
+
+            @media (min-width: 768px) {
+              white-space: nowrap;
+            }
           `}
         >
           {title}
