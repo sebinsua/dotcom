@@ -42,6 +42,8 @@ This article aims to articulate what is often left unsaid, to make your practice
 
       - Apply a **Greedy Algorithm**. Note that there’s no guaranteed way of knowing upfront whether local optimum decisions will lead to a global optimum, and it will require testing and analysis to determine whether this is the case.
 
+      - If the solution to the problem seems to require future information to decide the current step, a greedy algorithm will not be appropriate and you will need to either use **Depth-first Search (DFS)** or switch to a **Dynamic Programming** approach involving **Top-down Memoization**.
+
       - A greedy algorithm makes decisions at each step based solely on the current state and local considerations, and cannot require backtracking, reconsideration of previous decisions, or deeper exploration of decision paths (like depth-first search).
 
    2. If it seems to be possible to compute a solution from a combination of previously computed solutions (e.g. “optimal substructure”) then we can solve it using **Dynamic Programming**. Dynamic programming is particularly beneficial when the same subproblem reappears multiple times in a computation (e.g. “overlapping subproblems”).
