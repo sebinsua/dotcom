@@ -116,7 +116,7 @@ This article aims to articulate what is often left unsaid, to make your practice
 
 3. **Does the problem involve categorizing or identifying unique elements based on some aspect of them not immediately known?**
 
-   - These are in fact conceptually **Hash Map** problems (because you cannot use **Set**s for identifying “uniqueness” as in this case it is not defined by the value of the element itself). However, what is important in these questions isn’t the data structure but the creation of a hashcode-like functions that can efficiently capture some invariant of the element that it can be grouped by. For example, anagrams can be grouped by the frequency of their characters, snowflakes by their lexicographically smallest rotation, and so on.
+   - These are in fact conceptually **Hash Map** problems (because you cannot use **Set**s for identifying “uniqueness” as in this case it is not defined by the value of the element itself). However, the crux of these questions often lies not in the choice of data structure, but the creation of a hash-like bucketing function that can efficiently capture some invariant of the element that it can be grouped by. For example, anagrams can be grouped by the frequency of their characters, snowflakes by their lexicographically smallest rotation, and so on.
 
 4. **Does the problem require you to perform efficient lookups of data?**
 
