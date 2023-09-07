@@ -36,13 +36,13 @@ This article aims to articulate what is often left unsaid, to make your practice
 
 ### What kind of problem do I have?
 
-1. **Does a trivial solution to the problem result in a very expensive branching program suggesting that we might have an optimization problem?**
+1. **Does a trivial solution to the problem result in a very expensive branching program suggesting that we might have an optimisation problem?**
 
    1. If local optimum decisions appear to lead to a global optimum:
 
       - Apply a **Greedy Algorithm**. Note that there’s no guaranteed way of knowing upfront whether local optimum decisions will lead to a global optimum, and it will require testing and analysis to determine whether this is the case.
 
-      - If the solution to the problem seems to require future information to decide the current step, a greedy algorithm will not be appropriate and you will need to either use **Depth-first Search (DFS)** or switch to a **Dynamic Programming** approach involving **Top-down Memoization**.
+      - If the solution to the problem seems to require future information to decide the current step, a greedy algorithm will not be appropriate and you will need to either use **Depth-first Search (DFS)** or switch to a **Dynamic Programming** approach involving **Top-down Memoisation**.
 
       - A greedy algorithm makes decisions at each step based solely on the current state and local considerations, and cannot require backtracking, reconsideration of previous decisions, or deeper exploration of decision paths (like depth-first search).
 
@@ -52,7 +52,7 @@ This article aims to articulate what is often left unsaid, to make your practice
 
       - There are two high-level ways of implementing dynamic programming and the choice depends on the problem:
 
-        - We can always apply **Top-down Memoization**. This is effectively a DFS of the state space, generally implemented using recursive memoized function calls. It’s not always the most efficient way to solve the problem due to the overhead of recursion, but it does avoid the need to compute all possible subproblems first.
+        - We can always apply **Top-down Memoisation**. This is effectively a DFS of the state space, generally implemented using recursive memoised function calls. It’s not always the most efficient way to solve the problem due to the overhead of recursion, but it does avoid the need to compute all possible subproblems first.
 
         - If the transitions between subproblems in the state space are computed in a fixed manner we can apply **Bottom-up Tabulation**. This computes all possible subproblems iteratively first and then uses these to compute the final solution, but it avoids the overhead of recursion by computing the subproblems one-by-one iteratively and is able to store these in an array for lower memory usage.
 
@@ -132,7 +132,7 @@ This article aims to articulate what is often left unsaid, to make your practice
 
       - You can use a combination of both **Min-Heap** and **Max-Heap** if you want to compute the median.
 
-      - There are time/space costs to maintaining heaps (creating a heap costs $O(N)$ but updates are $O(log N)$ due to the cost to `heapify`), so this makes more sense when you expect to make multiple queries over the lifetime of your program. The concept of amortized cost is also important when comparing min-heaps to algorithms like quickselect. While min-heaps offer a consistent update time of $O(log N)$, quickselect’s time complexity may be more efficient for one-off or occasional operations.
+      - There are time/space costs to maintaining heaps (creating a heap costs $O(N)$ but updates are $O(log N)$ due to the cost to `heapify`), so this makes more sense when you expect to make multiple queries over the lifetime of your program. The concept of amortised cost is also important when comparing min-heaps to algorithms like quickselect. While min-heaps offer a consistent update time of $O(log N)$, quickselect’s time complexity may be more efficient for one-off or occasional operations.
 
       - Heaps do not maintain sorted order of their elements, and therefore do not offer $O(1)$ access to the $k$th smallest/largest element. If you need to do this, while still allowing for efficient updates, you can use a **Binary Search Tree (BST)** data structure, possibly augmented with additional information to make it self-balancing (e.g. **AVL Tree** or **Red-Black Tree**).
 
@@ -153,7 +153,7 @@ This article aims to articulate what is often left unsaid, to make your practice
 
       - When you have a particular target or constraint that needs to be met, it generally suggests that you will need to go deeply into the search space to find and test each path. This suggests that you will need to use a **Depth-first Search (DFS)** approach, however, this will likely result in an explosion of paths that need to be explored and very slow performance as well as bad memory usage. To avoid this, you will need to prune paths early-on that cannot possibly lead to a solution, and, also due to the potential depth of the search space use a **Backtracking** approach to rollback any modifications to shared state that are made during the search.
 
-      - **Depth-first Search (DFS)** has a lot of overlap with **Top-down Memoization**. In fact, top-down memoization is depth-first search but with a caching optimization to avoid re-computing subproblems (e.g. “overlapping subproblems”). Top-down memoization is generally assumed to be implemented using recursion, but in fact, it can also be implemented iteratively using a **Stack**.
+      - **Depth-first Search (DFS)** has a lot of overlap with **Top-down Memoisation**. In fact, top-down memoisation is depth-first search but with a caching optimisation to avoid re-computing subproblems (e.g. “overlapping subproblems”). Top-down memoisation is generally assumed to be implemented using recursion, but in fact, it can also be implemented iteratively using a **Stack**.
 
       - The choice over whether to implement **Depth-first Search (DFS)** using recursion or with iteration and a stack isn’t only an aesthetic choice but also has practical implications:
 
