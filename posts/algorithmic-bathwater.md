@@ -180,3 +180,37 @@ This article aims to articulate what is often left unsaid, to make your practice
       - In an undirected graph? Use **Union-Find**. Note that Union-Find is not suitable for directed graphs because it inherently deals with undirected equivalence relations; it merges sets and loses the sense of direction between nodes.
 
       - In a directed or undirected graph? Use **Depth-first Search (DFS)**. Unlike Union-Find, DFS is suitable for directed graphs and can also provide information about the shape or structure of components
+
+### 🧪🤔📝
+
+The following questions present scenarios that test your ability to select the most appropriate technique.
+
+1. **Greedy Algorithm or Dynamic Programming?**
+
+   - [Coin Change](https://leetcode.com/problems/coin-change/)
+   - [Jump Game](https://leetcode.com/problems/jump-game/)
+
+2. **Two Pointers or Sliding Window?**
+
+   - [Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
+   - [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)
+
+3. **Stack or Queue?**
+
+   - [Rotting Oranges](https://leetcode.com/problems/rotting-oranges/)
+   - [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
+
+4. **Backtracking or DFS?**
+
+   - [Number of Islands](https://leetcode.com/problems/number-of-islands/)
+   - [Combination Sum](https://leetcode.com/problems/combination-sum/)
+
+5. **Union-Find or DFS?**
+
+   - [Course Schedule](https://leetcode.com/problems/course-schedule/)
+   - [Redundant Connection](https://leetcode.com/problems/redundant-connection/)
+
+6. **DFS vs Dynamic Programming?**
+
+   - [Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/)
+   - [Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/)
