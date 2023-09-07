@@ -25,7 +25,7 @@ The creator of the [“Blind 75” problem set](https://www.teamblind.com/post/N
 
 What we want to be able to do is to be able to identify and apply the right techniques given an unknown problem, and this is about grasping the intent, design, and the decision-making involved in this. This can certainly be picked up incidentally by doing lots of problems and eventually beginning to pattern-match them, but I’d argue that this isn’t the most efficient way to learn as a lot of the knowledge doesn’t appear to be naturally tacit.
 
-Naturally it’s also quite common to hear people say that if they ever need an algorithm they’ll “just Google it”, but this misses the point that you’re unlikely to reach for Google if you’re unaware of what kind of techniques might be applicable. Better understanding can help you to recognise opportunities for application in the first place.
+Naturally it’s also quite common to hear people say that if they ever need an algorithm they’ll “just Google it”, however this belief is quite suspect as you’re unlikely to reach for Google without awareness of the techniques that might be applicable. Better understanding can help you to recognise opportunities for application in the first place.
 
 This article aims to articulate what is often left unsaid, to make your practice more focused and effective. While it won’t replace hands-on experience in the nuances of implementation, it should be helpful in improving your understanding of technique _‘applicability’_.
 
