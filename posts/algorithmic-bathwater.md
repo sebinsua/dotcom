@@ -32,7 +32,7 @@ This article aims to articulate what is often left unsaid, to make your practice
 > ### Note
 >
 > This is a work in progress and I’ll be adding more to this article over time.
-> <a href="mailto:me@sebinsua.com">Please let me know any insights or suggestions for improvement you might have.</a>
+> <a href="mailto:me@sebinsua.com">Please email me with any insights or suggestions you have for how to improve it.</a>
 
 ### What kind of problem do I have?
 
