@@ -48,6 +48,8 @@ This article aims to articulate what is often left unsaid, to make your practice
 
    2. If it seems to be possible to compute a solution from a combination of previously computed solutions (e.g. “optimal substructure”) then we can solve it using **Dynamic Programming**. Dynamic programming is particularly beneficial when the same subproblem reappears multiple times in a computation (e.g. “overlapping subproblems”).
 
+      - Dynamic programming allows you to save time at the expense of space.
+
       - There are two high-level ways of implementing dynamic programming and the choice depends on the problem:
 
         - We can always apply **Top-down Memoization**. This is effectively a DFS of the state space, generally implemented using recursive memoized function calls. It’s not always the most efficient way to solve the problem due to the overhead of recursion, but it does avoid the need to compute all possible subproblems first.
@@ -122,13 +124,17 @@ This article aims to articulate what is often left unsaid, to make your practice
 
    1. Do we need to quickly store or lookup strings or provide autocomplete functionality?
 
-      - Use a **Trie** data structure.
+      - Use a **Trie** data structure (also known as a prefix tree). This is a tree data structure that stores strings in a way that allows for fast (e.g. $O(K)$) retrieval and updates of strings that share a common prefix.
 
    2. Are we being asked to query the smallest/largest/median values?
 
-      - Use a **Min-Heap** or **Max-Heap** data structure to query for the smallest/largest values (in $O(1)$). There are time/space costs to maintaining heaps (creating a heap costs $O(N)$ but updates are $O(log N)$), so this makes more sense when you expect to make multiple queries over the lifetime of your program.
+      - Use a **Min-Heap** or **Max-Heap** data structure to query for the smallest/largest values (in $O(1)$).
 
       - You can use a combination of both **Min-Heap** and **Max-Heap** if you want to compute the median.
+
+      - There are time/space costs to maintaining heaps (creating a heap costs $O(N)$ but updates are $O(log N)$ due to the cost to `heapify`), so this makes more sense when you expect to make multiple queries over the lifetime of your program. The concept of amortized cost is also important when comparing min-heaps to algorithms like quickselect. While min-heaps offer a consistent update time of $O(log N)$, quickselect’s time complexity may be more efficient for one-off or occasional operations.
+
+      - Heaps do not maintain sorted order of their elements, and therefore do not offer $O(1)$ access to the $k$th smallest/largest element. If you need to do this, while still allowing for efficient updates, you can use a **Binary Search Tree (BST)** data structure, possibly augmented with additional information to make it self-balancing (e.g. **AVL Tree** or **Red-Black Tree**).
 
 5. **Does the problem require you to recover the order of some elements or substrings within a sequence?**
 
@@ -166,6 +172,8 @@ This article aims to articulate what is often left unsaid, to make your practice
       - Use **Breadth-first Search (BFS)**.
 
       - In general, BFS can actually use more memory than DFS, because BFS needs to keep all of the nodes at the current level in memory, while DFS only needs to store the nodes along a single path in the tree/graph as it traverses. Therefore, if memory usage is a concern, DFS could be the better choice.
+
+      - BFS is also not suitable for weighted graphs which need an algorithm like Dijkstra’s or A\*.
 
    4. Are you being asked to determine whether nodes are connected, to count the number of components in a graph, or to detect cycles?
 
