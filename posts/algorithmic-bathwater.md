@@ -9,9 +9,9 @@ hidden: true
 
 https://twitter.com/yacineMTB/status/1687126523910799360
 
-The belief that algorithmic tech interviews do not test for real-world programming skills is a memetic hazard. There might be truth to it but it serves as displacement from what are often the real underlying reasons for resistance: insecurity and fear over being seen as inadequate.
+The belief that algorithmic tech interviews do not test for real-world programming skills is a memetic hazard. There might be truth to it but it serves as displacement from what is often the real underlying reason for resistance: the fear of negative judgement.
 
-It’s crucial to realise that whether or not these problems are a good way to assess skill levels, they often contain different ways of thinking and require novel techniques or hard-won algorithms. While uncomfortable, acknowledging this offers us an opportunity to grow. Learning to solve these problems can genuinely enrich your problem-solving skills and expand your toolkit.
+Without passing judgement on whether these tests are a good way to assess skill level, it’s crucial to realise that the psychological impact of dismissing them has drawbacks. These problems often contain different ways of thinking and require novel techniques or hard-won algorithms, and their deliberate practice can be a valuable way to improve your problem-solving skills. While uncomfortable, acknowledging this offers us an opportunity to grow.
 
 ### Not going in blind
 
@@ -19,24 +19,24 @@ https://twitter.com/var_epsilon/status/1690755091052077056
 
 Mastering a few fundamental problems can make you more effective at a wide range of challenges, but how do you go about truly understanding these _‘eigenproblems’_?
 
+It’s commonly heard that if you ever need an algorithm you’ll “just Google it”, however this belief is quite suspect as you’re unlikely to reach for Google without awareness of the techniques that might be applicable. Having a foundational understanding can help you to recognise opportunities for application in the first place.
+
 The creator of the [“Blind 75” problem set](https://www.teamblind.com/post/New-Year-Gift---Curated-List-of-Top-75-LeetCode-Questions-to-Save-Your-Time-OaM1orEU), an engineer from Meta, attempted to distill the most useful questions for learning the core concepts and techniques for each category/type of problems from their experience doing 400-500 LeetCode questions during their last job hunt.
 
-75 questions is still a very large time commitment, and the reality is that it’s even more time onerous than it might look as fluency generally requires [spaced repetition of the problems](https://old.reddit.com/r/leetcode/comments/15tcmwq/got_to_100_hards/jwk4e9r/) by doing a variety of topics each week and revisiting these again in subsequent weeks.
+75 questions is still a very large time commitment, and the reality is that it’s even more time-consuming than it might look as fluency generally requires [spaced repetition of the problems](https://old.reddit.com/r/leetcode/comments/15tcmwq/got_to_100_hards/jwk4e9r/) by doing a variety of topics each week and revisiting these again in subsequent weeks.
 
-What we want to be able to do is to be able to identify and apply the right techniques given an unknown problem, and this is about grasping the intent, design, and the decision-making involved in this. This can certainly be picked up incidentally by doing lots of problems and eventually beginning to pattern-match them, but I’d argue that this isn’t the most efficient way to learn as a lot of the knowledge doesn’t appear to be naturally tacit.
+We want the ability to be able to identify and apply the right techniques given an unknown problem, and this is about grasping the intent, design, and the decision-making involved in this. This ability can certainly be picked up incidentally by doing lots of problems and eventually beginning to pattern-match them, but I’d argue that this isn’t the most efficient way to learn as a lot of the knowledge doesn’t appear to be naturally tacit.
 
-It’s also commonly heard that if you ever need an algorithm you’ll “just Google it”, however this belief is quite suspect as you’re unlikely to reach for Google without awareness of the techniques that might be applicable. Better understanding can help you to recognise opportunities for application in the first place.
-
-This article aims to articulate what is often left unsaid, to make your practice more focused and effective. While it won’t replace hands-on experience in the nuances of implementation, it should be helpful in improving your understanding of technique _‘applicability’_.
+[Current](https://neetcode.io) [methods](https://www.techinterviewhandbook.org/grind75) [of teaching](https://cp-algorithms.com/index.html) often focus on mere implementation, overlooking the decision-making skills needed to identify the right techniques for a problem. This article aims to fill that gap, by articulating what is often left unsaid. While it won’t replace hands-on experience in the nuances of implementation, it should be helpful in improving your understanding of technique _‘applicability’_.
 
 > ### Note
 >
-> This is a work in progress and I’ll be adding more to this article over time.
-> <a href="mailto:me@sebinsua.com">Please email me with any insights or suggestions you have for how to improve it.</a>
+> 1. We’re intentionally not discussing the implementation details of these techniques, as this is already well-covered elsewhere. For deep explanations, video tutorials and code examples, we recommend [NeetCode](https://neetcode.io/practice), [Grind 75](https://www.techinterviewhandbook.org/grind75) and [LeetCode](https://leetcode.com) or otherwise searching Google.
+> 2. This article is a work in progress and I’ll be adding more to it over time. <a href="mailto:me@sebinsua.com">Please email me with any insights or suggestions you have for improvement.</a>
 
 ### What kind of problem do I have?
 
-1. **Does a trivial solution to the problem result in a very expensive branching program suggesting that we might have an optimisation problem?**
+1. **Does a solution to the problem result in a very expensive branching program suggesting that we might have an optimisation problem?**
 
    1. If local optimum decisions appear to lead to a global optimum:
 
