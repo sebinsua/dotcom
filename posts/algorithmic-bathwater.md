@@ -1,8 +1,7 @@
 ---
 title: Is dismissing the algorithmic tech interview a memetic hazard?
 slug: algorithmic-bathwater
-date: "2023-09-07"
-hidden: true
+date: "2023-09-08"
 ---
 
 ### Algorithmic bathwater
