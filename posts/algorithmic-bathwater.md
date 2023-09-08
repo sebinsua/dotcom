@@ -58,7 +58,7 @@ We want the ability to be able to identify and apply the right techniques given 
 
 2. **Is the problem related to a linear/sequential data structure (e.g. array, linked list, string, search space)?**
 
-   1. Are we being asked to find pairs, triplets or a sub-array that match a constraint?
+   1. Are we being asked to find pairs, triplets or sub-arrays that match a constraint?
 
       - To solve this optimally (e.g. $\mathcal{O}(N)$), we need to be able to easily compare elements in the sequence without using nested loops. We have at most two options:
 
