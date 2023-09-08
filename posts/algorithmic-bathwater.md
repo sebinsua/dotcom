@@ -217,7 +217,7 @@ The following questions present scenarios that test your ability to select the m
    - [Course Schedule](https://leetcode.com/problems/course-schedule/)
    - [Redundant Connection](https://leetcode.com/problems/redundant-connection/)
 
-6. **DFS vs Dynamic Programming?**
+6. **DFS or Dynamic Programming?**
 
    - [Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/)
    - [Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/)
