@@ -84,7 +84,7 @@ We want the ability to be able to identify and apply the right techniques given 
 
       - But, if the sequence is sorted we can apply the **Binary Search** technique.
 
-      - In fact, we can apply the **Binary Search** technique if the sequence is _partially sorted_ as long as it is _partitionable_ (e.g. we can discern a sorted and unsorted partition on each iteration).
+      - In fact, we can apply the **Binary Search** technique if the sequence is _partially sorted_ as long as it is _partitionable_ (e.g. we can discern a sorted and unsorted partition on each iteration). For example, we can apply binary search to rotated sorted arrays or bitonic sequences.
 
       - We can also apply the **Binary Search** technique to compute numerical approximations if a sequence is ordered but virtual (e.g. a search space).
 
@@ -118,7 +118,7 @@ We want the ability to be able to identify and apply the right techniques given 
 
 3. **Does the problem involve categorizing or identifying unique elements based on some aspect of them not immediately known?**
 
-   - These are in fact conceptually **Hash Map** problems (because you cannot use **Set**s for identifying “uniqueness” as in this case it is not defined by the value of the element itself). However, the crux of these questions often lies not in the choice of data structure, but the creation of a hash-like bucketing function that can efficiently capture some invariant of the element that it can be grouped by. For example, anagrams can be grouped by the frequency of their characters, snowflakes by their lexicographically smallest rotation, and so on.
+   - These are in fact conceptually **Hash Map** problems (because you cannot use **Set**s for identifying “uniqueness” as in this case it is not defined by the value of the element itself). However, the crux of these questions often lies not in the choice of data structure, but the creation of a hash-like bucketing function that can efficiently capture/compute some invariant of the element that it can be grouped by. For example, anagrams can be grouped by the frequency of their characters, snowflakes by their lexicographically smallest rotation, and so on.
 
 4. **Does the problem require you to perform efficient lookups of data?**
 
@@ -138,7 +138,7 @@ We want the ability to be able to identify and apply the right techniques given 
 
 5. **Does the problem require you to recover the order of some elements or substrings within a sequence?**
 
-   - If you are able to infer partial information about how particular elements are connected, for example, if they come before or after each other or if they overlap (or touch), you can use this information to help build a **Directed Graph**. Vertexes can represent elements, while edges can represent the information inferred from the data, and, once this is achieved, it’s often possible to recover the order by running something like a **Topological Sort**.
+   - If you are able to infer partial information about how particular elements are connected, for example, if they come before or after each other or if they overlap (or touch), you can use this information to help build a **Directed Graph**. Vertices can represent elements, while edges can represent the information inferred from the data, and, once this is achieved, it’s often possible to recover the order by running something like a **Topological Sort**.
 
    - In general, graphs seem a good fit for problems involving recovering the order of a sequence, for example, “de Bruijn” graphs are used for the re-assembly of de-novo DNA sequences from k-mers in computational biology.
 
@@ -160,6 +160,8 @@ We want the ability to be able to identify and apply the right techniques given 
         - Firstly, recursion presents you with limits due to the maximum recursion depth of your chosen programming language.
 
         - But more importantly, recursion provides a natural mechanism for backtracking as you can simply return from a recursive call to ‘undo’ the last step. On the other hand, iteration with an explicit stack requires you to implement backtracking manually by either copying data structures into each stack item (so that dropping stack items is effectively backtracking) or by using shared state and carefully rolling back changes to this.
+
+        - More subjectively, some people have preferences for recursion as it is a more intuitive mathematical representation of a problem, while others prefer iteration as it is more explicit and easier to debug/trace.
 
    2. Do you need to fill or quantify contiguous regions in a matrix?
 
