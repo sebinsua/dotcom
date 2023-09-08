@@ -37,7 +37,7 @@ function createDefaultMapFromNodeModules(
 const render = (markdown: string) =>
   unified()
     .use(remarkParse as any)
-    .use(remarkOembed)
+    .use(remarkOembed, { syncWidget: true })
     .use(remarkShikiTwoSlash, {
       theme: "vitesse-dark",
       fsMap: createDefaultMapFromNodeModules({

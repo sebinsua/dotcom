@@ -39,7 +39,7 @@ async function getPost(props: PostPageProps) {
   function proceed(
     direction: "previous" | "next",
     posts: PostData[],
-    postIndex: number
+    postIndex: number,
   ) {
     const step = direction === "previous" ? 1 : -1;
 
