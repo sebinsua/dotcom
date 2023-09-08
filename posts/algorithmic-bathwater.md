@@ -86,7 +86,7 @@ We want the ability to be able to identify and apply the right techniques given 
 
       - In fact, we can apply the **Binary Search** technique if the sequence is _partially sorted_ as long as it is _partitionable_ (e.g. we can discern a sorted and unsorted partition on each iteration). For example, we can apply binary search to rotated sorted arrays or bitonic sequences.
 
-      - We can also apply the **Binary Search** technique to compute numerical approximations if a sequence is ordered but virtual (e.g. a search space).
+      - We can also apply the **Binary Search** technique to compute numerical approximations if a sequence is ordered but virtual (e.g. a search space). For example, to approximate the square root of a number.
 
    4. Are we being asked to detect cycles in a linked list or to find the middle element?
 
