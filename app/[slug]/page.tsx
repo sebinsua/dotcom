@@ -36,21 +36,27 @@ async function getPost(props: PostPageProps) {
     throw new Error("No post was found for the slug: " + props.params.slug);
   }
 
-  const previous =
-    posts[postIndex + 1] && posts[postIndex + 1].meta.hidden !== true
-      ? posts[postIndex + 1]
-      : null;
-  const next =
-    posts[postIndex - 1] && posts[postIndex - 1].meta.hidden !== true
-      ? posts[postIndex - 1]
-      : null;
+  function proceed(
+    direction: "previous" | "next",
+    posts: PostData[],
+    postIndex: number
+  ) {
+    const step = direction === "previous" ? 1 : -1;
+
+    let index = postIndex + step;
+    while (posts[index] && posts[index].meta.hidden === true) {
+      index = index + step;
+    }
+
+    return posts[index] ?? null;
+  }
 
   const meta = post.meta;
   const html = await renderMarkdown(post.content);
 
   return {
-    previous,
-    next,
+    previous: proceed("previous", posts, postIndex),
+    next: proceed("next", posts, postIndex),
     meta,
     html,
   };
