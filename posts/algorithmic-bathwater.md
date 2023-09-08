@@ -60,7 +60,7 @@ This article aims to articulate what is often left unsaid, to make your practice
 
    1. Are we being asked to find pairs, triplets or a sub-array that match a constraint?
 
-      - To solve this optimally (e.g. $O(N)$), we need to be able to easily compare elements in the sequence without using nested loops. We have at most two options:
+      - To solve this optimally (e.g. $\mathcal{O}(N)$), we need to be able to easily compare elements in the sequence without using nested loops. We have at most two options:
 
         - _Ensuring the sequence is sorted_ and then applying the **Two Pointers** technique:
 
@@ -74,13 +74,13 @@ This article aims to articulate what is often left unsaid, to make your practice
 
    2. Are we being asked to find a longest/shortest substring or subsequence that matches a particular constraint or to compute aggregate statistics for a particular length subsequence?
 
-      - To solve this optimally, we want to be able to re-use the computations from previous windows so that we can update our answer for each window in constant time (e.g. $O(1)$) and the whole sequence can be completed in linear time (e.g. $O(N)$).
+      - To solve this optimally, we want to be able to re-use the computations from previous windows so that we can update our answer for each window in constant time (e.g. $\mathcal{O}(1)$) and the whole sequence can be completed in linear time (e.g. $\mathcal{O}(N)$).
 
       - We can do this by applying the **Sliding Window** technique, either using a fixed window size or a dynamic window size that can expand, shrink or reset based on certain conditions. Please note that these are not implemented in the same way as Two Pointers problems as explicit pointers towards the start and end of the window, but instead they generally use a single loop iterator and some additional variables to keep track of the window’s characteristics. This is a subtle but important distinction from the two-pointer technique.
 
    3. Are we being asked to find a target value or minimum/maximum value in this sequence?
 
-      - If the sequence is unsorted, there is no way to do better than a linear scan of the sequence (e.g. $O(N)$).
+      - If the sequence is unsorted, there is no way to do better than a linear scan of the sequence (e.g. $\mathcal{O}(N)$).
 
       - But, if the sequence is sorted we can apply the **Binary Search** technique.
 
@@ -104,13 +104,13 @@ This article aims to articulate what is often left unsaid, to make your practice
 
       - In situations in which you need access to elements in some dynamic order you cannot just use a `for`-loop to iterate through some elements in a fixed order, and likely will need to append elements into a dynamically ordered sequence maintained within a **Stack** or **Queue**.
 
-      - If we need to access the most recently processed elements we can use a **Stack**. This has $O(1)$ access at the end that elements are appended.
+      - If we need to access the most recently processed elements we can use a **Stack**. This has $\mathcal{O}(1)$ access at the end that elements are appended.
 
         - Note that ‘stack’ is a bit of an overloaded term as it refers to any last-in first-out (LIFO) structures. They are often arrays (or linked lists) but this isn’t necessarily the case. For example, when executing programs we keep a stack of frames within a block of contiguous memory.
 
         - I think it can also be helpful to think of how other data structures can also have stack-like access patterns. For example, when given a decimal integer we can ‘peek’ at its last-most digit using `% 10` and then ‘pop’ this using a `// 10`.
 
-      - If we need to access the least recently processed elements we can use a **Queue**. This has $O(1)$ access at its start, at the opposite end to where elements are appended.
+      - If we need to access the least recently processed elements we can use a **Queue**. This has $\mathcal{O}(1)$ access at its start, at the opposite end to where elements are appended.
 
    7. Are we being asked to merge sorted lists?
 
@@ -124,17 +124,17 @@ This article aims to articulate what is often left unsaid, to make your practice
 
    1. Do we need to quickly store or lookup strings or provide autocomplete functionality?
 
-      - Use a **Trie** data structure (also known as a prefix tree). This is a tree data structure that stores strings in a way that allows for fast (e.g. $O(K)$) retrieval and updates of strings that share a common prefix.
+      - Use a **Trie** data structure (also known as a prefix tree). This is a tree data structure that stores strings in a way that allows for fast (e.g. $\mathcal{O}(K)$) retrieval and updates of strings that share a common prefix.
 
    2. Are we being asked to query the smallest/largest/median values?
 
-      - Use a **Min-Heap** or **Max-Heap** data structure to query for the smallest/largest values (in $O(1)$).
+      - Use a **Min-Heap** or **Max-Heap** data structure to query for the smallest/largest values (in $\mathcal{O}(1)$).
 
       - You can use a combination of both **Min-Heap** and **Max-Heap** if you want to compute the median.
 
-      - There are time/space costs to maintaining heaps (creating a heap costs $O(N)$ but updates are $O(log N)$ due to the cost to `heapify`), so this makes more sense when you expect to make multiple queries over the lifetime of your program. The concept of amortised cost is also important when comparing min-heaps to algorithms like quickselect. While min-heaps offer a consistent update time of $O(log N)$, quickselect’s time complexity may be more efficient for one-off or occasional operations.
+      - There are time/space costs to maintaining heaps (creating a heap costs $\mathcal{O}(N)$ but updates are $\mathcal{O}(\log N)$ due to the cost to `heapify`), so this makes more sense when you expect to make multiple queries over the lifetime of your program. The concept of amortised cost is also important when comparing min-heaps to algorithms like quickselect. While min-heaps offer a consistent update time of $\mathcal{O}(\log N)$, quickselect’s time complexity may be more efficient for one-off or occasional operations.
 
-      - Heaps do not maintain sorted order of their elements, and therefore do not offer $O(1)$ access to the $k$th smallest/largest element. If you need to do this, while still allowing for efficient updates, you can use a **Binary Search Tree (BST)** data structure, possibly augmented with additional information to make it self-balancing (e.g. **AVL Tree** or **Red-Black Tree**).
+      - Heaps do not maintain sorted order of their elements, and therefore do not offer $\mathcal{O}(1)$ access to the $k$th smallest/largest element. If you need to do this, while still allowing for efficient updates, you can use a **Binary Search Tree (BST)** data structure, possibly augmented with additional information to make it self-balancing (e.g. **AVL Tree** or **Red-Black Tree**).
 
 5. **Does the problem require you to recover the order of some elements or substrings within a sequence?**
 
@@ -179,7 +179,7 @@ This article aims to articulate what is often left unsaid, to make your practice
 
       - In an undirected graph? Use **Union-Find**. Note that Union-Find is not suitable for directed graphs because it inherently deals with undirected equivalence relations; it merges sets and loses the sense of direction between nodes.
 
-      - In a directed or undirected graph? Use **Depth-first Search (DFS)**. Unlike Union-Find, DFS is suitable for directed graphs and can also provide information about the shape or structure of components
+      - In a directed or undirected graph? Use **Depth-first Search (DFS)**. Unlike Union-Find, DFS is suitable for directed graphs and can also provide information about the shape or structure of components.
 
 ### 🧪🤔📝
 
