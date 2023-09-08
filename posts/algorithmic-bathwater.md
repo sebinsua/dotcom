@@ -36,6 +36,12 @@ We want the ability to be able to identify and apply the right techniques given 
 
 ### What kind of problem do I have?
 
+<p align="center" width="100%">
+  <a href="./assets/posts/algorithmic-bathwater/algorithmic-bathwater-1.svg">
+   <img alt="Flowchart" src="./assets/posts/algorithmic-bathwater/algorithmic-bathwater-1.svg" />
+  </a>
+</p>
+
 1. **Does a solution to the problem result in a very expensive branching program suggesting that we might have an optimisation problem?**
 
    1. If local optimum decisions appear to lead to a global optimum:

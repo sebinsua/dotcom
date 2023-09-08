@@ -1,0 +1,70 @@
+graph TD
+  Start((Start)) --> A{"`Linear/sequential data structure?`"}
+  Start --> D{"`Efficient lookups of data?`"}
+  Start --> E{"`Recover the order from some data?`"}
+  Start --> F{"`Collection of interconnected points?`"}
+  Start --> G{"`Very expensive branching program?`"}
+
+  subgraph Linear/Sequential?
+    A --> B1{"`Find pairs, triplets or sub-arrays matching a constraint?`"}
+    B1 --> B1a{"`Is the sequence sorted?`"}
+    B1a -->|Sorted| B1a1(Two Pointers)
+    B1a -->|Unsorted| B1a2(Hash Map)
+
+    A --> B2a{"`Find substring or subsequence matching a constraint?`"}
+    A --> B2b{"`Compute statistics for a subsequence?`"}
+    B2a --> B2c(Sliding Window)
+    B2b --> B2c(Sliding Window)
+    
+    A --> B3{"`Find minimum, maximum or target value?`"}
+    B3 --> B3a{"`Is the sequence sorted?`"}
+    B3a --> B3a1(Binary Search)
+    
+    A --> B4{"`Detect cycles in a list?`"}
+    B4 --> B4a(Fast-And-Slow Pointers)
+
+    A --> B5{"`Find duplicates in a sequence?`"}
+    B5 --> B5a{"`Is the sequence sorted?`"}
+    B5a -->|Sorted| B5a1(Adjacent Comparison)
+    B5a -->|Unsorted| B5a2(Set/Hash Map)
+
+    A --> B6{"`Ordered Access to Elements?`"}
+    B6 -->|Recent?| B6a(Stack)
+    B6 -->|Least recent?| B6b(Queue)
+  end
+
+  subgraph Efficient Lookups?
+    D --> D1{"`Lookup or autocomplete strings?`"}
+    D1 --> D1a(Trie)
+    
+    D --> D2{"`Query the smallest/largest/median values?`"}
+    D2 --> D2a(Min-Heap, Max-Heap or BST)
+  end
+
+  subgraph Recover Order of Elements?
+    E --> E1(Directed Graph & Topological Sort)
+  end
+
+  subgraph Interconnected Points?
+    F --> F1{"`Permutations that match a constraint?`"}
+    F1 --> F1a(DFS with Backtracking)
+    
+    F --> F2{"`Fill or quantify contiguous regions in a matrix?`"}
+    F2 --> F2a(Flood-Fill)
+    
+    F --> F3{"`Shortest path between some nodes?`"}
+    F3 --> F3a(Breadth-First Search)
+
+    F --> F4{"`Determine node connectivity, counting components or detecting cycles?`"}
+    F4 --> F4a{"`Is the graph directed or undirected?`"}
+    F4a -->|Directed| F4a1(DFS)
+    F4a -->|Undirected| F4a2(Union-Find or DFS)
+  end
+
+  subgraph Optimization Problem?
+    G --> G1{"`Local optimum decisions lead to a global optimum?`"}
+    G1 --> G1a(Greedy Algorithm)
+    
+    G --> G3{"`Optimal substructure and overlapping subproblems?`"}
+    G3 --> G3a(Dynamic Programming:\n Top-Down Memoisation or Bottom-Up Tabulation)
+  end
