@@ -63,7 +63,7 @@ I’ve named this the “Inverse Number Spiral” problem and here is the proble
 
 My initial thought was that I could solve this problem by simply iterating over the spiral and checking if the current number is equal to the given number $N$. I imagined a robot starting at position $[1, 1]$, moving like a snake—right, down, left and up—while adjusting the number of steps in each direction. However, understanding the sequence of steps proved to be quite challenging. The pattern appeared complex and difficult to comprehend, making it difficult to implement (e.g. right 1, down 1, left 1, down 1, right 2, up 2, right 1, down 3, left 3, down 1, right 4, up 4, and so on).
 
-The time complexity of such an algorithm is $O(N)$. However, the number of tests $t$ is also an input parameter, which makes the overall time complexity $O(t \cdot N)$. Given that there can be up to $10^{5}$ tests and up to $10^{9}$ input numbers, a brute-force approach could potentially require up to $10^{14}$ iterations which may cause the program to exceed the time limit.
+The time complexity of such an algorithm is $O(n)$. However, the number of tests $t$ is also an input parameter, which makes the overall time complexity $O(t \cdot n)$. Given that there can be up to $10^{5}$ tests and up to $10^{9}$ input numbers, a brute-force approach could potentially require up to $10^{14}$ iterations which may cause the program to exceed the time limit.
 
 Given these challenges, I decided to look to see whether I could find an alternative approach.
 
@@ -245,7 +245,7 @@ const F25 = f(25); // [1, 5]
 
 By identifying patterns in the number spiral and leveraging mathematical relationships, we were able to transform a seemingly complex problem into a solvable one. In the process, we developed an efficient algorithm that significantly reduced the time complexity compared to a brute-force approach.
 
-Because we are able to calculate the coordinates for a given number $N$ using only constant-time mathematical operations, the time complexity of the solution is $O(1)$. When we execute `f(N)` for each test case $t$ in the input, the overall time complexity becomes $O(t)$, a substantial improvement over the brute-force approach which would have a time complexity of $O(t \cdot N)$.
+Because we are able to calculate the coordinates for a given number $N$ using only constant-time mathematical operations, the time complexity of the solution is $O(1)$. When we execute `f(N)` for each test case $t$ in the input, the overall time complexity becomes $O(t)$, a substantial improvement over the brute-force approach which would have a time complexity of $O(t \cdot n)$.
 
 Although further optimizations, such as memoizing `f(N)` to minimize duplicate calculations, could still be made, the current solution is both efficient and elegant.
 

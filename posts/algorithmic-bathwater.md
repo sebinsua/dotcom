@@ -66,7 +66,7 @@ We want the ability to be able to identify and apply the right techniques given 
 
    1. Are we being asked to find pairs, triplets or sub-arrays that match a constraint?
 
-      - To solve this optimally (e.g. $\mathcal{O}(N)$), we need to be able to easily compare elements in the sequence without using nested loops. We have at most two options:
+      - To solve this optimally (e.g. $\mathcal{O}(n)$), we need to be able to easily compare elements in the sequence without using nested loops. We have at most two options:
 
         - _Ensuring the sequence is sorted_ and then applying the **Two Pointers** technique:
 
@@ -80,13 +80,13 @@ We want the ability to be able to identify and apply the right techniques given 
 
    2. Are we being asked to find a longest/shortest substring or subsequence that matches a particular constraint or to compute aggregate statistics for a particular length subsequence?
 
-      - To solve this optimally, we want to be able to re-use the computations from previous windows so that we can update our answer for each window in constant time (e.g. $\mathcal{O}(1)$) and the whole sequence can be completed in linear time (e.g. $\mathcal{O}(N)$).
+      - To solve this optimally, we want to be able to re-use the computations from previous windows so that we can update our answer for each window in constant time (e.g. $\mathcal{O}(1)$) and the whole sequence can be completed in linear time (e.g. $\mathcal{O}(n)$).
 
       - We can do this by applying the **Sliding Window** technique, either using a fixed window size or a dynamic window size that can expand, shrink or reset based on certain conditions. Please note that these are not implemented in the same way as Two Pointers problems as explicit pointers towards the start and end of the window, but instead they generally use a single loop iterator and some additional variables to keep track of the window’s characteristics. This is a subtle but important distinction from the two-pointer technique.
 
    3. Are we being asked to find a target value or minimum/maximum value in this sequence?
 
-      - If the sequence is unsorted, there is no way to do better than a linear scan of the sequence (e.g. $\mathcal{O}(N)$).
+      - If the sequence is unsorted, there is no way to do better than a linear scan of the sequence (e.g. $\mathcal{O}(n)$).
 
       - But, if the sequence is sorted we can apply the **Binary Search** technique.
 
@@ -130,7 +130,7 @@ We want the ability to be able to identify and apply the right techniques given 
 
    1. Do we need to quickly store or lookup strings or provide autocomplete functionality?
 
-      - Use a **Trie** data structure (also known as a prefix tree). This is a tree data structure that stores strings in a way that allows for fast (e.g. $\mathcal{O}(K)$) retrieval and updates of strings that share a common prefix.
+      - Use a **Trie** data structure (also known as a prefix tree). This is a tree data structure that stores strings in a way that allows for fast (e.g. $\mathcal{O}(k)$) retrieval and updates of strings that share a common prefix.
 
    2. Are we being asked to query the smallest/largest/median values?
 
@@ -138,7 +138,7 @@ We want the ability to be able to identify and apply the right techniques given 
 
       - You can use a combination of both **Min-Heap** and **Max-Heap** if you want to compute the median.
 
-      - There are time/space costs to maintaining heaps (creating a heap costs $\mathcal{O}(N)$ but updates are $\mathcal{O}(\log N)$ due to the cost to `heapify`), so this makes more sense when you expect to make multiple queries over the lifetime of your program. The concept of [amortised cost](https://en.wikipedia.org/wiki/Amortized_analysis) is also important when comparing min-heaps to algorithms like quickselect. While min-heaps offer a consistent update time of $\mathcal{O}(\log N)$, quickselect’s time complexity may be more efficient for one-off or occasional operations.
+      - There are time/space costs to maintaining heaps (creating a heap costs $\mathcal{O}(n)$ but updates are $\mathcal{O}(\log n)$ due to the cost to `heapify`), so this makes more sense when you expect to make multiple queries over the lifetime of your program. The concept of [amortised cost](https://en.wikipedia.org/wiki/Amortized_analysis) is also important when comparing min-heaps to algorithms like quickselect. While min-heaps offer a consistent update time of $\mathcal{O}(\log n)$, quickselect’s time complexity may be more efficient for one-off or occasional operations.
 
       - Heaps do not maintain sorted order of their elements, and therefore do not offer $\mathcal{O}(1)$ access to the $k^{\text{\tiny th}}$ smallest/largest element. If you need to do this, while still allowing for efficient updates, you can use a **Binary Search Tree (BST)** data structure, possibly augmented with additional information to make it self-balancing (e.g. **AVL Tree** or **Red-Black Tree**).
 
