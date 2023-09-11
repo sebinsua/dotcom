@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 export interface GenerateMetadataProps {
   title?: string;
+  slug?: string;
   description?: string;
   siteUrl?: string;
   author?: string;
@@ -10,6 +11,7 @@ export interface GenerateMetadataProps {
 
 export async function createMetadata({
   title,
+  slug,
   date,
   description: _description,
   siteUrl: _siteUrl,
@@ -51,7 +53,7 @@ export async function createMetadata({
       },
     ],
     alternates: {
-      canonical: siteUrl,
+      canonical: slug ? `${siteUrl}/${slug}` : siteUrl,
       types: {
         "application/rss+xml": [
           {

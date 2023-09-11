@@ -8,6 +8,7 @@ import { ProfileImage } from "./ProfileImage";
 export async function generateMetadata() {
   return createMetadata({
     title: "About me",
+    slug: "about",
   });
 }
 

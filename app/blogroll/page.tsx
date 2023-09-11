@@ -7,6 +7,7 @@ import { Page } from "@components/Page";
 export async function generateMetadata() {
   return createMetadata({
     title: "Blogroll",
+    slug: "blogroll",
   });
 }
 

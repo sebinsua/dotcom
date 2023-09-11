@@ -23,6 +23,7 @@ export async function generateMetadata(props: PostPageProps) {
 
   return createMetadata({
     title: meta.title,
+    slug: meta.slug,
     description: meta.description,
     date: meta.date,
   });
