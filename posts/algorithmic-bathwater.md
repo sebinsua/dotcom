@@ -11,7 +11,7 @@ https://twitter.com/yacineMTB/status/1687126523910799360
 
 The belief that algorithmic tech interviews do not test for real-world programming skills is a memetic hazard. There might be truth to it but it serves as displacement from what is often the real underlying reason for resistance: the fear of negative judgement.
 
-Without passing judgement on whether these tests are a good way to assess skill level, it’s crucial to realise that the psychological impact of dismissing them has drawbacks. These problems often contain different ways of thinking and require novel techniques or hard-won algorithms, and their deliberate practice can be a valuable way to improve your problem-solving skills. While uncomfortable, acknowledging this offers us an opportunity to grow.
+Without passing judgement on whether these tests are a good way to assess skill level, it’s crucial to realise that dismissing them has drawbacks. These problems often contain different ways of thinking and require novel techniques or hard-won algorithms, and their deliberate practice can be a valuable way to improve your problem-solving skills. While uncomfortable, acknowledging this offers us an opportunity to grow.
 
 ### Not going in blind
 
