@@ -42,27 +42,7 @@ We want the ability to be able to identify and apply the right techniques given 
   </a>
 </p>
 
-1. **Does a solution to the problem result in a very expensive branching program suggesting that we might have an optimisation problem?**
-
-   1. If local optimum decisions appear to lead to a global optimum:
-
-      - Apply a **Greedy Algorithm**. Note that there’s no guaranteed way of knowing upfront whether local optimum decisions will lead to a global optimum, and it will require testing and analysis to determine whether this is the case.
-
-      - If the solution to the problem seems to require future information to decide the current step, a greedy algorithm will not be appropriate and you will need to either use **Depth-First Search (DFS)** or switch to a **Dynamic Programming** approach involving **Top-Down Memoisation**.
-
-      - A greedy algorithm makes decisions at each step based solely on the current state and local considerations, and cannot require backtracking, reconsideration of previous decisions, or deeper exploration of decision paths (like depth-first search).
-
-   2. If it seems to be possible to compute a solution from a combination of previously computed solutions (e.g. “optimal substructure”) then we can solve it using **Dynamic Programming**. Dynamic programming is particularly beneficial when the same subproblem reappears multiple times in a computation (e.g. “overlapping subproblems”).
-
-      - Dynamic programming allows you to save time at the expense of space.
-
-      - There are two high-level ways of implementing dynamic programming and the choice depends on the problem:
-
-        - We can always apply **Top-Down Memoisation**. This is effectively a DFS of the state space, generally implemented using recursive memoised function calls. It’s not always the most efficient way to solve the problem due to the overhead of recursion, but it does avoid the need to compute all possible subproblems first.
-
-        - If the transitions between subproblems in the state space are computed in a fixed manner we can apply **Bottom-Up Tabulation**. This computes all possible subproblems iteratively first and then uses these to compute the final solution, but it avoids the overhead of recursion by computing the subproblems one-by-one iteratively and is able to store these in an array for lower memory usage.
-
-2. **Is the problem related to a linear/sequential data structure (e.g. array, linked list, string, search space)?**
+1. **Is the problem related to a linear/sequential data structure (e.g. array, linked list, string, search space)?**
 
    1. Are we being asked to find pairs, triplets or sub-arrays that match a constraint?
 
@@ -122,11 +102,11 @@ We want the ability to be able to identify and apply the right techniques given 
 
       - Use a **Min-Heap**.
 
-3. **Does the problem involve categorizing or identifying unique elements based on some aspect of them not immediately known?**
+2. **Does the problem involve categorizing or identifying unique elements based on some aspect of them not immediately known?**
 
    - These are in fact conceptually **Hash Map** problems (because you cannot use **Set**s for identifying “uniqueness” when it is not defined by the value of the element itself). However, the crux of these questions often lies not in the choice of data structure, but the creation of a hash-like bucketing function that can efficiently capture/compute some invariant of the element that it can be grouped by. For example, anagrams can be grouped by the frequency of their characters, snowflakes by their lexicographically smallest rotation, and so on.
 
-4. **Does the problem require you to perform efficient lookups of data?**
+3. **Does the problem require you to perform efficient lookups of data?**
 
    1. Do we need to quickly store or lookup strings or provide autocomplete functionality?
 
@@ -142,13 +122,13 @@ We want the ability to be able to identify and apply the right techniques given 
 
       - Heaps do not maintain sorted order of their elements, and therefore do not offer $O(1)$ access to the $k^{\text{\tiny th}}$ smallest/largest element. If you need to do this, while still allowing for efficient updates, you can use a **Binary Search Tree (BST)** data structure, possibly augmented with additional information to make it self-balancing (e.g. **AVL Tree** or **Red-Black Tree**).
 
-5. **Does the problem require you to recover the order of some elements or substrings within a sequence?**
+4. **Does the problem require you to recover the order of some elements or substrings within a sequence?**
 
    - If you are able to infer partial information about how particular elements are connected, for example, if they come before or after each other or if they overlap (or touch), you can use this information to help build a **Directed Graph**. Vertices can represent elements, while edges can represent the information inferred from the data. Once this is achieved, it’s often possible to recover the order by running something like a **Topological Sort**.
 
    - In general, graphs seem a good fit for problems involving recovering the order of a sequence, for example, “de Bruijn” graphs are used for the re-assembly of de-novo DNA sequences from k-mers in computational biology.
 
-6. **Are you dealing with data points that are interconnected in some way, needing to generate and test paths or sequences, or wishing to traverse elements in a matrix?**
+5. **Are you dealing with data points that are interconnected in some way, needing to generate and test paths or sequences, or wishing to traverse elements in a matrix?**
 
    > ### Note
    >
@@ -188,6 +168,26 @@ We want the ability to be able to identify and apply the right techniques given 
       - In an undirected graph? Use **Union-Find**. Note that Union-Find is not suitable for directed graphs because it inherently deals with undirected equivalence relations; it merges sets and loses the sense of direction between nodes.
 
       - In a directed or undirected graph? Use **Depth-First Search (DFS)**. Unlike Union-Find, DFS is suitable for directed graphs and can also provide information about the shape or structure of components.
+
+6. **Does a solution to the problem result in a very expensive branching program suggesting that we might have an optimisation problem?**
+
+   1. If local optimum decisions appear to lead to a global optimum:
+
+      - Apply a **Greedy Algorithm**. Note that there’s no guaranteed way of knowing upfront whether local optimum decisions will lead to a global optimum, and it will require testing and analysis to determine whether this is the case.
+
+      - If the solution to the problem seems to require future information to decide the current step, a greedy algorithm will not be appropriate and you will need to either use **Depth-First Search (DFS)** or switch to a **Dynamic Programming** approach involving **Top-Down Memoisation**.
+
+      - A greedy algorithm makes decisions at each step based solely on the current state and local considerations, and cannot require backtracking, reconsideration of previous decisions, or deeper exploration of decision paths (like depth-first search).
+
+   2. If it seems to be possible to compute a solution from a combination of previously computed solutions (e.g. “optimal substructure”) then we can solve it using **Dynamic Programming**. Dynamic programming is particularly beneficial when the same subproblem reappears multiple times in a computation (e.g. “overlapping subproblems”).
+
+      - Dynamic programming allows you to save time at the expense of space.
+
+      - There are two high-level ways of implementing dynamic programming and the choice depends on the problem:
+
+        - We can always apply **Top-Down Memoisation**. This is effectively a DFS of the state space, generally implemented using recursive memoised function calls. It’s not always the most efficient way to solve the problem due to the overhead of recursion, but it does avoid the need to compute all possible subproblems first.
+
+        - If the transitions between subproblems in the state space are computed in a fixed manner we can apply **Bottom-Up Tabulation**. This computes all possible subproblems iteratively first and then uses these to compute the final solution, but it avoids the overhead of recursion by computing the subproblems one-by-one iteratively and is able to store these in an array for lower memory usage.
 
 ### 🧪🤔📝
 
