@@ -307,6 +307,19 @@ export default function BlogrollPage() {
             and megamorphic operations.
           </li>
           <li>
+            <a href="https://thume.ca/2023/01/02/one-machine-twitter/">
+              <em>
+                “Production Twitter on One Machine? 100Gbps NICs and NVMe are
+                fast”
+              </em>{" "}
+              (2023)
+            </a>{" "}
+            by <a href="https://thume.ca/">Tristan Hume</a> is a fun,
+            educational exercise on whether it is possible to design a system
+            that could serve the full production load of Twitter with most of
+            its features intact on a single machine.
+          </li>
+          <li>
             <a href="http://catern.com/compdist.html">
               <em>“Your computer is a distributed system”</em> (2022)
             </a>{" "}
