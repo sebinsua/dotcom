@@ -5,7 +5,6 @@ const withLinaria = require("next-with-linaria");
  */
 const config = {
   experimental: {
-    appDir: true,
     typedRoutes: true,
   },
   images: {
