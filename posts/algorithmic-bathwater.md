@@ -34,6 +34,8 @@ We want the ability to be able to identify and apply the right techniques given 
 > 1. We’re intentionally not discussing the implementation details of these techniques, as this is already well-covered elsewhere. For deep explanations, video tutorials and code examples, we recommend [NeetCode](https://neetcode.io/practice), [Grind 75](https://www.techinterviewhandbook.org/grind75) and [LeetCode](https://leetcode.com) or otherwise searching Google.
 > 2. This article is a work in progress and I’ll be adding more to it over time. <a href="mailto:me@sebinsua.com">Please email me with any insights or suggestions you have for improvement.</a>
 
+<a name="what-kind-of-problem-do-i-have"></a>
+
 ### What kind of problem do I have?
 
 <p align="center" width="100%">
