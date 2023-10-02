@@ -15,6 +15,8 @@ As software engineers, we construct functions by arranging syntax to express our
 
 Unfortunately, the functions modeled by neural networks are not inherently human-interpretable due to the way they are constructed. A neural network is essentially an incomprehensibly large mathematical expression composed of stacked layers. Each layer forwards its outputs to another layer, and is made up from mathematical expressions representing [artificial neurons](https://en.wikipedia.org/wiki/Artificial_neuron) computing the weighted sum of inputs plus a bias (an affine transformation but sometimes referred to as a “linear map”) followed by a non-linear activation function (e.g. `activation(sum(weights * inputs) + bias)`). There is nothing other than the overall mathematical expression formulated by the neural network, the numeric weights and biases used alongside it that are known to produce accurate results, and the scaffolding used to “train” the expression to perform as expected. This does not lead to natural interpretability and represents a significant issue for businesses reliant on being able to provide authentic explanations to clients on outputs or decisions that are called into question.
 
+<a name="backpropagation-is-the-chain-rule"></a>
+
 ### Backpropagation is _just_ the chain rule, what’s the problem?
 
 The reason modern neural networks are constructed as giant mathematical expressions, isn’t merely due to computational efficiency, but is substantially because training them requires a process called “backpropagation” (also known as reverse-mode automatic differentiation).
@@ -331,6 +333,8 @@ backpropagation(computationalGraph);
 
 For further discussion on computational graphs and the efficiency benefits of applying derivatives using these I can’t recommend [“Calculus on Computational Graphs: Backpropagation” (2015)](https://colah.github.io/posts/2015-08-Backprop/) highly enough. It’s a very easy-to-understand guide to computing derivatives that is detailed as well as economical with your time.
 
+<a name="optimizing-the-model-by-minimizing-the-loss"></a>
+
 ### Optimizing the model by minimizing the loss through updates to the weights and biases
 
 It’s not enough to merely have a function that can be used to “predict” values by repeatedly computing weighted sums of inputs, adding biases and passing their results through activation functions. Even if we had a way to compute derivatives of these outputs with respect to their weights and biases, it would still tell us nothing about how to improve the performance of the network. What we need is a way to measure how well the network is performing and a method of using this information to update weights and biases.
@@ -423,6 +427,8 @@ for (const epoch = 0; epoch < epochs; epoch++) {
   }
 }
 ```
+
+<a name="sacrificing-interpretability-for-automatic-function-approximation"></a>
 
 ### Neural networks: magical function approximators that sacrifice interpretability
 
