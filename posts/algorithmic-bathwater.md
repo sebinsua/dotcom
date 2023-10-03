@@ -114,7 +114,7 @@ We want the ability to be able to identify and apply the right techniques given 
 
       - Use a **Min-Heap**.
 
-2. **Does the problem involve categorizing or identifying unique elements based on some aspect of them not immediately known?**
+2. **Does the problem involve categorising or identifying unique elements based on some aspect of them not immediately known?**
 
    - These are in fact conceptually **Hash Map** problems (because you cannot use **Set**s for identifying “uniqueness” when it is not defined by the value of the element itself). However, the crux of these questions often lies not in the choice of data structure, but the creation of a hash-like bucketing function that can efficiently capture/compute some invariant of the element that it can be grouped by. For example, anagrams can be grouped by the frequency of their characters, snowflakes by their lexicographically smallest rotation, and so on.
 
@@ -174,7 +174,7 @@ We want the ability to be able to identify and apply the right techniques given 
 
       - Note that, BFS uses more memory than DFS because it needs to keep all of the nodes at the current level in memory, while DFS only needs to store the nodes along a single path in the tree/graph as it traverses. Therefore, if memory usage is a concern, DFS could be the better choice.
 
-      - BFS is also not suitable for weighted graphs which need an algorithm like Dijkstra’s or A\*.
+      - BFS traversals use a FIFO queue to traverse nodes and expect the edges to have uniform weights/costs. For non-uniform weight/cost graphs, we swap the FIFO queue for a priority queue (e.g. min-heap) to enable cost-aware traversals using **Dijkstra**'s or **A\***. Dijkstra's prioritises nodes based on cumulative cost from the start finding shortest paths to all nodes, while A\* also adds an ([admissible](https://en.wikipedia.org/wiki/Admissible_heuristic) and [consistent](https://en.wikipedia.org/wiki/Consistent_heuristic)) heuristic estimate towards the goal making it goal-oriented and often more efficient for finding a specific target.
 
    4. Are you being asked to determine whether nodes are connected, to count the number of components in a graph, or to detect cycles?
 
@@ -182,7 +182,7 @@ We want the ability to be able to identify and apply the right techniques given 
 
       - In a directed or undirected graph? Use **Depth-First Search (DFS)**. Unlike Union-Find, DFS is suitable for directed graphs and can also provide information about the shape or structure of components.
 
-      - Being able to detect whether two nodes are connected can be a useful general optimization technique when path-finding (e.g. BFS, DFS, Dijkstra or A\*) as it can allow you to “early exit” before beginning an invalid traversal.
+      - Being able to detect whether two nodes are connected can be a useful general optimisation technique when path-finding (e.g. BFS, DFS, Dijkstra or A\*) as it can allow you to “early exit” before beginning an invalid traversal.
 
 6. **Does a solution to the problem result in a very expensive branching program suggesting that we might have an optimisation problem?**
 
