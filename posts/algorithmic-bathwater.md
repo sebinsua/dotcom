@@ -182,6 +182,8 @@ We want the ability to be able to identify and apply the right techniques given 
 
       - In a directed or undirected graph? Use **Depth-First Search (DFS)**. Unlike Union-Find, DFS is suitable for directed graphs and can also provide information about the shape or structure of components.
 
+      - Being able to detect whether two nodes are connected can be a useful general optimization technique when path-finding (e.g. BFS, DFS, Dijkstra or A\*) as it can allow you to “early exit” before beginning an invalid traversal.
+
 6. **Does a solution to the problem result in a very expensive branching program suggesting that we might have an optimisation problem?**
 
    1. If local optimum decisions appear to lead to a global optimum:
