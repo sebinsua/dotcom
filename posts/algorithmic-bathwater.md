@@ -124,7 +124,7 @@ We want the ability to be able to identify and apply the right techniques given 
 
       - Use a **Trie** data structure (also known as a prefix tree). This is a tree data structure that stores strings in a way that allows for fast (e.g. $O(k)$) retrieval and updates of strings that share a common prefix.
 
-   2. Are we being asked to query the smallest/largest/median values?
+   2. Are we being asked to query the smallest/largest/median values? Do you need to be able to read out a sorted sequence of elements?
 
       - Use a **Min-Heap** or **Max-Heap** data structure to query for the smallest/largest values (in $O(1)$).
 
@@ -132,7 +132,7 @@ We want the ability to be able to identify and apply the right techniques given 
 
       - There are time/space costs to maintaining heaps (creating a heap costs $O(n)$ but updates are $O(\log n)$ due to the cost to `heapify`), so this makes more sense when you expect to make multiple queries over the lifetime of your program. The concept of [amortised cost](https://en.wikipedia.org/wiki/Amortized_analysis) is also important when comparing min-heaps to algorithms like quickselect. While min-heaps offer a consistent update time of $O(\log n)$, quickselect’s time complexity may be more efficient for one-off or occasional operations.
 
-      - Heaps do not maintain sorted order of their elements, and therefore do not offer $O(1)$ access to the $k^{\text{\tiny th}}$ smallest/largest element. If you need to do this, while still allowing for efficient updates, you can use a **Binary Search Tree (BST)** data structure, possibly augmented with additional information to make it self-balancing (e.g. **AVL Tree** or **Red-Black Tree**).
+      - Heaps do not maintain sorted order of their elements, and instead only maintain a partial ordering. Because of this, they do not offer $O(1)$ access to the $k^{\text{\tiny th}}$ smallest/largest element or allow you to read out a sorted sequence of elements. If you need to be able to do this, while still allowing for efficient updates, you can use a **Binary Search Tree (BST)** data structure, possibly augmented with additional information to make it self-balancing (e.g. **AVL Tree** or **Red-Black Tree**).
 
 4. **Does the problem require you to recover the order of some elements or substrings within a sequence?**
 
