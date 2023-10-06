@@ -127,6 +127,17 @@ export default function BlogrollPage() {
             detection through interactive visualisations.
           </li>
           <li>
+            <a href="https://www.redblobgames.com/pathfinding/a-star/introduction.html">
+              <em>“Introduction to the A* Algorithm”</em> (2014)
+            </a>{" "}
+            by{" "}
+            <a href="http://www-cs-students.stanford.edu/~amitp/">Amit Patel</a>{" "}
+            is an interactive guide that takes the reader on a journey from BFS,
+            to Dijkstra’s algorithm, all the way to A*. It helps build intuition
+            along the way on selecting an appropriate approach to a path-finding
+            problem.
+          </li>
+          <li>
             <a href="https://two-wrongs.com/data-consistency-is-overrated.html">
               <em>“Data Consistency Is Overrated”</em> (2023)
             </a>{" "}
