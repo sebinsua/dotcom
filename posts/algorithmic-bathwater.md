@@ -76,6 +76,8 @@ We want the ability to be able to identify and apply the right techniques given 
 
       - We can do this by applying the **Sliding Window** technique, either using a fixed window size or a dynamic window size that can expand, shrink or reset based on certain conditions. Please note that these are not implemented in the same way as Two Pointers problems as explicit pointers towards the start and end of the window, but instead they generally use a single loop iterator and some additional variables to keep track of the window’s characteristics. This is a subtle but important distinction from the two-pointer technique.
 
+      - See also: the Rabin-Karp string search algorithm which employs a specialised form of the sliding window technique that utilises rolling hashes to achieve efficient substring matching.
+
    3. Are we being asked to find a target value or minimum/maximum value in this sequence?
 
       - If the sequence is unsorted, there is no way to do better than a linear scan of the sequence (e.g. $O(n)$).
@@ -112,7 +114,7 @@ We want the ability to be able to identify and apply the right techniques given 
 
    7. Are we being asked to merge sorted lists?
 
-      - Use a **Min-Heap**.
+      - Use a **Min-Heap**. This approach is known as a k-way merge and is a generalisation of the two-way merge that is used in merge sort.
 
 2. **Does the problem involve categorising or identifying unique elements based on some aspect of them not immediately known?**
 
