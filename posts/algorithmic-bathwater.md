@@ -62,7 +62,7 @@ We want the ability to be able to identify and apply the right techniques given 
 
         - _Ensuring the sequence is sorted_ and then applying the **Two Pointers** technique:
 
-          - We can avoid the need for a nested loop if the sequence is sorted, as we can operate upon the sequence using two explicit pointers, one at the start and one at the end. The pointers clarify which elements are being considered for the condition being evaluated, and on each iteration we choose how to move these pointers based on the result of a comparison.
+          - We can avoid the need for a nested loop if the sequence is sorted, as we can operate upon the sequence using two explicit pointers, one at the start and one at the end. The pointers clarify which elements are being considered for the condition being evaluated, and [on each iteration we choose how to move these pointers based on the result of a comparison](https://archive.ph/y73um).
 
           - This is particularly useful when a deterministic order matters or when we are looking for unique pairs/triplets.
 
@@ -74,7 +74,7 @@ We want the ability to be able to identify and apply the right techniques given 
 
       - To solve this optimally, we want to be able to re-use the computations from previous windows so that we can update our answer for each window in constant time (e.g. $O(1)$) and the whole sequence can be completed in linear time (e.g. $O(n)$).
 
-      - We can do this by applying the **Sliding Window** technique, either using a fixed window size or a dynamic window size that can expand, shrink or reset based on certain conditions. Please note that these are not implemented in the same way as Two Pointers problems as explicit pointers towards the start and end of the window, but instead they generally use a single loop iterator and some additional variables to keep track of the window’s characteristics. This is a subtle but important distinction from the two-pointer technique.
+      - We can do this by applying the **Sliding Window** technique, either using a fixed window size or a dynamic window size that can expand, shrink or reset based on certain conditions. Please note that these are not implemented in the same way as two pointers problems as explicit pointers towards the start and end of the window, but instead they generally use a single loop iterator and some additional variables to keep track of the window’s characteristics. This is a subtle but important distinction from the two-pointer technique.
 
       - See also: the Rabin-Karp string search algorithm which employs a specialised form of the sliding window technique that utilises rolling hashes to achieve efficient substring matching.
 
