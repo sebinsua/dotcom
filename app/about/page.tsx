@@ -89,7 +89,7 @@ export default function AboutPage() {
           <p>
             When writing software my focus is on readability and reliability. An
             unfortunate industry norm is for software to be rewritten afresh as
-            a greenfield project every two to three years. It is a story of
+            a greenfield project every two to five years. It is a story of
             repeated institutional knowledge loss and companies that learn to do
             better here have the opportunity to surpass those that do not.
           </p>
