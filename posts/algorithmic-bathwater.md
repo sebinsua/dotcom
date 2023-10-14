@@ -220,22 +220,27 @@ The following questions present scenarios that test your ability to select the m
    - [Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
    - [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)
 
-3. **Stack or Queue?**
+3. **Sliding Window or Stack?**
+
+   - [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/)
+   - [Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/)
+
+4. **Stack or Queue?**
 
    - [Rotting Oranges](https://leetcode.com/problems/rotting-oranges/)
    - [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
 
-4. **Backtracking or DFS?**
+5. **Backtracking or DFS?**
 
    - [Number of Islands](https://leetcode.com/problems/number-of-islands/)
    - [Combination Sum](https://leetcode.com/problems/combination-sum/)
 
-5. **Union-Find or DFS?**
+6. **Union-Find or DFS?**
 
    - [Course Schedule](https://leetcode.com/problems/course-schedule/)
    - [Redundant Connection](https://leetcode.com/problems/redundant-connection/)
 
-6. **DFS or Dynamic Programming?**
+7. **DFS or Dynamic Programming?**
 
    - [Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/)
    - [Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/)
