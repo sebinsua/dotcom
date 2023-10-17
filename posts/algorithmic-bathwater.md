@@ -108,6 +108,8 @@ We want the ability to be able to identify and apply the right techniques given 
 
         - Note that ‘stack’ is a bit of an overloaded term as it refers to any last-in first-out (LIFO) structures. They are often arrays (or linked lists) but this isn’t necessarily the case. For example, when executing programs we keep a stack of frames within a block of contiguous memory.
 
+        - Not all problems involving a ‘stack’ are similar. For example, there are some in which (1) you only ever need to access, check or pop the most recently appended element, while there are others in which (2) you will need to repeatedly traverse backwards through the stack while some condition is true. The latter approach would often use a nested `while`-loop and can allow you to gather information or maintain state using previous elements in the stack or even to maintain some invariant in the stack that can be depended upon by future iterations or even a second phase of the algorithm.
+
         - I think it can also be helpful to think of how other data structures can also have stack-like access patterns. For example, when given a decimal integer we can ‘peek’ at its last digit using `% 10` and then ‘pop’ this using a `// 10`.
 
       - If we need to access the least recently processed elements we can use a **Queue**. This has $O(1)$ access at its start, at the opposite end to where elements are appended.
