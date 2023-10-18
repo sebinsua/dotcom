@@ -1,6 +1,7 @@
 import { css } from "@linaria/core";
 
 import { PathnameContainer } from "./PathnameContainer";
+import { HireMeFooter } from "./HireMeFooter";
 
 import "@styles/global.css";
 
@@ -9,6 +10,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const isLookingForWork = true;
   return (
     <html lang="en">
       <body>
@@ -26,6 +28,7 @@ export default function RootLayout({
         >
           <PathnameContainer>{children}</PathnameContainer>
         </div>
+        {isLookingForWork ? <HireMeFooter /> : null}
       </body>
     </html>
   );
