@@ -224,7 +224,7 @@ The following questions present scenarios that test your ability to select the m
    - [Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
    - [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)
 
-3. **Sliding Window or Stack?**
+3. **Stack or Two Pointers?**
 
    - [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/)
    - [Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/)
