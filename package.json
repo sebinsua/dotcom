@@ -12,7 +12,7 @@
   "scripts": {
     "lint": "next lint && prettier --write '**/*.{ts,tsx}'",
     "dev": "next dev",
-    "build": "rm -rf .next/cache && next build",
+    "build": "next build || (echo \"Build failed, retrying...\" && next build)",
     "sitemap": "yarn build && next-sitemap",
     "typecheck": "tsc"
   },
