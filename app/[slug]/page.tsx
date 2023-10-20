@@ -40,7 +40,7 @@ async function getPost(props: PostPageProps) {
   function proceed(
     direction: "previous" | "next",
     posts: PostData[],
-    postIndex: number,
+    postIndex: number
   ) {
     const step = direction === "previous" ? 1 : -1;
 
@@ -92,18 +92,49 @@ function PostNavigation({ previous, next }: PostNavigationProps) {
               padding: 0 2rem;
             `}
           >
-            <li>
+            <li
+              className={css`
+                text-align: left;
+              `}
+            >
               {previous && (
                 <Link href={`/${encodeURIComponent(previous.meta.slug)}`}>
-                  ← {previous.meta.title}
+                  <span
+                    className={css`
+                      position: relative;
+                      &::before {
+                        position: absolute;
+                        content: "←";
+                        left: -1rem;
+                        margin-right: 0.6rem;
+                      }
+                    `}
+                  >
+                    {previous.meta.title}
+                  </span>
                 </Link>
               )}
             </li>
 
-            <li>
+            <li
+              className={css`
+                text-align: right;
+              `}
+            >
               {next && (
                 <Link href={`/${encodeURIComponent(next.meta.slug)}`}>
-                  {next.meta.title} →
+                  <span
+                    className={css`
+                      position: relative;
+                      &::after {
+                        position: absolute;
+                        content: "→";
+                        margin-left: 0.6rem;
+                      }
+                    `}
+                  >
+                    {next.meta.title}
+                  </span>
                 </Link>
               )}
             </li>
