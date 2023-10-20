@@ -25,7 +25,7 @@ function getOpacityForDate(
     minValue = 0.1,
     maxValue = 1.0,
     numberOfYears = 8,
-  }: GetOpacityForDateOptions = {},
+  }: GetOpacityForDateOptions = {}
 ) {
   const now = new Date();
 
@@ -57,11 +57,12 @@ function PostItem({ title, slug, date }: PostItemProps) {
       `}
     >
       <header>
-        <h4
+        <h3
           className={css`
             display: flex;
             justify-content: space-between;
             margin: 0;
+            font-size: 1em;
           `}
           style={{ opacity: getOpacityForDate(date) }}
         >
@@ -75,7 +76,7 @@ function PostItem({ title, slug, date }: PostItemProps) {
           >
             {formatISO9075(date, { representation: "date" })}
           </time>
-        </h4>
+        </h3>
       </header>
     </li>
   );
@@ -87,24 +88,40 @@ interface PostsListProps {
 
 function PostsList({ posts }: PostsListProps) {
   return (
-    <ul
-      className={css`
-        list-style-type: none;
-        padding: 0;
-        margin-top: 1.1rem;
-      `}
-    >
-      {posts.map((post) => {
-        return (
-          <PostItem
-            key={`post-item-${post.meta.slug}`}
-            title={post.meta.title}
-            slug={post.meta.slug}
-            date={parseISO(post.meta.date)}
-          />
-        );
-      })}
-    </ul>
+    <>
+      <h2
+        className={css`
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          margin: -1px;
+          border: 0;
+          padding: 0;
+          clip: rect(0 0 0 0);
+          overflow: hidden;
+        `}
+      >
+        Posts
+      </h2>
+      <ul
+        className={css`
+          list-style-type: none;
+          padding: 0;
+          margin-top: 1.1rem;
+        `}
+      >
+        {posts.map((post) => {
+          return (
+            <PostItem
+              key={`post-item-${post.meta.slug}`}
+              title={post.meta.title}
+              slug={post.meta.slug}
+              date={parseISO(post.meta.date)}
+            />
+          );
+        })}
+      </ul>
+    </>
   );
 }
 
