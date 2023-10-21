@@ -2,6 +2,7 @@
 title: Opine
 slug: opine
 date: "2015-01-07"
+hidden: true
 ---
 
 > “A quote by a fancy intellectual that shows that the author is deeply serious about defending their opinions from internet passers-by and that cheap shots will not be effective.”

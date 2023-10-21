@@ -1,4 +1,4 @@
-import { css } from "@linaria/core";
+import { css, cx } from "@linaria/core";
 import parseISO from "date-fns/parseISO";
 import formatISO9075 from "date-fns/formatISO9075";
 
@@ -47,9 +47,10 @@ interface PostItemProps {
   title: string;
   slug: string;
   date: Date;
+  isEffortPost?: boolean;
 }
 
-function PostItem({ title, slug, date }: PostItemProps) {
+function PostItem({ title, slug, date, isEffortPost = false }: PostItemProps) {
   return (
     <li
       className={css`
@@ -58,12 +59,30 @@ function PostItem({ title, slug, date }: PostItemProps) {
     >
       <header>
         <h3
-          className={css`
-            display: flex;
-            justify-content: space-between;
-            margin: 0;
-            font-size: 1em;
-          `}
+          className={cx(
+            css`
+              position: relative;
+              display: flex;
+              justify-content: space-between;
+              margin: 0;
+              font-size: 1em;
+            `,
+            isEffortPost
+              ? css`
+                  &::before {
+                    position: absolute;
+                    content: "❋";
+                    left: -1rem;
+                    top: -1px;
+                    color: darkslategray;
+                    transition: color 0.2s ease-in-out;
+                  }
+                  &:hover::before {
+                    color: slategray;
+                  }
+                `
+              : undefined
+          )}
           style={{ opacity: getOpacityForDate(date) }}
         >
           <Link href={`/${slug}`} passHref>
@@ -117,6 +136,7 @@ function PostsList({ posts }: PostsListProps) {
               title={post.meta.title}
               slug={post.meta.slug}
               date={parseISO(post.meta.date)}
+              isEffortPost={post.meta.isEffortPost}
             />
           );
         })}

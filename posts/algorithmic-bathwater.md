@@ -3,6 +3,7 @@ title: Is dismissing the algorithmic tech interview a memetic hazard?
 slug: algorithmic-bathwater
 date: "2023-09-08"
 description: "Master algorithmic design. A step-by-step guide to selecting the optimal technique when solving a programming problem including greedy algorithms, dynamic programming, depth-first search and backtracking."
+isEffortPost: true
 ---
 
 ### Algorithmic bathwater

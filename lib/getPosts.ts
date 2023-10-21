@@ -11,6 +11,7 @@ export interface PostData {
     description?: string;
     author?: string;
     hidden?: boolean;
+    isEffortPost?: boolean;
   };
   content: string;
 }
@@ -26,7 +27,7 @@ export async function getPosts(): Promise<PostData[]> {
       .map(async (fileName) => {
         const postContent = await fs.readFile(
           path.join(postsDirectory, fileName),
-          "utf8",
+          "utf8"
         );
 
         const { data, content } = matter(postContent);
@@ -39,16 +40,17 @@ export async function getPosts(): Promise<PostData[]> {
             description: data.description ?? null,
             author: data.author ?? null,
             hidden: data.hidden ?? false,
+            isEffortPost: data.isEffortPost ?? false,
           },
           content: content,
         } as PostData;
 
         return post;
-      }),
+      })
   );
 
   return posts.sort(
-    (a, b) => new Date(b.meta.date).getTime() - new Date(a.meta.date).getTime(),
+    (a, b) => new Date(b.meta.date).getTime() - new Date(a.meta.date).getTime()
   );
 }
 
