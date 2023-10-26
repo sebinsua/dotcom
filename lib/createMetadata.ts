@@ -69,9 +69,5 @@ export async function createMetadata({
       "theme-color": "#ffffff",
       ...(date !== null ? { date } : {}),
     },
-    viewport: {
-      width: "device-width",
-      initialScale: 1.0,
-    },
   };
 }

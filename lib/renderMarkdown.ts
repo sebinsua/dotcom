@@ -15,18 +15,18 @@ import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
 
 function createDefaultMapFromNodeModules(
-  compilerOptions: typescript.CompilerOptions,
+  compilerOptions: typescript.CompilerOptions
 ) {
   function getLibContents(name: string) {
     return fs.readFileSync(
       path.join(".", "node_modules", "typescript", "lib", name),
-      "utf8",
+      "utf8"
     );
   }
 
   const fsMap = knownLibFilesForCompilerOptions(
     compilerOptions,
-    typescript,
+    typescript
   ).reduce((m, lib) => {
     return m.set("/" + lib, getLibContents(lib));
   }, new Map<string, string>());
@@ -48,7 +48,7 @@ const render = (markdown: string) =>
     .use(
       rehype as any,
       // @ts-ignore
-      { allowDangerousHtml: true },
+      { allowDangerousHtml: true }
     )
     .use(rehypeRaw)
     .use(rehypeKatex as any)

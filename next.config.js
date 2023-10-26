@@ -6,6 +6,7 @@ const withLinaria = require("next-with-linaria");
 const config = {
   experimental: {
     typedRoutes: true,
+    webpackBuildWorker: true,
   },
   images: {
     loader: "custom",
