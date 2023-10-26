@@ -53,7 +53,7 @@ const render = (markdown: string) =>
     .use(rehypeRaw)
     .use(rehypeKatex as any)
     .use(rehypeFormat)
-    .use(rehypeStringify)
+    .use(rehypeStringify as any)
     .process(markdown);
 
 export async function renderMarkdown(markdown: string): Promise<string> {
