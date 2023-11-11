@@ -351,6 +351,15 @@ export default function BlogrollPage() {
             surprising mechanics behind how a neural network learns to
             accomplish binary addition.
           </li>
+          <li>
+            <a href="https://blog.nelhage.com/post/computers-can-be-understood/">
+              <em>“Computers can be understood”</em> (2020)
+            </a>{" "}
+            by <a href="https://nelhage.com/">Nelson Elhage</a> argues that
+            despite the complexity of modern computers, understanding them is
+            within our grasp, and that we shouldn’t shy away from doing so as
+            this knowledge is compounding.
+          </li>
         </ul>
       </div>
     </Page>
