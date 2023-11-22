@@ -25,7 +25,7 @@ function getOpacityForDate(
     minValue = 0.1,
     maxValue = 1.0,
     numberOfYears = 8,
-  }: GetOpacityForDateOptions = {}
+  }: GetOpacityForDateOptions = {},
 ) {
   const now = new Date();
 
@@ -81,7 +81,7 @@ function PostItem({ title, slug, date, isEffortPost = false }: PostItemProps) {
                     color: slategray;
                   }
                 `
-              : undefined
+              : undefined,
           )}
           style={{ opacity: getOpacityForDate(date) }}
         >
