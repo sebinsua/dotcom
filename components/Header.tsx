@@ -78,6 +78,7 @@ export function Header(_: HeaderProps) {
         className={css`
           display: flex;
           justify-content: flex-end;
+          font-family: var(--font-family-text);
           ul {
             list-style-type: none;
             text-align: right;

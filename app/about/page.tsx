@@ -17,6 +17,7 @@ export default function AboutPage() {
     <Page title="About me" slug="/about">
       <div
         className={css`
+          font-family: var(--font-family-text);
           font-size: 0.8rem;
           line-height: 1.5rem;
           margin-top: 0.95em;

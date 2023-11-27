@@ -63,6 +63,7 @@ function PostItem({ title, slug, date, isEffortPost = false }: PostItemProps) {
             css`
               position: relative;
               display: flex;
+              font-family: var(--font-family-header);
               justify-content: space-between;
               margin: 0;
               font-size: 1em;
@@ -91,6 +92,7 @@ function PostItem({ title, slug, date, isEffortPost = false }: PostItemProps) {
           <time
             className={css`
               word-break: keep-all;
+              font-family: monospace;
             `}
           >
             {formatISO9075(date, { representation: "date" })}

@@ -5,6 +5,7 @@ function HireMeContent() {
     <div
       className={css`
         text-align: center;
+        font-family: var(--font-family-text);
         font-size: 1rem;
         font-weight: bold;
         color: white;

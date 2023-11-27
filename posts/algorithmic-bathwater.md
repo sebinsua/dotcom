@@ -43,14 +43,14 @@ We want the ability to be able to identify and apply the right techniques given 
 >    - [Red Blob Games](https://www.redblobgames.com)
 >    - Searching Google
 >
-> 2. This article is a work in progress and I’ll be adding more to it over time. <a href="mailto:me@sebinsua.com">Please email me with any insights or suggestions you have for improvement.</a>
+> 2. This article is a work in progress and I’ll be adding more to it over time. <a href="mailto:me@sebinsua.com">Please email me with any insights or suggestions you have for improvement</a>.
 
 <a name="what-kind-of-problem-do-i-have"></a>
 
 ### What kind of problem do I have?
 
 <p align="center" width="100%">
-  <a href="./assets/posts/algorithmic-bathwater/algorithmic-bathwater-1.svg">
+  <a href="./assets/posts/algorithmic-bathwater/algorithmic-bathwater-1.svg" class="without-link-icon">
    <img alt="Flowchart" src="./assets/posts/algorithmic-bathwater/algorithmic-bathwater-1.svg" />
   </a>
 </p>
@@ -157,7 +157,7 @@ We want the ability to be able to identify and apply the right techniques given 
 
       - When you have a particular target or constraint that needs to be met, it generally suggests that you will need to go deeply into the search space to find and test each path. This suggests that you will need to use a **Depth-First Search (DFS)** approach, however, this will likely result in an explosion of paths that need to be explored and very slow performance as well as bad memory usage. To avoid this, you will need to prune paths early-on that cannot possibly lead to a solution, and, also due to the potential depth of the search space use a **Backtracking** approach to (a) invalidate any paths later shown to be impossible, and (b) rollback any modifications to shared state that are made during the search.
 
-      - Another way of looking at things is that DFS doesn’t need to traverse a materialised tree or graph. They can be used to explore a more implicit solution space such as a “decision tree” in which each choice appends an item to a stack. For example, it would be possible to use something like a regular expression (e.g. ‘(ab[cd]e?)\*’) as a generative structure that creates a DFS-like search space that generates strings that match that expression.
+      - Another way of looking at things is that DFS doesn’t need to traverse a materialised tree or graph. They can be used to explore a more implicit solution space such as a “decision tree” in which each choice appends an item to a stack. For example, it would be possible to use something like a regular expression (e.g. `(ab[cd]e?)*`) as a generative structure that creates a DFS-like search space that generates strings that match that expression.
 
       - **Depth-First Search (DFS)** has a lot of overlap with **Top-Down Memoisation**. In fact, top-down memoisation is depth-first search but with a caching optimisation to avoid re-computing subproblems (e.g. “overlapping subproblems”). Top-down memoisation is generally assumed to be implemented using recursion, but, it can also be implemented iteratively using a **Stack**.
 

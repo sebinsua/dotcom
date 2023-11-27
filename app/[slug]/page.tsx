@@ -72,6 +72,7 @@ function PostNavigation({ previous, next }: PostNavigationProps) {
   return (
     <footer
       className={css`
+        font-family: var(--font-family-text);
         hr {
           opacity: 0.2;
           color: lightgrey;
@@ -166,6 +167,7 @@ function Post({
         <h2
           className={css`
             font-size: 1.1rem;
+            font-family: var(--font-family-header);
             line-height: 2rem;
             margin-top: 0.95rem;
 
@@ -179,6 +181,7 @@ function Post({
         <div
           className={css`
             padding-top: 0.75rem;
+            font-family: var(--font-family-text);
           `}
         >
           <small>
@@ -190,6 +193,33 @@ function Post({
       </header>
 
       <article
+        className={css`
+          font-family: var(--font-family-text);
+
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+            font-family: var(--font-family-header);
+          }
+
+          a:after {
+            position: relative;
+            top: -0.25rem;
+            content: "➚";
+            font-size: 1rem;
+            margin-left: 0.2rem;
+          }
+
+          li > a:only-of-type:after,
+          .twitter-tweet a:after,
+          a[name]:after,
+          a.without-link-icon:after {
+            content: none;
+          }
+        `}
         dangerouslySetInnerHTML={{
           __html: html,
         }}

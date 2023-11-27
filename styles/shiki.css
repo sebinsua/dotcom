@@ -77,7 +77,7 @@ pre.twoslash data-lsp:hover::before {
   text-align: left;
   padding: 5px 8px;
   border-radius: 2px;
-  font-family: "JetBrains Mono", Menlo, Monaco, Consolas, Courier New, monospace;
+  font-family: "Space Mono", monospace;
   font-size: 14px;
   white-space: pre-wrap;
   z-index: 100;
@@ -116,7 +116,7 @@ pre .code-container:hover a {
 
 pre code {
   font-size: 14px;
-  font-family: "JetBrains Mono", Menlo, Monaco, Consolas, Courier New, monospace;
+  font-family: "Space Mono", monospace;
   white-space: pre;
   -webkit-overflow-scrolling: touch;
 }

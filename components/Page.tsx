@@ -14,6 +14,7 @@ function Footer({ slug }: FooterProps) {
       className={css`
         display: flex;
         flex-direction: row-reverse;
+        font-family: var(--font-family-text);
 
         a {
           color: lightgrey;

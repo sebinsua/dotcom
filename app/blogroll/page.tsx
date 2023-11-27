@@ -16,6 +16,7 @@ export default function BlogrollPage() {
     <Page title="Blogroll" slug="/blogroll">
       <div
         className={css`
+          font-family: var(--font-family-text);
           margin-top: 1.475em;
           background: linear-gradient(
             100deg,

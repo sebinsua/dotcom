@@ -1,6 +1,51 @@
 @import "./katex.css";
 @import "./shiki.css";
 
+@font-face {
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    url("/fonts/SpaceMono-Regular.woff2") format("woff2"),
+    url("/fonts/SpaceMono-Regular.woff") format("woff"),
+    url("/fonts/SpaceMono-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    url("/fonts/SpaceMono-Bold.woff2") format("woff2"),
+    url("/fonts/SpaceMono-Bold.woff") format("woff"),
+    url("/fonts/SpaceMono-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Space Mono";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    url("/fonts/SpaceMono-Italic.woff2") format("woff2"),
+    url("/fonts/SpaceMono-Italic.woff") format("woff"),
+    url("/fonts/SpaceMono-Italic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Space Mono";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    url("/fonts/SpaceMono-BoldItalic.woff2") format("woff2"),
+    url("/fonts/SpaceMono-BoldItalic.woff") format("woff"),
+    url("/fonts/SpaceMono-BoldItalic.ttf") format("truetype");
+}
+:root {
+  --font-family-header: monospace;
+  --font-family-text: "Space Mono", monospace;
+}
+
 body {
   font-family: monospace;
   font-size: 14px;
@@ -35,23 +80,21 @@ pre code {
   font-size: 14px;
 }
 
-code {
+p > code {
   color: orangered;
+  padding: 0.12em 0.25em;
+  background: #f7f7f7;
+  border: 1px solid #ededed;
+  border-radius: 0.375rem;
+  display: inline-block;
+  line-height: 1.2;
+  margin: 0;
 }
-.code-container code {
-  color: unset;
-}
-code::before,
-code::after {
+p > code::before,
+p > code::after {
   content: "`";
   display: inline;
   color: slategrey;
-}
-.code-container code::before,
-.code-container code::after {
-  content: unset;
-  display: unset;
-  color: unset;
 }
 
 a {
