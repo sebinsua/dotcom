@@ -1,6 +1,10 @@
 import { css } from "@linaria/core";
 
-function HireMeContent() {
+interface HireMeFooterProps {
+  works: string[];
+}
+
+function HireMeContent({ works }: HireMeFooterProps) {
   return (
     <div
       className={css`
@@ -21,9 +25,7 @@ function HireMeContent() {
         }
       `}
     >
-      <span>
-        I&rsquo;m currently available for freelance or full-time work.
-      </span>{" "}
+      <span>I&rsquo;m currently available for {works.join(" or ")} work.</span>{" "}
       <a
         href="mailto:me@sebinsua.com"
         className={css`
@@ -81,7 +83,7 @@ export function HireMeFooter() {
             background-color: #00e;
           `}
         >
-          <HireMeContent />
+          <HireMeContent works={["freelance"]} />
         </div>
       </div>
     </>
