@@ -13,7 +13,7 @@ export async function generateMetadata() {
 
 export default function BlogrollPage() {
   return (
-    <Page title="Blogroll" slug="/blogroll">
+    <Page slug="/blogroll">
       <div
         className={css`
           font-family: var(--font-family-text);

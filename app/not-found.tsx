@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function NotFoundPage() {
   return (
-    <Page title="404">
+    <Page>
       <h1>404</h1>
 
       <Link

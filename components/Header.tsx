@@ -1,10 +1,10 @@
 import { css } from "@linaria/core";
 import { Link } from "./Link";
+import { NavLinks } from "./NavLinks";
 
 import packageJson from "../package.json";
 
 import type { ReactNode } from "react";
-import type { Route } from "next";
 
 interface TitleProps {
   children: ReactNode;
@@ -39,12 +39,7 @@ function Title({ children }: TitleProps) {
   );
 }
 
-interface HeaderProps {
-  slug?: string;
-  title?: string;
-}
-
-export function Header(_: HeaderProps) {
+export function Header() {
   return (
     <header
       className={css`
@@ -77,60 +72,15 @@ export function Header(_: HeaderProps) {
           display: flex;
           justify-content: flex-end;
           font-family: var(--font-family-text);
-          ul {
-            list-style-type: none;
-            text-align: right;
-          }
-          a:visited {
-            color: #0000ee;
-          }
-          .PathnameContainer[data-pathname="/"] & a[href="/"],
-          .PathnameContainer[data-pathname="/blogroll"] & a[href="/blogroll"],
-          .PathnameContainer[data-pathname="/about"] & a[href="/about"] {
-            pointer-events: none;
-            border-bottom: 1px solid lightgrey;
-          }
-          
+
           @media (max-width: 768px) {
             justify-content: flex-start;
             padding: 0 1rem;
             font-size: 0.8rem;
-            ul {
-              display: flex;
-              padding: 0;
-            }
-            li:not(:last-child) {
-              padding-right: 0.5rem;
-            }
           }
         `}
       >
-        <ul>
-          <li>
-            <Link href="/">writing</Link>
-          </li>
-          <li>
-            <Link href="/blogroll">blogroll</Link>
-          </li>
-          <li>
-            <Link href={"https://gist.github.com/sebinsua" as Route} external>
-              gists
-            </Link>
-          </li>
-          <li>
-            <Link href={"https://github.com/sebinsua" as Route} external>
-              github
-            </Link>
-          </li>
-          <li>
-            <Link href={"https://twitter.com/sebinsua" as Route} external>
-              twitter
-            </Link>
-          </li>
-          <li>
-            <Link href="/about">about</Link>
-          </li>
-        </ul>
+        <NavLinks />
       </div>
     </header>
   );

@@ -35,9 +35,10 @@ I’ve named this the “Inverse Number Spiral” problem and here is the proble
 > ### Constraints
 >
 > $$
-> 1 ≤ t ≤ 10^{5}
-> \\
-> 1 ≤ y,x ≤ 10^{9}
+> \begin{gathered}
+> 1 \leq t \leq 10^{5} \\
+> 1 \leq y,x \leq 10^{9}
+> \end{gathered}
 > $$
 >
 > ### Example

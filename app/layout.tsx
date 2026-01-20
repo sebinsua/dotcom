@@ -1,7 +1,7 @@
 import { css } from "@linaria/core";
 
-import { PathnameContainer } from "./PathnameContainer";
 import { HireMeFooter } from "./HireMeFooter";
+import { TwitterWidgets } from "./TwitterWidgets";
 
 import "@styles/global.css";
 
@@ -13,6 +13,15 @@ export default function RootLayout({
   const isLookingForWork = false;
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="preload"
+          href="/fonts/SpaceMono-Regular.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body>
         <div
           className={css`
@@ -26,9 +35,10 @@ export default function RootLayout({
             }
           `}
         >
-          <PathnameContainer>{children}</PathnameContainer>
+          {children}
         </div>
         {isLookingForWork ? <HireMeFooter /> : null}
+        <TwitterWidgets />
       </body>
     </html>
   );

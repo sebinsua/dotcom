@@ -4,7 +4,6 @@ import { parseISO, formatISO9075 } from "date-fns";
 import { createMetadata } from "@lib/createMetadata";
 import { Page } from "@components/Page";
 import { Link } from "@components/Link";
-import { getVisiblePosts } from "@lib/getPosts";
 
 import type { PostData } from "@lib/getPosts";
 
@@ -139,6 +138,7 @@ function PostsList({ posts }: PostsListProps) {
 }
 
 export default async function HomePage() {
+  const { getVisiblePosts } = await import("@lib/getPosts");
   const posts = await getVisiblePosts();
 
   return (

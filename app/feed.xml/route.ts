@@ -1,13 +1,14 @@
 import RSS from "rss";
 
-import { getVisiblePosts } from "@lib/getPosts";
-import { renderMarkdown } from "@lib/renderMarkdown";
-
 import packageJson from "../../package.json";
 
 import type { NextRequest } from "next/server";
 
+export const dynamic = "force-static";
+
 async function getRss() {
+  const { getVisiblePosts } = await import("@lib/getPosts");
+  const { renderMarkdown } = await import("@lib/renderMarkdown");
   const feed = new RSS({
     title: packageJson.blog.title,
     site_url: packageJson.blog.siteUrl,

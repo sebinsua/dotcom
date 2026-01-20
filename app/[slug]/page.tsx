@@ -4,12 +4,11 @@ import { parseISO, format } from "date-fns";
 import { createMetadata } from "@lib/createMetadata";
 import { Page } from "@components/Page";
 import { Link } from "@components/Link";
-import { getPosts } from "@lib/getPosts";
-import { renderMarkdown } from "@lib/renderMarkdown";
 
 import type { PostData } from "@lib/getPosts";
 
 export async function generateStaticParams() {
+  const { getPosts } = await import("@lib/getPosts");
   const posts = await getPosts();
 
   return posts.map((post) => ({
@@ -29,11 +28,14 @@ export async function generateMetadata(props: PostPageProps) {
 }
 
 async function getPost(props: PostPageProps) {
+  const params = await props.params;
+  const { getPosts } = await import("@lib/getPosts");
+  const { renderMarkdown } = await import("@lib/renderMarkdown");
   const posts = await getPosts();
-  const postIndex = posts.findIndex((p) => p.meta.slug === props.params.slug);
+  const postIndex = posts.findIndex((p) => p.meta.slug === params.slug);
   const post = posts[postIndex];
   if (!post) {
-    throw new Error("No post was found for the slug: " + props.params.slug);
+    throw new Error("No post was found for the slug: " + params.slug);
   }
 
   function proceed(direction: "previous" | "next", posts: PostData[], postIndex: number) {
@@ -185,7 +187,7 @@ function Post({ previous, next, meta: { title, date: iso8601DateString }, html }
       <article
         className={css`
           font-family: var(--font-family-text);
-          
+
           h1,
           h2,
           h3,
@@ -194,7 +196,7 @@ function Post({ previous, next, meta: { title, date: iso8601DateString }, html }
           h6 {
             font-family: var(--font-family-header);
           }
-          
+
           a:after {
             position: relative;
             top: -0.25rem;
@@ -202,7 +204,7 @@ function Post({ previous, next, meta: { title, date: iso8601DateString }, html }
             font-size: 1rem;
             margin-left: 0.2rem;
           }
-          
+
           li > a:only-of-type:after,
           .twitter-tweet a:after,
           a[name]:after,
@@ -210,6 +212,7 @@ function Post({ previous, next, meta: { title, date: iso8601DateString }, html }
             content: none;
           }
         `}
+        suppressHydrationWarning
         dangerouslySetInnerHTML={{
           __html: html,
         }}
@@ -221,16 +224,16 @@ function Post({ previous, next, meta: { title, date: iso8601DateString }, html }
 }
 
 export interface PostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export default async function PostPage(props: PostPageProps) {
   const { previous, next, meta, html } = await getPost(props);
 
   return (
-    <Page title={meta.title} slug={meta.slug} description={meta.description}>
+    <Page slug={meta.slug}>
       <Post previous={previous} next={next} meta={meta} html={html} />
     </Page>
   );

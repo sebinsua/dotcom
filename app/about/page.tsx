@@ -14,7 +14,7 @@ export async function generateMetadata() {
 
 export default function AboutPage() {
   return (
-    <Page title="About me" slug="/about">
+    <Page slug="/about">
       <div
         className={css`
           font-family: var(--font-family-text);

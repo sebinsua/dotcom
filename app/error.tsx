@@ -11,7 +11,7 @@ interface ErrorPageProps {}
 export default function ErrorPage(_: ErrorPageProps) {
   const title = "Error";
   return (
-    <Page title={title}>
+    <Page>
       <section>
         <span>{title}</span>
         <p>Oh no.</p>

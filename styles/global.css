@@ -1,5 +1,14 @@
-@import "./katex.css";
-@import "./shiki.css";
+@import "katex/dist/katex.css";
+@import "@shikijs/twoslash/style-rich.css";
+
+/* Dark mode twoslash popups */
+:root {
+  --twoslash-popup-bg: #1e1e1e;
+  --twoslash-popup-color: #dbd7caee;
+  --twoslash-border-color: #444;
+  --twoslash-popup-shadow: rgba(0, 0, 0, 0.3) 0px 2px 8px;
+  --twoslash-docs-color: #aaa;
+}
 
 @font-face {
   font-family: "Space Mono";
@@ -71,6 +80,22 @@ blockquote {
 }
 blockquote pre.shiki {
   margin-bottom: 0.5rem;
+}
+
+/* Twitter embeds */
+blockquote.twitter-tweet {
+  margin: 0 0 1rem 0 !important; /* Override any inherited margins */
+  padding: 1rem;
+  border-left: 4px solid #1da1f2;
+  background: #f8f9fa;
+}
+blockquote.twitter-tweet p {
+  margin: 0 0 0.5rem 0;
+}
+/* Ensure no margin between heading and twitter embed */
+h3 + blockquote.twitter-tweet,
+h2 + blockquote.twitter-tweet {
+  margin-top: 0.5rem !important;
 }
 pre {
   border: 0;

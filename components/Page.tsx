@@ -42,15 +42,11 @@ function Footer({ slug }: FooterProps) {
 }
 
 interface PageProps {
-  title?: string;
-  description?: string;
-  siteUrl?: string;
-  author?: string;
   slug?: string;
   children?: ReactNode;
 }
 
-export function Page({ slug, title, children }: PageProps) {
+export function Page({ slug, children }: PageProps) {
   return (
     <div
       className={css`
@@ -64,7 +60,7 @@ export function Page({ slug, title, children }: PageProps) {
         }
       `}
     >
-      <Header slug={slug} title={title} />
+      <Header />
 
       <div
         className={css`
