@@ -6767,7 +6767,7 @@ __metadata:
 
 "remark-oembed@patch:remark-oembed@npm%3A1.2.2#~/.yarn/patches/remark-oembed-npm-1.2.2-f3f78800ee.patch":
   version: 1.2.2
-  resolution: "remark-oembed@patch:remark-oembed@npm%3A1.2.2#~/.yarn/patches/remark-oembed-npm-1.2.2-f3f78800ee.patch::version=1.2.2&hash=6a8cc1"
+  resolution: "remark-oembed@patch:remark-oembed@npm%3A1.2.2#~/.yarn/patches/remark-oembed-npm-1.2.2-f3f78800ee.patch::version=1.2.2&hash=c12ae0"
   dependencies:
     apr-intercept: "npm:^3.0.4"
     got: "npm:^11.8.2"
@@ -6777,7 +6777,7 @@ __metadata:
     is-url: "npm:^1.2.4"
     mime: "npm:^2.5.2"
     param-case: "npm:^3.0.4"
-  checksum: 10/e2b964f1483613d781c19b0dfd497488abda2278f7efca35bc1f5e4c162d5caa37e7a3e40c49463706a404a72f31db60bbd66c430d72db61934639eb25371ba2
+  checksum: 10/b0baf540330f2d6056432108901df6d1a974010d2594f1920b137f06ba06c3ba8ebc30c69fb2d28bd879ff502815f4af6981cc3d70590fb90f296aa0a2ec4485
   languageName: node
   linkType: hard
 

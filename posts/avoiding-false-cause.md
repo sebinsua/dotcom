@@ -8,7 +8,9 @@ Tech teams often cargo-cult the practices and patterns that are established earl
 
 This can lead to useless boilerplate proliferating and sometimes to the creators eventually deciding that they have no choice but to disavow their earlier approaches.
 
-https://twitter.com/dan_abramov/status/802571906385932288
+> "Many don't realize I wrote all that stuff when React was relatively new and people shared what they learned, not instilled 'rules'."
+>
+> — Dan Abramov, [November 2016](https://twitter.com/dan_abramov/status/802571906385932288) (deleted)
 
 ### Dogma is bad but noticing things is hard
 
