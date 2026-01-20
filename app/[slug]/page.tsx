@@ -1,5 +1,6 @@
 import { css } from "@linaria/core";
 import { parseISO, format } from "date-fns";
+import { notFound } from "next/navigation";
 
 import { createMetadata } from "@lib/createMetadata";
 import { Page } from "@components/Page";
@@ -42,7 +43,7 @@ async function getPost(props: PostPageProps) {
     const step = direction === "previous" ? 1 : -1;
 
     let index = postIndex + step;
-    while (posts[index] && posts[index].meta.hidden === true) {
+    while (posts[index] && (posts[index].meta.hidden === true || posts[index].meta.isAccessible === false)) {
       index = index + step;
     }
 
@@ -231,6 +232,10 @@ export interface PostPageProps {
 
 export default async function PostPage(props: PostPageProps) {
   const { previous, next, meta, html } = await getPost(props);
+
+  if (meta.isAccessible === false) {
+    notFound();
+  }
 
   return (
     <Page slug={meta.slug}>

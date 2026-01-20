@@ -40,9 +40,10 @@ interface PostItemProps {
   slug: string;
   date: Date;
   isEffortPost?: boolean;
+  isAccessible?: boolean;
 }
 
-function PostItem({ title, slug, date, isEffortPost = false }: PostItemProps) {
+function PostItem({ title, slug, date, isEffortPost = false, isAccessible = true }: PostItemProps) {
   return (
     <li
       className={css`
@@ -78,7 +79,18 @@ function PostItem({ title, slug, date, isEffortPost = false }: PostItemProps) {
           )}
           style={{ opacity: getOpacityForDate(date) }}
         >
-          <Link href={`/${slug}`}>{title}</Link>
+          {isAccessible ? (
+            <Link href={`/${slug}`}>{title}</Link>
+          ) : (
+            <span
+              className={css`
+                color: #555;
+                cursor: not-allowed;
+              `}
+            >
+              {title}
+            </span>
+          )}
           <time
             className={css`
               word-break: keep-all;
@@ -129,6 +141,7 @@ function PostsList({ posts }: PostsListProps) {
               slug={post.meta.slug}
               date={parseISO(post.meta.date)}
               isEffortPost={post.meta.isEffortPost}
+              isAccessible={post.meta.isAccessible}
             />
           );
         })}

@@ -12,6 +12,7 @@ export interface PostData {
     author?: string;
     hidden?: boolean;
     isEffortPost?: boolean;
+    isAccessible?: boolean;
   };
   content: string;
 }
@@ -38,6 +39,7 @@ export async function getPosts(): Promise<PostData[]> {
             author: data.author ?? null,
             hidden: data.hidden ?? false,
             isEffortPost: data.isEffortPost ?? false,
+            isAccessible: data.isAccessible ?? true,
           },
           content: content,
         } as PostData;
