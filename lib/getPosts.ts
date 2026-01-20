@@ -1,7 +1,7 @@
 import * as path from "node:path";
 import * as fs from "node:fs/promises";
 import matter from "gray-matter";
-import formatISO from "date-fns/formatISO";
+import { formatISO } from "date-fns";
 
 export interface PostData {
   meta: {

@@ -1,6 +1,5 @@
 import { css, cx } from "@linaria/core";
-import parseISO from "date-fns/parseISO";
-import formatISO9075 from "date-fns/formatISO9075";
+import { parseISO, formatISO9075 } from "date-fns";
 
 import { createMetadata } from "@lib/createMetadata";
 import { Page } from "@components/Page";
