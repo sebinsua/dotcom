@@ -25,10 +25,7 @@ export async function getPosts(): Promise<PostData[]> {
     fileNames
       .filter((fileName) => path.extname(fileName) === ".md")
       .map(async (fileName) => {
-        const postContent = await fs.readFile(
-          path.join(postsDirectory, fileName),
-          "utf8",
-        );
+        const postContent = await fs.readFile(path.join(postsDirectory, fileName), "utf8");
 
         const { data, content } = matter(postContent);
 
@@ -49,9 +46,7 @@ export async function getPosts(): Promise<PostData[]> {
       }),
   );
 
-  return posts.sort(
-    (a, b) => new Date(b.meta.date).getTime() - new Date(a.meta.date).getTime(),
-  );
+  return posts.sort((a, b) => new Date(b.meta.date).getTime() - new Date(a.meta.date).getTime());
 }
 
 export async function getVisiblePosts(): Promise<PostData[]> {

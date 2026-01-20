@@ -15,11 +15,11 @@ function Footer({ slug }: FooterProps) {
         display: flex;
         flex-direction: row-reverse;
         font-family: var(--font-family-text);
-
+        
         a {
           color: lightgrey;
         }
-
+        
         @media (max-width: 768px) {
           flex-grow: initial;
           flex-basis: initial;
@@ -32,6 +32,7 @@ function Footer({ slug }: FooterProps) {
           email
         </a>
       ) : (
+        // oxlint-disable-next-line nextjs/no-html-link-for-pages -- /feed.xml is an XML route, not a page
         <a href="/feed.xml" style={{ color: "lightgrey" }}>
           rss
         </a>
@@ -56,7 +57,7 @@ export function Page({ slug, title, children }: PageProps) {
         display: flex;
         justify-content: space-between;
         width: 800px;
-
+        
         @media (max-width: 768px) {
           flex-direction: column;
           width: 100%;
@@ -68,7 +69,7 @@ export function Page({ slug, title, children }: PageProps) {
       <div
         className={css`
           width: 80%;
-
+          
           @media (max-width: 768px) {
             width: 100%;
           }

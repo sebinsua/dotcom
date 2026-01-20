@@ -174,7 +174,6 @@ The equation above represents the chain rule applied to a node within a neural n
 - The $input\_value$ and $current\_value$ will alternate between being weights and biases, transitory computed values, hardcoded values that are part of computations, and at the edges of the computational graph, its input values and predicted/actual output values. However, from the perspective of training our network we ultimately care about the updates made to the “the loss function with respect to a weight or bias” (the `gradient`).
 - In the example above $\textcolor{blue}{\frac{∂L}{∂current\_value}}$ (the `gradient`) would have been computed as $\textcolor{red}{\frac{∂L}{∂input\_value}}$ by a prior iteration of the backpropagation algorithm and therefore can be substituted with the `gradient` of the current value.
 - On the other hand, $\textcolor{green}{\frac{∂current\_value}{∂input\_value}}$ is the local derivative and must be computed based on the type of operation/function and its input values.
-
   - A function is differentiable if it is continuous and has a derivative at every point in its domain.
   - Basic mathematical operators are [trivially differentiable](https://github.com/sebinsua/micrograd-rs/blob/4d57c7a1cd87e589f5d5cb44546b97470e05309c/src/engine.rs#L635-L667). For example:
 
@@ -277,11 +276,7 @@ function updateInputGradientsForReluActivation(value) {
   input.gradient += (value.output > 0.0 ? 1.0 : 0.0) * value.gradient;
 }
 
-function sortTopologically(
-  value,
-  visited = new Set(),
-  topologicallySortedValues = []
-) {
+function sortTopologically(value, visited = new Set(), topologicallySortedValues = []) {
   if (!visited.has(value)) {
     visited.add(value);
 
@@ -375,10 +370,8 @@ function mse(predictions, actuals) {
   return multiply(
     divide(1, actuals.length),
     sum(
-      zip(predictions, actuals).map(([predicted, actual]) =>
-        power(subtract(predicted, actual), 2)
-      )
-    )
+      zip(predictions, actuals).map(([predicted, actual]) => power(subtract(predicted, actual), 2)),
+    ),
   );
 }
 

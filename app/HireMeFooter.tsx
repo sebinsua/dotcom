@@ -13,12 +13,12 @@ function HireMeContent({ works }: HireMeFooterProps) {
         font-size: 1rem;
         font-weight: bold;
         color: white;
-
+        
         &::before {
           content: "✨✨✨";
           margin-right: 0.5rem;
         }
-
+        
         &::after {
           content: "✨✨✨";
           margin-left: 0.5rem;
@@ -57,7 +57,7 @@ export function HireMeFooter() {
           position: relative;
           width: 100%;
           height: 60px;
-
+          
           @media (max-width: 576px) {
             height: 120px;
           }

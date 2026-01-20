@@ -1,0 +1,10 @@
+{
+  "plugins": ["typescript", "react", "nextjs", "jsx-a11y"],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "globals": {
+    "React": "readonly"
+  }
+}

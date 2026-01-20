@@ -14,14 +14,13 @@ export default function NotFoundPage() {
     <Page title="404">
       <h1>404</h1>
 
-      <Link href="/" passHref>
-        <a
-          className={css`
-            color: lightgrey;
-          `}
-        >
-          Go Home
-        </a>
+      <Link
+        href="/"
+        className={css`
+          color: lightgrey;
+        `}
+      >
+        Go Home
       </Link>
     </Page>
   );

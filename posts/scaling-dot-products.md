@@ -149,16 +149,14 @@ function matmul(A: number[][], B: number[][]): number[][] {
   if (A[0].length !== B.length) {
     throw new Error(
       `The number of columns in A must equal the number of rows in B: ` +
-        `${A[0].length} !== ${B.length}`
+        `${A[0].length} !== ${B.length}`,
     );
   }
 
   const aRows = A.length;
   const bCols = B[0].length;
   const sDims = A[0].length;
-  const C = Array.from({ length: aRows }).map(() =>
-    Array.from<number>({ length: bCols }).fill(0)
-  );
+  const C = Array.from({ length: aRows }).map(() => Array.from<number>({ length: bCols }).fill(0));
 
   // For s from 0 to sDims, accumulate A[a][s] times B[s][b].
   for (let a = 0; a < aRows; a++) {

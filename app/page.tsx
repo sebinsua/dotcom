@@ -20,11 +20,7 @@ interface GetOpacityForDateOptions {
 
 function getOpacityForDate(
   date: Date,
-  {
-    minValue = 0.1,
-    maxValue = 1.0,
-    numberOfYears = 8,
-  }: GetOpacityForDateOptions = {},
+  { minValue = 0.1, maxValue = 1.0, numberOfYears = 8 }: GetOpacityForDateOptions = {},
 ) {
   const now = new Date();
 
@@ -37,9 +33,7 @@ function getOpacityForDate(
   const totalRangeMillis = now.getTime() - minDate.getTime();
   const datePositionMillis = date.getTime() - minDate.getTime();
 
-  return (
-    minValue + (datePositionMillis / totalRangeMillis) * (maxValue - minValue)
-  );
+  return minValue + (datePositionMillis / totalRangeMillis) * (maxValue - minValue);
 }
 
 interface PostItemProps {
@@ -85,9 +79,7 @@ function PostItem({ title, slug, date, isEffortPost = false }: PostItemProps) {
           )}
           style={{ opacity: getOpacityForDate(date) }}
         >
-          <Link href={`/${slug}`} passHref>
-            <a>{title}</a>
-          </Link>
+          <Link href={`/${slug}`}>{title}</Link>
           <time
             className={css`
               word-break: keep-all;

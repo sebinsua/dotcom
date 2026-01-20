@@ -17,11 +17,7 @@ In order that `Tensor`s can have exact dimensions we need to support only numeri
 ```typescript twoslash
 // We check whether `T` is a numeric literal by checking that `number`
 // does not extend from `T` but that `T` does extend from `number`.
-type IsNumericLiteral<T> = number extends T
-  ? false
-  : T extends number
-  ? true
-  : false;
+type IsNumericLiteral<T> = number extends T ? false : T extends number ? true : false;
 
 // In order to support runtime-determined sizes we use a "branded type"
 // to give these dimensions labels that they can be type-checked with
@@ -83,11 +79,7 @@ If you need to, you can read further on the more advanced TypeScript techniques 
 We can then implement a type-safe `Tensor` with a unique constraint: the dimensions must be specified using numeric literals or “branded types”. This approach pushes the limits of TypeScript’s standard type-checking capabilities and requires a non-idiomatic usage of conditional types to represent these errors. Note that, we diverged from Ben’s original implementation by enforcing this dimensional constraint at the argument-level instead of doing so [at the return-level with a conditional return type that produces an invalid tensor](https://github.com/newhouseb/potatogpt/blob/d2ee0cae82c7429bd5f8c140e64ff3d70ef7ff87/math.ts#L34). The downside of this is that you must use `as const` on the `shape` argument to prevent TypeScript from widening the literal types to `number`.
 
 ```typescript twoslash
-type IsNumericLiteral<T> = number extends T
-  ? false
-  : T extends number
-  ? true
-  : false;
+type IsNumericLiteral<T> = number extends T ? false : T extends number ? true : false;
 
 export type Var<Label extends string> = number & { label: Label };
 export const Var = <Label extends string>(size: number, label: Label) => {
@@ -126,7 +118,7 @@ export type Tensor<Shape extends readonly Dimension[]> = {
 };
 export function tensor<const Shape extends readonly Dimension[]>(
   shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
-  init?: number[]
+  init?: number[],
 ): Tensor<Shape> {
   return {
     data: init
@@ -147,34 +139,26 @@ export function tensor<const Shape extends readonly Dimension[]>(
 // and then apply the condition to each value in the mapped object type.
 // We then use a conditional type to check whether the type outputted
 // extends from a type in which the value at every key is `true`.
-type ArrayEveryElementIsNumericLiteralOrVar<
-  T extends ReadonlyArray<number | Var<string>>
-> = T extends ReadonlyArray<unknown>
-  ? { [K in keyof T]: IsNumericLiteralOrVar<T[K]> } extends {
-      [K in keyof T]: true;
-    }
-    ? true
-    : false
-  : false;
+type ArrayEveryElementIsNumericLiteralOrVar<T extends ReadonlyArray<number | Var<string>>> =
+  T extends ReadonlyArray<unknown>
+    ? { [K in keyof T]: IsNumericLiteralOrVar<T[K]> } extends {
+        [K in keyof T]: true;
+      }
+      ? true
+      : false
+    : false;
 
 type InvalidArgument<T> = readonly [never, T];
-type AssertShapeEveryElementIsNumericLiteralOrVar<
-  T extends ReadonlyArray<number | Var<string>>
-> = true extends ArrayEveryElementIsNumericLiteralOrVar<T>
-  ? T
-  : ReadonlyArray<
-      InvalidArgument<"The `shape` argument must be marked `as const` and only contain number literals or branded types.">
-    >;
+type AssertShapeEveryElementIsNumericLiteralOrVar<T extends ReadonlyArray<number | Var<string>>> =
+  true extends ArrayEveryElementIsNumericLiteralOrVar<T>
+    ? T
+    : ReadonlyArray<
+        InvalidArgument<"The `shape` argument must be marked `as const` and only contain number literals or branded types.">
+      >;
 
 // Tests
-const fourDimensionalTensorWithStaticSizes = tensor([
-  10, 100, 1000, 10000,
-] as const);
-const threeDimensionalTensorWithRuntimeSize = tensor([
-  5,
-  Var(3, "dim"),
-  10,
-] as const);
+const fourDimensionalTensorWithStaticSizes = tensor([10, 100, 1000, 10000] as const);
+const threeDimensionalTensorWithRuntimeSize = tensor([5, Var(3, "dim"), 10] as const);
 
 // @errors: 2322
 const invalidTensor1 = tensor([10, 100, 1000, 10000]);
@@ -193,11 +177,7 @@ If you need to, you can read further on the more advanced TypeScript techniques 
 ### Matrix
 
 ```typescript twoslash
-type IsNumericLiteral<T> = number extends T
-  ? false
-  : T extends number
-  ? true
-  : false;
+type IsNumericLiteral<T> = number extends T ? false : T extends number ? true : false;
 
 export type Var<Label extends string> = number & { label: Label };
 export const Var = <Label extends string>(size: number, label: Label) => {
@@ -234,7 +214,7 @@ export type Tensor<Shape extends readonly Dimension[]> = {
 };
 export function tensor<const Shape extends readonly Dimension[]>(
   shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
-  init?: number[]
+  init?: number[],
 ): Tensor<Shape> {
   return {
     data: init
@@ -244,40 +224,32 @@ export function tensor<const Shape extends readonly Dimension[]>(
   };
 }
 
-type ArrayEveryElementIsNumericLiteralOrVar<
-  T extends ReadonlyArray<number | Var<string>>
-> = T extends ReadonlyArray<unknown>
-  ? { [K in keyof T]: IsNumericLiteralOrVar<T[K]> } extends {
-      [K in keyof T]: true;
-    }
-    ? true
-    : false
-  : false;
+type ArrayEveryElementIsNumericLiteralOrVar<T extends ReadonlyArray<number | Var<string>>> =
+  T extends ReadonlyArray<unknown>
+    ? { [K in keyof T]: IsNumericLiteralOrVar<T[K]> } extends {
+        [K in keyof T]: true;
+      }
+      ? true
+      : false
+    : false;
 
 type InvalidArgument<T> = readonly [never, T];
-type AssertShapeEveryElementIsNumericLiteralOrVar<
-  T extends ReadonlyArray<number | Var<string>>
-> = true extends ArrayEveryElementIsNumericLiteralOrVar<T>
-  ? T
-  : ReadonlyArray<
-      InvalidArgument<"The `shape` argument must be marked `as const` and only contain number literals or branded types.">
-    >;
+type AssertShapeEveryElementIsNumericLiteralOrVar<T extends ReadonlyArray<number | Var<string>>> =
+  true extends ArrayEveryElementIsNumericLiteralOrVar<T>
+    ? T
+    : ReadonlyArray<
+        InvalidArgument<"The `shape` argument must be marked `as const` and only contain number literals or branded types.">
+      >;
 
 /// ---cut---
 
-function isDimensionArray(
-  maybeDimensionArray: any
-): maybeDimensionArray is readonly Dimension[] {
+function isDimensionArray(maybeDimensionArray: any): maybeDimensionArray is readonly Dimension[] {
   return (
-    Array.isArray(maybeDimensionArray) &&
-    maybeDimensionArray.some((d) => typeof d === "number")
+    Array.isArray(maybeDimensionArray) && maybeDimensionArray.some((d) => typeof d === "number")
   );
 }
 function is2DArray(maybe2DArray: any): maybe2DArray is number[][] {
-  return (
-    Array.isArray(maybe2DArray) &&
-    maybe2DArray.some((row) => Array.isArray(row))
-  );
+  return Array.isArray(maybe2DArray) && maybe2DArray.some((row) => Array.isArray(row));
 }
 function flat<T>(arr: T[][]): T[] {
   let result: T[] = [];
@@ -290,16 +262,16 @@ function flat<T>(arr: T[][]): T[] {
 export type Matrix<Rows extends Dimension, Columns extends Dimension> = Tensor<
   readonly [Rows, Columns]
 >;
-export function matrix<
-  const TwoDArray extends ReadonlyArray<ReadonlyArray<number>>
->(init: TwoDArray): Matrix<TwoDArray["length"], TwoDArray[0]["length"]>;
+export function matrix<const TwoDArray extends ReadonlyArray<ReadonlyArray<number>>>(
+  init: TwoDArray,
+): Matrix<TwoDArray["length"], TwoDArray[0]["length"]>;
 export function matrix<const Shape extends readonly [Dimension, Dimension]>(
   shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
-  init?: number[]
+  init?: number[],
 ): Matrix<Shape[0], Shape[1]>;
 export function matrix<const Shape extends readonly [Dimension, Dimension]>(
   shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
-  init?: number[]
+  init?: number[],
 ): Matrix<Shape[0], Shape[1]> {
   let resolvedShape: readonly [any, any];
   if (isDimensionArray(shape)) {
@@ -316,10 +288,7 @@ export function matrix<const Shape extends readonly [Dimension, Dimension]>(
 
 // Tests
 const matrixWithStaticSizes = matrix([25, 50] as const);
-const matrixWithRuntimeSize = matrix([
-  10,
-  Var(100, "configuredDimensionName"),
-] as const);
+const matrixWithRuntimeSize = matrix([10, Var(100, "configuredDimensionName")] as const);
 const matrixWithSizeFromData = matrix([
   [1, 2, 3],
   [4, 5, 6],
@@ -337,11 +306,7 @@ const invalidMatrix3 = matrix([10, 100 as 100 | 115] as const);
 ### Vector
 
 ```typescript twoslash
-type IsNumericLiteral<T> = number extends T
-  ? false
-  : T extends number
-  ? true
-  : false;
+type IsNumericLiteral<T> = number extends T ? false : T extends number ? true : false;
 
 export type Var<Label extends string> = number & { label: Label };
 export const Var = <Label extends string>(size: number, label: Label) => {
@@ -378,7 +343,7 @@ export type Tensor<Shape extends readonly Dimension[]> = {
 };
 export function tensor<const Shape extends readonly Dimension[]>(
   shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
-  init?: number[]
+  init?: number[],
 ): Tensor<Shape> {
   return {
     data: init
@@ -388,38 +353,30 @@ export function tensor<const Shape extends readonly Dimension[]>(
   };
 }
 
-type ArrayEveryElementIsNumericLiteralOrVar<
-  T extends ReadonlyArray<number | Var<string>>
-> = T extends ReadonlyArray<unknown>
-  ? { [K in keyof T]: IsNumericLiteralOrVar<T[K]> } extends {
-      [K in keyof T]: true;
-    }
-    ? true
-    : false
-  : false;
+type ArrayEveryElementIsNumericLiteralOrVar<T extends ReadonlyArray<number | Var<string>>> =
+  T extends ReadonlyArray<unknown>
+    ? { [K in keyof T]: IsNumericLiteralOrVar<T[K]> } extends {
+        [K in keyof T]: true;
+      }
+      ? true
+      : false
+    : false;
 
 type InvalidArgument<T> = readonly [never, T];
-type AssertShapeEveryElementIsNumericLiteralOrVar<
-  T extends ReadonlyArray<number | Var<string>>
-> = true extends ArrayEveryElementIsNumericLiteralOrVar<T>
-  ? T
-  : ReadonlyArray<
-      InvalidArgument<"The `shape` argument must be marked `as const` and only contain number literals or branded types.">
-    >;
+type AssertShapeEveryElementIsNumericLiteralOrVar<T extends ReadonlyArray<number | Var<string>>> =
+  true extends ArrayEveryElementIsNumericLiteralOrVar<T>
+    ? T
+    : ReadonlyArray<
+        InvalidArgument<"The `shape` argument must be marked `as const` and only contain number literals or branded types.">
+      >;
 
-function isDimensionArray(
-  maybeDimensionArray: any
-): maybeDimensionArray is readonly Dimension[] {
+function isDimensionArray(maybeDimensionArray: any): maybeDimensionArray is readonly Dimension[] {
   return (
-    Array.isArray(maybeDimensionArray) &&
-    maybeDimensionArray.some((d) => typeof d === "number")
+    Array.isArray(maybeDimensionArray) && maybeDimensionArray.some((d) => typeof d === "number")
   );
 }
 function is2DArray(maybe2DArray: any): maybe2DArray is number[][] {
-  return (
-    Array.isArray(maybe2DArray) &&
-    maybe2DArray.some((row) => Array.isArray(row))
-  );
+  return Array.isArray(maybe2DArray) && maybe2DArray.some((row) => Array.isArray(row));
 }
 function flat<T>(arr: T[][]): T[] {
   let result: T[] = [];
@@ -432,16 +389,16 @@ function flat<T>(arr: T[][]): T[] {
 export type Matrix<Rows extends Dimension, Columns extends Dimension> = Tensor<
   readonly [Rows, Columns]
 >;
-export function matrix<
-  const TwoDArray extends ReadonlyArray<ReadonlyArray<number>>
->(init: TwoDArray): Matrix<TwoDArray["length"], TwoDArray[0]["length"]>;
+export function matrix<const TwoDArray extends ReadonlyArray<ReadonlyArray<number>>>(
+  init: TwoDArray,
+): Matrix<TwoDArray["length"], TwoDArray[0]["length"]>;
 export function matrix<const Shape extends readonly [Dimension, Dimension]>(
   shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
-  init?: number[]
+  init?: number[],
 ): Matrix<Shape[0], Shape[1]>;
 export function matrix<const Shape extends readonly [Dimension, Dimension]>(
   shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
-  init?: number[]
+  init?: number[],
 ): Matrix<Shape[0], Shape[1]> {
   let resolvedShape: readonly [any, any];
   if (isDimensionArray(shape)) {
@@ -466,15 +423,15 @@ type AssertSizeIsNumericLiteralOrVar<T extends Dimension> =
 export type RowVector<Size extends Dimension> = Tensor<readonly [1, Size]>;
 export type Vector<Size extends Dimension> = RowVector<Size>;
 export function vector<const OneDArray extends readonly Dimension[]>(
-  init: OneDArray
+  init: OneDArray,
 ): Vector<OneDArray["length"]>;
 export function vector<const Size extends Dimension>(
   size: AssertSizeIsNumericLiteralOrVar<Size>,
-  init?: number[]
+  init?: number[],
 ): Vector<Size>;
 export function vector<const Size extends Dimension>(
   size: AssertSizeIsNumericLiteralOrVar<Size>,
-  init?: number[]
+  init?: number[],
 ): Vector<Size> {
   let shape: readonly [1, any];
   if (typeof size === "number") {
@@ -505,11 +462,7 @@ const invalidVector2 = vector(100 as 100 | 115);
 Once we have a `Vector` and `Matrix` type defined, we can use these to write a type-safe `zip` function that combines two `Vector`s of the same length into a `Matrix` of `[VectorLength, 2]`, like so:
 
 ```typescript twoslash
-type IsNumericLiteral<T> = number extends T
-  ? false
-  : T extends number
-  ? true
-  : false;
+type IsNumericLiteral<T> = number extends T ? false : T extends number ? true : false;
 
 export type Var<Label extends string> = number & { label: Label };
 export const Var = <Label extends string>(size: number, label: Label) => {
@@ -546,7 +499,7 @@ export type Tensor<Shape extends readonly Dimension[]> = {
 };
 export function tensor<const Shape extends readonly Dimension[]>(
   shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
-  init?: number[]
+  init?: number[],
 ): Tensor<Shape> {
   return {
     data: init
@@ -556,38 +509,30 @@ export function tensor<const Shape extends readonly Dimension[]>(
   };
 }
 
-type ArrayEveryElementIsNumericLiteralOrVar<
-  T extends ReadonlyArray<number | Var<string>>
-> = T extends ReadonlyArray<unknown>
-  ? { [K in keyof T]: IsNumericLiteralOrVar<T[K]> } extends {
-      [K in keyof T]: true;
-    }
-    ? true
-    : false
-  : false;
+type ArrayEveryElementIsNumericLiteralOrVar<T extends ReadonlyArray<number | Var<string>>> =
+  T extends ReadonlyArray<unknown>
+    ? { [K in keyof T]: IsNumericLiteralOrVar<T[K]> } extends {
+        [K in keyof T]: true;
+      }
+      ? true
+      : false
+    : false;
 
 type InvalidArgument<T> = readonly [never, T];
-type AssertShapeEveryElementIsNumericLiteralOrVar<
-  T extends ReadonlyArray<number | Var<string>>
-> = true extends ArrayEveryElementIsNumericLiteralOrVar<T>
-  ? T
-  : ReadonlyArray<
-      InvalidArgument<"The `shape` argument must be marked `as const` and only contain number literals or branded types.">
-    >;
+type AssertShapeEveryElementIsNumericLiteralOrVar<T extends ReadonlyArray<number | Var<string>>> =
+  true extends ArrayEveryElementIsNumericLiteralOrVar<T>
+    ? T
+    : ReadonlyArray<
+        InvalidArgument<"The `shape` argument must be marked `as const` and only contain number literals or branded types.">
+      >;
 
-function isDimensionArray(
-  maybeDimensionArray: any
-): maybeDimensionArray is readonly Dimension[] {
+function isDimensionArray(maybeDimensionArray: any): maybeDimensionArray is readonly Dimension[] {
   return (
-    Array.isArray(maybeDimensionArray) &&
-    maybeDimensionArray.some((d) => typeof d === "number")
+    Array.isArray(maybeDimensionArray) && maybeDimensionArray.some((d) => typeof d === "number")
   );
 }
 function is2DArray(maybe2DArray: any): maybe2DArray is number[][] {
-  return (
-    Array.isArray(maybe2DArray) &&
-    maybe2DArray.some((row) => Array.isArray(row))
-  );
+  return Array.isArray(maybe2DArray) && maybe2DArray.some((row) => Array.isArray(row));
 }
 function flat<T>(arr: T[][]): T[] {
   let result: T[] = [];
@@ -600,16 +545,16 @@ function flat<T>(arr: T[][]): T[] {
 export type Matrix<Rows extends Dimension, Columns extends Dimension> = Tensor<
   readonly [Rows, Columns]
 >;
-export function matrix<
-  const TwoDArray extends ReadonlyArray<ReadonlyArray<number>>
->(init: TwoDArray): Matrix<TwoDArray["length"], TwoDArray[0]["length"]>;
+export function matrix<const TwoDArray extends ReadonlyArray<ReadonlyArray<number>>>(
+  init: TwoDArray,
+): Matrix<TwoDArray["length"], TwoDArray[0]["length"]>;
 export function matrix<const Shape extends readonly [Dimension, Dimension]>(
   shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
-  init?: number[]
+  init?: number[],
 ): Matrix<Shape[0], Shape[1]>;
 export function matrix<const Shape extends readonly [Dimension, Dimension]>(
   shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
-  init?: number[]
+  init?: number[],
 ): Matrix<Shape[0], Shape[1]> {
   let resolvedShape: readonly [any, any];
   if (isDimensionArray(shape)) {
@@ -632,15 +577,15 @@ type AssertSizeIsNumericLiteralOrVar<T extends Dimension> =
 export type RowVector<Size extends Dimension> = Tensor<readonly [1, Size]>;
 export type Vector<Size extends Dimension> = RowVector<Size>;
 export function vector<const OneDArray extends readonly Dimension[]>(
-  init: OneDArray
+  init: OneDArray,
 ): Vector<OneDArray["length"]>;
 export function vector<const Size extends Dimension>(
   size: AssertSizeIsNumericLiteralOrVar<Size>,
-  init?: number[]
+  init?: number[],
 ): Vector<Size>;
 export function vector<const Size extends Dimension>(
   size: AssertSizeIsNumericLiteralOrVar<Size>,
-  init?: number[]
+  init?: number[],
 ): Vector<Size> {
   let shape: readonly [1, any];
   if (typeof size === "number") {
@@ -675,11 +620,11 @@ export function vector<const Size extends Dimension>(
  */
 function zip<SameVector extends Vector<Dimension>>(
   a: SameVector,
-  b: SameVector
+  b: SameVector,
 ): Matrix<SameVector["shape"][1], 2> {
   if (a.shape[1] !== b.shape[1]) {
     throw new Error(
-      `zip cannot operate on different length vectors; ${a.shape[1]} !== ${b.shape[1]}`
+      `zip cannot operate on different length vectors; ${a.shape[1]} !== ${b.shape[1]}`,
     );
   }
 
@@ -715,11 +660,7 @@ const zippedError2 = zip(threeElementVector3, fourElementVector2);
 Finally, functions like [`matmul`](https://en.wikipedia.org/wiki/Matrix_multiplication) that expect two operands with different but compatible shapes, can be implemented using the same techniques:
 
 ```typescript twoslash
-type IsNumericLiteral<T> = number extends T
-  ? false
-  : T extends number
-  ? true
-  : false;
+type IsNumericLiteral<T> = number extends T ? false : T extends number ? true : false;
 
 export type Var<Label extends string> = number & { label: Label };
 export const Var = <Label extends string>(size: number, label: Label) => {
@@ -756,7 +697,7 @@ export type Tensor<Shape extends readonly Dimension[]> = {
 };
 export function tensor<const Shape extends readonly Dimension[]>(
   shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
-  init?: number[]
+  init?: number[],
 ): Tensor<Shape> {
   return {
     data: init
@@ -766,38 +707,30 @@ export function tensor<const Shape extends readonly Dimension[]>(
   };
 }
 
-type ArrayEveryElementIsNumericLiteralOrVar<
-  T extends ReadonlyArray<number | Var<string>>
-> = T extends ReadonlyArray<unknown>
-  ? { [K in keyof T]: IsNumericLiteralOrVar<T[K]> } extends {
-      [K in keyof T]: true;
-    }
-    ? true
-    : false
-  : false;
+type ArrayEveryElementIsNumericLiteralOrVar<T extends ReadonlyArray<number | Var<string>>> =
+  T extends ReadonlyArray<unknown>
+    ? { [K in keyof T]: IsNumericLiteralOrVar<T[K]> } extends {
+        [K in keyof T]: true;
+      }
+      ? true
+      : false
+    : false;
 
 type InvalidArgument<T> = readonly [never, T];
-type AssertShapeEveryElementIsNumericLiteralOrVar<
-  T extends ReadonlyArray<number | Var<string>>
-> = true extends ArrayEveryElementIsNumericLiteralOrVar<T>
-  ? T
-  : ReadonlyArray<
-      InvalidArgument<"The `shape` argument must be marked `as const` and only contain number literals or branded types.">
-    >;
+type AssertShapeEveryElementIsNumericLiteralOrVar<T extends ReadonlyArray<number | Var<string>>> =
+  true extends ArrayEveryElementIsNumericLiteralOrVar<T>
+    ? T
+    : ReadonlyArray<
+        InvalidArgument<"The `shape` argument must be marked `as const` and only contain number literals or branded types.">
+      >;
 
-function isDimensionArray(
-  maybeDimensionArray: any
-): maybeDimensionArray is readonly Dimension[] {
+function isDimensionArray(maybeDimensionArray: any): maybeDimensionArray is readonly Dimension[] {
   return (
-    Array.isArray(maybeDimensionArray) &&
-    maybeDimensionArray.some((d) => typeof d === "number")
+    Array.isArray(maybeDimensionArray) && maybeDimensionArray.some((d) => typeof d === "number")
   );
 }
 function is2DArray(maybe2DArray: any): maybe2DArray is number[][] {
-  return (
-    Array.isArray(maybe2DArray) &&
-    maybe2DArray.some((row) => Array.isArray(row))
-  );
+  return Array.isArray(maybe2DArray) && maybe2DArray.some((row) => Array.isArray(row));
 }
 function flat<T>(arr: T[][]): T[] {
   let result: T[] = [];
@@ -810,16 +743,16 @@ function flat<T>(arr: T[][]): T[] {
 export type Matrix<Rows extends Dimension, Columns extends Dimension> = Tensor<
   readonly [Rows, Columns]
 >;
-export function matrix<
-  const TwoDArray extends ReadonlyArray<ReadonlyArray<number>>
->(init: TwoDArray): Matrix<TwoDArray["length"], TwoDArray[0]["length"]>;
+export function matrix<const TwoDArray extends ReadonlyArray<ReadonlyArray<number>>>(
+  init: TwoDArray,
+): Matrix<TwoDArray["length"], TwoDArray[0]["length"]>;
 export function matrix<const Shape extends readonly [Dimension, Dimension]>(
   shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
-  init?: number[]
+  init?: number[],
 ): Matrix<Shape[0], Shape[1]>;
 export function matrix<const Shape extends readonly [Dimension, Dimension]>(
   shape: AssertShapeEveryElementIsNumericLiteralOrVar<Shape>,
-  init?: number[]
+  init?: number[],
 ): Matrix<Shape[0], Shape[1]> {
   let resolvedShape: readonly [any, any];
   if (isDimensionArray(shape)) {
@@ -842,15 +775,15 @@ type AssertSizeIsNumericLiteralOrVar<T extends Dimension> =
 export type RowVector<Size extends Dimension> = Tensor<readonly [1, Size]>;
 export type Vector<Size extends Dimension> = RowVector<Size>;
 export function vector<const OneDArray extends readonly Dimension[]>(
-  init: OneDArray
+  init: OneDArray,
 ): Vector<OneDArray["length"]>;
 export function vector<const Size extends Dimension>(
   size: AssertSizeIsNumericLiteralOrVar<Size>,
-  init?: number[]
+  init?: number[],
 ): Vector<Size>;
 export function vector<const Size extends Dimension>(
   size: AssertSizeIsNumericLiteralOrVar<Size>,
-  init?: number[]
+  init?: number[],
 ): Vector<Size> {
   let shape: readonly [1, any];
   if (typeof size === "number") {
@@ -870,12 +803,12 @@ export function vector<const Size extends Dimension>(
 function matmul<
   RowsA extends Dimension,
   SharedDimension extends Dimension,
-  ColumnsB extends Dimension
+  ColumnsB extends Dimension,
 >(
   a: Matrix<RowsA, SharedDimension>,
   b: IsNumericLiteralOrVar<SharedDimension> extends true
     ? Matrix<SharedDimension, ColumnsB>
-    : InvalidArgument<"The rows dimension of the `b` matrix must match the columns dimension of the `a` matrix.">
+    : InvalidArgument<"The rows dimension of the `b` matrix must match the columns dimension of the `a` matrix.">,
 ): Matrix<RowsA, ColumnsB> {
   const aMatrix = a;
   const bMatrix = b as Matrix<SharedDimension, ColumnsB>;
@@ -884,26 +817,18 @@ function matmul<
   const [bRows, bCols] = bMatrix.shape;
   if (aCols !== bRows) {
     throw new Error(
-      "The rows dimension of the `b` matrix must match the columns dimension of the `a` matrix."
+      "The rows dimension of the `b` matrix must match the columns dimension of the `a` matrix.",
     );
   }
 
-  const shape = [aRows, bCols] as AssertShapeEveryElementIsNumericLiteralOrVar<
-    [RowsA, ColumnsB]
-  >;
+  const shape = [aRows, bCols] as AssertShapeEveryElementIsNumericLiteralOrVar<[RowsA, ColumnsB]>;
   const data = Array<number>(aRows * bCols).fill(0);
   for (let rowIndex = 0; rowIndex < aRows; rowIndex++) {
     for (let columnIndex = 0; columnIndex < bCols; columnIndex++) {
       let dotProduct = 0;
-      for (
-        let sharedDimensionIndex = 0;
-        sharedDimensionIndex < aCols;
-        sharedDimensionIndex++
-      ) {
-        const rowCellFromA =
-          aMatrix.data[rowIndex * aCols + sharedDimensionIndex];
-        const columnCellFromB =
-          bMatrix.data[sharedDimensionIndex * bCols + columnIndex];
+      for (let sharedDimensionIndex = 0; sharedDimensionIndex < aCols; sharedDimensionIndex++) {
+        const rowCellFromA = aMatrix.data[rowIndex * aCols + sharedDimensionIndex];
+        const columnCellFromB = bMatrix.data[sharedDimensionIndex * bCols + columnIndex];
         dotProduct += rowCellFromA * columnCellFromB;
       }
 

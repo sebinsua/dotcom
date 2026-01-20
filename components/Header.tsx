@@ -18,24 +18,22 @@ function Title({ children }: TitleProps) {
         line-height: 1.9rem;
       `}
     >
-      <Link href="/" passHref>
-        <a>
-          <span
-            className={css`
-              position: absolute;
-              width: 1px;
-              height: 1px;
-              margin: -1px;
-              border: 0;
-              padding: 0;
-              clip: rect(0 0 0 0);
-              overflow: hidden;
-            `}
-          >
-            Navigate Home
-          </span>
-          {children}
-        </a>
+      <Link href="/">
+        <span
+          className={css`
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            border: 0;
+            padding: 0;
+            clip: rect(0 0 0 0);
+            overflow: hidden;
+          `}
+        >
+          Navigate Home
+        </span>
+        {children}
       </Link>
     </h1>
   );
@@ -51,7 +49,7 @@ export function Header(_: HeaderProps) {
     <header
       className={css`
         width: 100px;
-
+        
         @media (max-width: 768px) {
           width: unset;
         }
@@ -65,7 +63,7 @@ export function Header(_: HeaderProps) {
           a {
             color: black;
           }
-
+          
           @media (max-width: 768px) {
             justify-content: flex-start;
             padding: 0 1rem;
@@ -92,7 +90,7 @@ export function Header(_: HeaderProps) {
             pointer-events: none;
             border-bottom: 1px solid lightgrey;
           }
-
+          
           @media (max-width: 768px) {
             justify-content: flex-start;
             padding: 0 1rem;
@@ -109,14 +107,10 @@ export function Header(_: HeaderProps) {
       >
         <ul>
           <li>
-            <Link href="/" passHref>
-              <a>writing</a>
-            </Link>
+            <Link href="/">writing</Link>
           </li>
           <li>
-            <Link href="/blogroll" passHref>
-              <a>blogroll</a>
-            </Link>
+            <Link href="/blogroll">blogroll</Link>
           </li>
           <li>
             <Link href={"https://gist.github.com/sebinsua" as Route} external>
@@ -134,9 +128,7 @@ export function Header(_: HeaderProps) {
             </Link>
           </li>
           <li>
-            <Link href="/about" passHref>
-              <a>about</a>
-            </Link>
+            <Link href="/about">about</Link>
           </li>
         </ul>
       </div>

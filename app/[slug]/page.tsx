@@ -36,11 +36,7 @@ async function getPost(props: PostPageProps) {
     throw new Error("No post was found for the slug: " + props.params.slug);
   }
 
-  function proceed(
-    direction: "previous" | "next",
-    posts: PostData[],
-    postIndex: number,
-  ) {
+  function proceed(direction: "previous" | "next", posts: PostData[], postIndex: number) {
     const step = direction === "previous" ? 1 : -1;
 
     let index = postIndex + step;
@@ -152,12 +148,7 @@ interface PostProps {
   html: string;
 }
 
-function Post({
-  previous,
-  next,
-  meta: { title, date: iso8601DateString },
-  html,
-}: PostProps) {
+function Post({ previous, next, meta: { title, date: iso8601DateString }, html }: PostProps) {
   const currentYear = new Date().getFullYear();
   const date = parseISO(iso8601DateString);
   return (
@@ -169,7 +160,7 @@ function Post({
             font-family: var(--font-family-header);
             line-height: 2rem;
             margin-top: 0.95rem;
-
+            
             @media (min-width: 768px) {
               white-space: nowrap;
             }
@@ -194,7 +185,7 @@ function Post({
       <article
         className={css`
           font-family: var(--font-family-text);
-
+          
           h1,
           h2,
           h3,
@@ -203,7 +194,7 @@ function Post({
           h6 {
             font-family: var(--font-family-header);
           }
-
+          
           a:after {
             position: relative;
             top: -0.25rem;
@@ -211,7 +202,7 @@ function Post({
             font-size: 1rem;
             margin-left: 0.2rem;
           }
-
+          
           li > a:only-of-type:after,
           .twitter-tweet a:after,
           a[name]:after,

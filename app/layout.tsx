@@ -5,11 +5,7 @@ import { HireMeFooter } from "./HireMeFooter";
 
 import "@styles/global.css";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   const isLookingForWork = true;
   return (
     <html lang="en">
@@ -19,7 +15,7 @@ export default function RootLayout({
             display: flex;
             justify-content: center;
             width: 100%;
-
+            
             @media (max-width: 768px) {
               display: revert;
               justify-content: unset;

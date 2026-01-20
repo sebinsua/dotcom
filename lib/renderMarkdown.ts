@@ -14,20 +14,12 @@ import rehypeKatex from "rehype-katex";
 import rehypeFormat from "rehype-format";
 import rehypeStringify from "rehype-stringify";
 
-function createDefaultMapFromNodeModules(
-  compilerOptions: typescript.CompilerOptions,
-) {
+function createDefaultMapFromNodeModules(compilerOptions: typescript.CompilerOptions) {
   function getLibContents(name: string) {
-    return fs.readFileSync(
-      path.join(".", "node_modules", "typescript", "lib", name),
-      "utf8",
-    );
+    return fs.readFileSync(path.join(".", "node_modules", "typescript", "lib", name), "utf8");
   }
 
-  const fsMap = knownLibFilesForCompilerOptions(
-    compilerOptions,
-    typescript,
-  ).reduce((m, lib) => {
+  const fsMap = knownLibFilesForCompilerOptions(compilerOptions, typescript).reduce((m, lib) => {
     return m.set("/" + lib, getLibContents(lib));
   }, new Map<string, string>());
 

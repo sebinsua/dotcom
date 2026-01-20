@@ -195,8 +195,7 @@ export default function reducer(state = initialState, action) {
     case "MARK_AS_EDITING_PRODUCT":
       const { productIndex } = action.payload;
       newState.editingProductIndex = productIndex;
-      newState.products[productIndex].originalData =
-        newState.products[productIndex];
+      newState.products[productIndex].originalData = newState.products[productIndex];
       newState.products[productIndex].editing = true;
       break;
     case "UPDATE_PRODUCT_KEY":
@@ -208,8 +207,7 @@ export default function reducer(state = initialState, action) {
       break;
     case "MARK_AS_NO_LONGER_EDITING_PRODUCT":
       const { productIndex } = action.payload;
-      newState.products[productIndex] =
-        newState.products[productIndex].originalData;
+      newState.products[productIndex] = newState.products[productIndex].originalData;
       break;
     case "CREATE_PRODUCT_SUCCESS":
       const { productIndex } = action.payload;
