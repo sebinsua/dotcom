@@ -23,8 +23,11 @@ export async function createMetadata({
   const siteUrl = _siteUrl ?? packageJson.blog.siteUrl;
   const author = _author ?? packageJson.blog.author;
 
+  const fullTitle = [title, packageJson.blog.title].filter(Boolean).join(" · ");
+  const url = slug ? `${siteUrl}/${slug}` : siteUrl;
+
   return {
-    title: [title, packageJson.blog.title].filter(Boolean).join(" · "),
+    title: fullTitle,
     appleWebApp: {
       title,
     },
@@ -32,6 +35,19 @@ export async function createMetadata({
     authors: {
       name: author,
       url: siteUrl,
+    },
+    openGraph: {
+      title: fullTitle,
+      description,
+      url,
+      siteName: packageJson.blog.title,
+      type: slug ? "article" : "website",
+      ...(slug && date ? { publishedTime: date } : {}),
+    },
+    twitter: {
+      card: "summary",
+      title: fullTitle,
+      description,
     },
     icons: [
       {
@@ -53,7 +69,7 @@ export async function createMetadata({
       },
     ],
     alternates: {
-      canonical: slug ? `${siteUrl}/${slug}` : siteUrl,
+      canonical: url,
       types: {
         "application/rss+xml": [
           {

@@ -9,6 +9,7 @@ import type { Route } from "next";
 const navListStyles = css`
   list-style-type: none;
   text-align: right;
+  min-width: max-content;
 
   a:visited {
     color: #0000ee;
