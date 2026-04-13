@@ -55,9 +55,11 @@ function PostItem({ title, slug, date, isEffortPost = false, isAccessible = true
           className={cx(
             css`
               position: relative;
-              display: flex;
+              display: grid;
+              grid-template-columns: minmax(0, 1fr) auto;
+              column-gap: 1rem;
+              align-items: start;
               font-family: var(--font-family-header);
-              justify-content: space-between;
               margin: 0;
               font-size: 1em;
             `,
@@ -80,10 +82,18 @@ function PostItem({ title, slug, date, isEffortPost = false, isAccessible = true
           style={{ opacity: getOpacityForDate(date) }}
         >
           {isAccessible ? (
-            <Link href={`/${slug}`}>{title}</Link>
+            <Link
+              href={`/${slug}`}
+              className={css`
+                min-width: 0;
+              `}
+            >
+              {title}
+            </Link>
           ) : (
             <span
               className={css`
+                min-width: 0;
                 color: #555;
                 cursor: not-allowed;
               `}
@@ -93,7 +103,7 @@ function PostItem({ title, slug, date, isEffortPost = false, isAccessible = true
           )}
           <time
             className={css`
-              word-break: keep-all;
+              white-space: nowrap;
               font-family: monospace;
             `}
           >
