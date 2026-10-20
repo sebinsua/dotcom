@@ -15,8 +15,9 @@ const config = {
     // Optimize barrel file imports for better tree-shaking
     optimizePackageImports: ["date-fns", "katex", "@shikijs/twoslash"],
     // wyw-in-js writes extracted CSS to gitignored sidecar files from its
-    // loader. A restored Turbopack build cache skips the loader, so CI builds
-    // from a fresh clone end up with empty CSS.
+    // loader. With @wyw-in-js/nextjs 1.x, a restored Turbopack build cache
+    // skipped the loader, so CI builds from a fresh clone shipped empty CSS.
+    // 2.x handles this, but the cache saves little on a site this small.
     turbopackFileSystemCacheForBuild: false,
   },
 };
