@@ -18,7 +18,6 @@
     "isolatedModules": true,
     "allowJs": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
     "paths": {
       "@components/*": ["./components/*"],
       "@lib/*": ["./lib/*"],
