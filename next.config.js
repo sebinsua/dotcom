@@ -29,8 +29,5 @@ if (process.env.NEXT_EXPORT === "true") {
 module.exports = withWyw(config, {
   turbopackLoaderOptions: {
     features: { happyDOM: false },
-    importOverrides: {
-      "@babel/runtime/helpers/interopRequireDefault": { unknown: "allow" },
-    },
   },
 });

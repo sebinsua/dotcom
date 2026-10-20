@@ -13,7 +13,6 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@babel/runtime": "^7.29.10",
     "@linaria/core": "^8.2.0",
     "@linaria/react": "^8.2.0",
     "@next/env": "^16.4.2",
@@ -31,8 +30,6 @@
     "react-dom": "^19.3.1",
     "rss": "^1.2.2",
     "shiki": "^3.23.0",
-    "ts-node": "^10.9.2",
-    "tsconfig-paths": "^4.2.0",
     "twoslash-cdn": "^0.3.9",
     "typescript": "^5.9.3",
     "webpack": "^5.112.0"
@@ -44,9 +41,7 @@
     "@types/react-dom": "^19.3.0",
     "@types/rss": "^0.0.32",
     "@wyw-in-js/nextjs": "^2.7.0",
-    "babel-plugin-module-resolver": "^5.0.3",
     "husky": "^9.1.7",
-    "npm-run-all": "^4.1.5",
     "oxfmt": "^0.74.0",
     "oxlint": "^1.89.0"
   },
