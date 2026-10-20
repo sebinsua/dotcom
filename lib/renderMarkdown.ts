@@ -1,4 +1,4 @@
-import MarkdownIt from "markdown-it";
+import MarkdownIt, { type MarkdownIt as MarkdownItInstance } from "markdown-it";
 import Shiki from "@shikijs/markdown-it";
 import { createTransformerFactory, rendererRich } from "@shikijs/twoslash/core";
 import { createTwoslashFromCDN } from "twoslash-cdn";
@@ -87,9 +87,9 @@ async function processTwitterEmbeds(markdown: string): Promise<string> {
   return result;
 }
 
-let mdPromise: Promise<MarkdownIt> | null = null;
+let mdPromise: Promise<MarkdownItInstance> | null = null;
 
-async function getMarkdownIt(): Promise<MarkdownIt> {
+async function getMarkdownIt(): Promise<MarkdownItInstance> {
   if (!mdPromise) {
     mdPromise = (async () => {
       const md = MarkdownIt({
