@@ -1,9 +1,6 @@
 import MarkdownIt from "markdown-it";
 import Shiki from "@shikijs/markdown-it";
-import {
-  createTransformerFactory,
-  rendererRich,
-} from "@shikijs/twoslash/core";
+import { createTransformerFactory, rendererRich } from "@shikijs/twoslash/core";
 import { createTwoslashFromCDN } from "twoslash-cdn";
 import katexPlugin from "@vscode/markdown-it-katex";
 
@@ -75,7 +72,7 @@ async function processTwitterEmbeds(markdown: string): Promise<string> {
       const url = match[1];
       const html = await fetchTwitterOEmbed(url);
       return { url, html };
-    })
+    }),
   );
 
   // Apply replacements
@@ -83,7 +80,7 @@ async function processTwitterEmbeds(markdown: string): Promise<string> {
   for (const { url, html } of replacements) {
     result = result.replace(
       new RegExp(`^${url.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "gm"),
-      html
+      html,
     );
   }
 
@@ -116,7 +113,7 @@ async function getMarkdownIt(): Promise<MarkdownIt> {
             dark: "vitesse-dark",
           },
           transformers: [transformerTwoslash],
-        })
+        }),
       );
 
       return md;
@@ -132,10 +129,7 @@ function fixAnchorTags(html: string): string {
 
   // Then convert <a name="..."></a> followed by <h1-6> to <h1-6 id="...">
   // This handles: <a name="foo"></a>\n<h3>... -> <h3 id="foo">...
-  result = result.replace(
-    /<a\s+name="([^"]*)">\s*<\/a>\s*<(h[1-6])>/g,
-    '<$2 id="$1">'
-  );
+  result = result.replace(/<a\s+name="([^"]*)">\s*<\/a>\s*<(h[1-6])>/g, '<$2 id="$1">');
 
   return result;
 }
@@ -143,8 +137,7 @@ function fixAnchorTags(html: string): string {
 // Extract twoslash code blocks and prepare their types
 async function prepareTwoslashTypes(markdown: string): Promise<void> {
   // Match code blocks with twoslash flag (ts, tsx, typescript, js, jsx, javascript)
-  const twoslashRegex =
-    /```(?:tsx?|typescript|jsx?|javascript)\s+twoslash[^\n]*\n([\s\S]*?)```/g;
+  const twoslashRegex = /```(?:tsx?|typescript|jsx?|javascript)\s+twoslash[^\n]*\n([\s\S]*?)```/g;
   const matches = [...markdown.matchAll(twoslashRegex)];
 
   // Prepare types for all twoslash blocks in parallel
@@ -156,7 +149,7 @@ async function prepareTwoslashTypes(markdown: string): Promise<void> {
       } catch (error) {
         console.error("Failed to prepare twoslash types:", error);
       }
-    })
+    }),
   );
 }
 

@@ -5,11 +5,7 @@ import { TwitterWidgets } from "./TwitterWidgets";
 
 import "@styles/global.css";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   const isLookingForWork = false;
   return (
     <html lang="en">

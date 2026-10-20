@@ -43,7 +43,10 @@ async function getPost(props: PostPageProps) {
     const step = direction === "previous" ? 1 : -1;
 
     let index = postIndex + step;
-    while (posts[index] && (posts[index].meta.hidden === true || posts[index].meta.isAccessible === false)) {
+    while (
+      posts[index] &&
+      (posts[index].meta.hidden === true || posts[index].meta.isAccessible === false)
+    ) {
       index = index + step;
     }
 
@@ -163,7 +166,7 @@ function Post({ previous, next, meta: { title, date: iso8601DateString }, html }
             font-family: var(--font-family-header);
             line-height: 2rem;
             margin-top: 0.95rem;
-            
+
             @media (min-width: 768px) {
               white-space: nowrap;
             }

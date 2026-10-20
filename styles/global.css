@@ -1,7 +1,6 @@
 @import "katex/dist/katex.css";
 @import "@shikijs/twoslash/style-rich.css";
 
-
 @font-face {
   font-family: "Space Mono";
   font-style: normal;
@@ -58,7 +57,12 @@ html {
   scrollbar-gutter: stable;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   overflow-wrap: break-word;
   text-wrap: balance;
 }

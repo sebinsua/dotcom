@@ -15,11 +15,11 @@ function Footer({ slug }: FooterProps) {
         display: flex;
         flex-direction: row-reverse;
         font-family: var(--font-family-text);
-        
+
         a {
           color: lightgrey;
         }
-        
+
         @media (max-width: 768px) {
           flex-grow: initial;
           flex-basis: initial;
@@ -53,7 +53,7 @@ export function Page({ slug, children }: PageProps) {
         display: flex;
         justify-content: space-between;
         width: 800px;
-        
+
         @media (max-width: 768px) {
           flex-direction: column;
           width: 100%;
@@ -65,7 +65,7 @@ export function Page({ slug, children }: PageProps) {
       <div
         className={css`
           width: 80%;
-          
+
           @media (max-width: 768px) {
             width: 100%;
           }

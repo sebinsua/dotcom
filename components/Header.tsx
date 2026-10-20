@@ -44,7 +44,7 @@ export function Header() {
     <header
       className={css`
         width: 100px;
-        
+
         @media (max-width: 768px) {
           width: unset;
         }
@@ -58,7 +58,7 @@ export function Header() {
           a {
             color: black;
           }
-          
+
           @media (max-width: 768px) {
             justify-content: flex-start;
             padding: 0 1rem;
