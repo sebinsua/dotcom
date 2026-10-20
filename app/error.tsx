@@ -6,9 +6,7 @@ export const metadata = {
   title: "Error",
 };
 
-interface ErrorPageProps {}
-
-export default function ErrorPage(_: ErrorPageProps) {
+export default function ErrorPage() {
   const title = "Error";
   return (
     <Page>

@@ -154,8 +154,10 @@ interface PostProps {
   html: string;
 }
 
+// Posts are statically rendered, so this is the year of the build.
+const currentYear = new Date().getFullYear();
+
 function Post({ previous, next, meta: { title, date: iso8601DateString }, html }: PostProps) {
-  const currentYear = new Date().getFullYear();
   const date = parseISO(iso8601DateString);
   return (
     <>

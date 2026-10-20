@@ -2,8 +2,6 @@ import RSS from "rss";
 
 import packageJson from "../../package.json";
 
-import type { NextRequest } from "next/server";
-
 export const dynamic = "force-static";
 
 async function getRss() {
@@ -45,7 +43,7 @@ async function getRss() {
   return rss;
 }
 
-export async function GET(_: NextRequest) {
+export async function GET() {
   const rss = await getRss();
 
   return new Response(rss, {
