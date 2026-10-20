@@ -1,0 +1,4 @@
+oxlint && oxfmt --check . || {
+  echo "Lint failed. Run 'yarn lint' to fix formatting, then re-stage." >&2
+  exit 1
+}
